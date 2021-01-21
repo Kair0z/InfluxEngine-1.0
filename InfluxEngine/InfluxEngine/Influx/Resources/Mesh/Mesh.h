@@ -21,9 +21,9 @@ namespace Influx
 		};
 		struct Data
 		{
-			Vector3f mPosition;
-			Vector3f mNormal;
-			Vector2f mTexCoord;
+			Vector3f* mpPositions;
+			Vector3f* mpNormals;
+			Vector2f* mpTexCoords;
 			//Bones?
 		};
 
