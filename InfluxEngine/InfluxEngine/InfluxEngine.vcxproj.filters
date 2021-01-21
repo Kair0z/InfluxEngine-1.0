@@ -2,17 +2,22 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="Influx.h" />
-    <ClInclude Include="Influx\Importer\AssimpImporter.h" />
     <ClInclude Include="Influx\Scene\Scene.h" />
-    <ClInclude Include="Influx\Alias.h" />
     <ClInclude Include="Influx\Scene\SceneBuilder.h" />
-    <ClInclude Include="Mesh.h" />
     <ClInclude Include="Influx\Math\Math.h" />
+    <ClInclude Include="Influx\Resources\Mesh\Mesh.h" />
+    <ClInclude Include="Influx\Resources\Mesh\Vertex.h" />
+    <ClInclude Include="Influx\Core\App\Application.h" />
+    <ClInclude Include="Influx\Resources\Importer\AssimpImporter.h" />
+    <ClInclude Include="Influx\Core\Alias.h" />
+    <ClInclude Include="Influx\Core\Entrypoint.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Influx\Importer\AssimpImporter.cpp" />
     <ClCompile Include="Influx\Scene\Scene.cpp" />
     <ClCompile Include="Influx\Scene\SceneBuilder.cpp" />
-    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Influx\Resources\Mesh\Mesh.cpp" />
+    <ClCompile Include="Influx\Resources\Mesh\Vertex.cpp" />
+    <ClCompile Include="Influx\Core\App\Application.cpp" />
+    <ClCompile Include="Influx\Resources\Importer\AssimpImporter.cpp" />
   </ItemGroup>
 </Project>

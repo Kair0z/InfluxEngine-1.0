@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
-#include <Influx/Alias.h>
+#include <Influx/Core/Alias.h>
+#include <Influx/Resources/Mesh/Vertex.h>
 
 namespace Influx
 {
@@ -20,12 +21,14 @@ namespace Influx
 		};
 		struct Data
 		{
-
+			Vector3f mPosition;
+			Vector3f mNormal;
+			Vector2f mTexCoord;
+			//Bones?
 		};
-		Stats mStats;
-		
 
-	private:
+		Stats mStats;
+		Data mData;
 	};
 
 
