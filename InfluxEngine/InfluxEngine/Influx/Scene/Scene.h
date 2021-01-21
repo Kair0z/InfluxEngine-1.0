@@ -1,5 +1,5 @@
 #pragma once
-#include "Influx/Alias.h"
+#include "Influx/Core/Alias.h"
 
 namespace Influx
 {
