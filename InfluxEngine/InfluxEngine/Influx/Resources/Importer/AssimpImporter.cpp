@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "AssimpImporter.h"
 
 #include "assimp/Importer.hpp"

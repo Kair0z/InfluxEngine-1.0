@@ -102,6 +102,8 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)InfluxEngine;$(SolutionDir)Libs\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,6 +123,8 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)InfluxEngine;$(SolutionDir)Libs\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,6 +144,8 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)InfluxEngine;$(SolutionDir)Libs\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,6 +165,8 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)InfluxEngine;$(SolutionDir)Libs\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -178,17 +186,18 @@
     <ClInclude Include="Influx.h" />
     <ClInclude Include="Influx\Math\Math.h" />
     <ClInclude Include="Influx\Scene\Scene.h" />
-    <ClInclude Include="Influx\Scene\SceneBuilder.h" />
     <ClInclude Include="Influx\Resources\Mesh\Mesh.h" />
     <ClInclude Include="Influx\Resources\Mesh\Vertex.h" />
+    <ClInclude Include="Influx\Core\Window\Window.h" />
+    <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Influx\Core\App\Application.cpp" />
     <ClCompile Include="Influx\Resources\Importer\AssimpImporter.cpp" />
     <ClCompile Include="Influx\Scene\Scene.cpp" />
-    <ClCompile Include="Influx\Scene\SceneBuilder.cpp" />
     <ClCompile Include="Influx\Resources\Mesh\Mesh.cpp" />
     <ClCompile Include="Influx\Resources\Mesh\Vertex.cpp" />
+    <ClCompile Include="Influx\Core\Window\Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
