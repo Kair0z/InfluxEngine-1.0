@@ -28,14 +28,14 @@ namespace Influx
 	void Application::Initialize(HINSTANCE i)
 	{
 		// Create the window
-		Window::WindowDesc desc;
+		Window::Desc desc;
 		desc.dimensions = {1280, 720};
 		desc.name = L"Influx Demo";
 
 		mpWindow = Window::Create(desc, i);
 
 		// Show the window:
-		::ShowWindow(mpWindow->GetWindowsHandle(), SW_SHOW);
+		mpWindow->Show();
 	}
 
 	void Application::Update()

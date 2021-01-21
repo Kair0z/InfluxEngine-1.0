@@ -12,6 +12,8 @@
     <ClInclude Include="Influx\Core\Entrypoint.h" />
     <ClInclude Include="Influx\Core\Window\Window.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Influx\Renderer\Renderer.h" />
+    <ClInclude Include="Influx\Renderer\DxLayer\DxLayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Influx\Scene\Scene.cpp" />
@@ -20,5 +22,7 @@
     <ClCompile Include="Influx\Core\App\Application.cpp" />
     <ClCompile Include="Influx\Resources\Importer\AssimpImporter.cpp" />
     <ClCompile Include="Influx\Core\Window\Window.cpp" />
+    <ClCompile Include="Influx\Renderer\Renderer.cpp" />
+    <ClCompile Include="Influx\Renderer\DxLayer\DxLayer.cpp" />
   </ItemGroup>
 </Project>

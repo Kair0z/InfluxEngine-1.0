@@ -36,7 +36,7 @@ namespace Influx
 
 		uint32_t meshCount = pScene->mNumMeshes;
 
-		for (int i = 0; i < meshCount; ++i)
+		for (uint32_t i = 0; i < meshCount; ++i)
 		{
 			const aiMesh* pAiMesh = pScene->mMeshes[i];
 			const uint32_t perFaceIdxCount = pAiMesh->mFaces[0].mNumIndices;
@@ -51,6 +51,8 @@ namespace Influx
 			mesh.mData.mpPositions = reinterpret_cast<Vector3f*>(pAiMesh->mNormals);
 			mesh.mData.mpNormals = reinterpret_cast<Vector3f*>(pAiMesh->mVertices);
 		}
+
+		return true;
 	}
 
 	bool AssimpImporter::LoadCameraData(const aiScene* pScene)

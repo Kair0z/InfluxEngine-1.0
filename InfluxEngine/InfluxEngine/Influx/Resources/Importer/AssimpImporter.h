@@ -3,6 +3,8 @@
 
 #pragma comment(lib, "assimp.lib")
 
+struct aiScene;
+
 namespace Influx
 {
 	class AssimpImporter final

@@ -12,12 +12,14 @@ namespace Influx
 	struct Window
 	{
 	public:
-		struct WindowDesc
+		struct Desc
 		{
 			const wchar_t* name;
 			Vector2u dimensions;
 		};
-		static sPtr<Window> Create(const WindowDesc& wDesc, HINSTANCE hInst);
+		static sPtr<Window> Create(const Desc& wDesc, HINSTANCE hInst);
+
+		void Show();
 
 		HWND GetWindowsHandle() const;
 

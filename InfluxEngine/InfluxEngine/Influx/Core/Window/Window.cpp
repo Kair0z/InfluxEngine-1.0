@@ -25,7 +25,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT mssg, WPARAM wParam, LPARAM lParam)
 
 namespace Influx
 {
-	sPtr<Window> Window::Create(const WindowDesc& wDesc, HINSTANCE hInst)
+	sPtr<Window> Window::Create(const Desc& wDesc, HINSTANCE hInst)
 	{
 		sPtr<Window> pWindow = sPtr<Window>(new Window());
 
@@ -37,6 +37,11 @@ namespace Influx
 		pWindow->mWindowHandle = CreateWindow(hInst, wDesc.name, wClass, wDesc.dimensions.x, wDesc.dimensions.y);
 
 		return pWindow;
+	}
+
+	void Window::Show()
+	{
+		::ShowWindow(mWindowHandle, SW_SHOW);
 	}
 
 	HWND Window::GetWindowsHandle() const

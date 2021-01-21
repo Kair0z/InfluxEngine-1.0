@@ -2,9 +2,11 @@
 
 namespace Influx
 {
-	struct Renderer
+	class Renderer
 	{
+	public:
 
+	private:
 	};
 }
 

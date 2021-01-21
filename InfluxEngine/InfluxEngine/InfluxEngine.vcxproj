@@ -182,6 +182,7 @@
     <ClInclude Include="Influx\Core\App\Application.h" />
     <ClInclude Include="Influx\Core\Alias.h" />
     <ClInclude Include="Influx\Core\Entrypoint.h" />
+    <ClInclude Include="Influx\Renderer\DxLayer\DxLayer.h" />
     <ClInclude Include="Influx\Resources\Importer\AssimpImporter.h" />
     <ClInclude Include="Influx.h" />
     <ClInclude Include="Influx\Math\Math.h" />
@@ -190,14 +191,17 @@
     <ClInclude Include="Influx\Resources\Mesh\Vertex.h" />
     <ClInclude Include="Influx\Core\Window\Window.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Influx\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Influx\Core\App\Application.cpp" />
+    <ClCompile Include="Influx\Renderer\DxLayer\DxLayer.cpp" />
     <ClCompile Include="Influx\Resources\Importer\AssimpImporter.cpp" />
     <ClCompile Include="Influx\Scene\Scene.cpp" />
     <ClCompile Include="Influx\Resources\Mesh\Mesh.cpp" />
     <ClCompile Include="Influx\Resources\Mesh\Vertex.cpp" />
     <ClCompile Include="Influx\Core\Window\Window.cpp" />
+    <ClCompile Include="Influx\Renderer\Renderer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
