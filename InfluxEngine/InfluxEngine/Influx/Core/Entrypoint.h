@@ -1,11 +1,11 @@
-
+#include "pch.h"
 #include "Influx/Core/App/Application.h"
 
-int main(int argc, char** argv)
+int CALLBACK wWinMain(HINSTANCE i, HINSTANCE, PWSTR, int)
 {
 	using namespace Influx;
 
 	// Declared in App class... Defined in inheriting application project!
 	sPtr<Application> app = Application::Create();
-	app->Run();
+	app->Run(i);
 }
