@@ -179,12 +179,21 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_impl_dx12.h" />
+    <ClInclude Include="imgui\imgui_impl_win32.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imstb_rectpack.h" />
+    <ClInclude Include="imgui\imstb_textedit.h" />
+    <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="Influx\Graphics\Gui\Gui.h" />
     <ClInclude Include="Influx\Core\Defines.h" />
-    <ClInclude Include="Influx\Renderer\DxLayer\CommandQueue.h" />
+    <ClInclude Include="Influx\Graphics\DxLayer\CommandQueue.h" />
     <ClInclude Include="Influx\Core\App\Application.h" />
     <ClInclude Include="Influx\Core\Alias.h" />
     <ClInclude Include="Influx\Core\Entrypoint.h" />
-    <ClInclude Include="Influx\Renderer\DxLayer\DxLayer.h" />
+    <ClInclude Include="Influx\Graphics\DxLayer\DxLayer.h" />
     <ClInclude Include="Influx\Resources\Importer\AssimpImporter.h" />
     <ClInclude Include="Influx.h" />
     <ClInclude Include="Influx\Math\Math.h" />
@@ -193,22 +202,65 @@
     <ClInclude Include="Influx\Resources\Mesh\Vertex.h" />
     <ClInclude Include="Influx\Core\Window\Window.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Influx\Renderer\Renderer.h" />
-    <ClInclude Include="Influx\Renderer\DxLayer\PipelineState.h" />
-    <ClInclude Include="Influx\Renderer\DxLayer\SwapChain.h" />
+    <ClInclude Include="Influx\Graphics\Renderer.h" />
+    <ClInclude Include="Influx\Graphics\DxLayer\PipelineState.h" />
+    <ClInclude Include="Influx\Graphics\DxLayer\SwapChain.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Influx\Renderer\DxLayer\CommandQueue.cpp" />
+    <ClCompile Include="imgui\imgui.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_demo.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_draw.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_dx12.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_win32.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_tables.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Influx\Graphics\Gui\Gui.cpp" />
+    <ClCompile Include="Influx\Graphics\DxLayer\CommandQueue.cpp" />
     <ClCompile Include="Influx\Core\App\Application.cpp" />
-    <ClCompile Include="Influx\Renderer\DxLayer\DxLayer.cpp" />
+    <ClCompile Include="Influx\Graphics\DxLayer\DxLayer.cpp" />
     <ClCompile Include="Influx\Resources\Importer\AssimpImporter.cpp" />
     <ClCompile Include="Influx\Scene\Scene.cpp" />
     <ClCompile Include="Influx\Resources\Mesh\Mesh.cpp" />
     <ClCompile Include="Influx\Resources\Mesh\Vertex.cpp" />
     <ClCompile Include="Influx\Core\Window\Window.cpp" />
-    <ClCompile Include="Influx\Renderer\Renderer.cpp" />
-    <ClCompile Include="Influx\Renderer\DxLayer\PipelineState.cpp" />
-    <ClCompile Include="Influx\Renderer\DxLayer\SwapChain.cpp" />
+    <ClCompile Include="Influx\Graphics\Renderer.cpp" />
+    <ClCompile Include="Influx\Graphics\DxLayer\PipelineState.cpp" />
+    <ClCompile Include="Influx\Graphics\DxLayer\SwapChain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

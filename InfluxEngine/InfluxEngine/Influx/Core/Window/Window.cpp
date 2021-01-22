@@ -1,9 +1,15 @@
 #include "pch.h"
 #include "Window.h"
 
+// Forward declare message handler from imgui_impl_win32.cpp
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 // Windows Callback function:
 LRESULT CALLBACK WndProc(HWND hwnd, UINT mssg, WPARAM wParam, LPARAM lParam)
 {
+	if (ImGui_ImplWin32_WndProcHandler(hwnd, mssg, wParam, lParam))
+		return true;
+
 	switch (mssg)
 	{
 	case WM_SYSKEYDOWN:

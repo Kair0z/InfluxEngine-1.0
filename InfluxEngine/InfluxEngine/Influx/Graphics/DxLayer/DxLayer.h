@@ -19,7 +19,7 @@ namespace Influx
 
 		static Ptr<ID3D12CommandQueue> CreateCommandQueue(Ptr<ID3D12Device2> pDevice, D3D12_COMMAND_LIST_TYPE type);
 		static Ptr<IDXGISwapChain4> CreateSwapChain(HWND wndHandle, Ptr<ID3D12CommandQueue> commandQueue, uint32_t w, uint32_t h, uint32_t bffCount);
-		static Ptr<ID3D12DescriptorHeap> CreateDescriptorHeap(Ptr<ID3D12Device2> device, D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t numDescriptors);
+		static Ptr<ID3D12DescriptorHeap> CreateDescriptorHeap(Ptr<ID3D12Device> device, D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t numDescriptors, D3D12_DESCRIPTOR_HEAP_FLAGS flags = D3D12_DESCRIPTOR_HEAP_FLAGS::D3D12_DESCRIPTOR_HEAP_FLAG_NONE);
 		static Ptr<ID3D12CommandAllocator> CreateCommandAllocator(Ptr<ID3D12Device2> device, D3D12_COMMAND_LIST_TYPE type);
 		static Ptr<ID3D12GraphicsCommandList> CreateCommandList(Ptr<ID3D12Device2> device, Ptr<ID3D12CommandAllocator> alloc, D3D12_COMMAND_LIST_TYPE type);
 
@@ -33,7 +33,7 @@ namespace Influx
 		// This will block the calling thread until the fence val has been reached. Afterwards, it's safe to release any resources referenced in GPU
 		static void Flush(Ptr<ID3D12CommandQueue> cmdQueue, Ptr<ID3D12Fence> fence, uint64_t& fenceValue, FenceEvent e);
 
-		static void TransitionResource(Ptr<ID3D12GraphicsCommandList2> cmdList, Ptr<ID3D12Resource> resource, D3D12_RESOURCE_STATES beforeState, D3D12_RESOURCE_STATES afterState);
+		static void Cmd_TransitionResource(Ptr<ID3D12GraphicsCommandList2> cmdList, Ptr<ID3D12Resource> resource, D3D12_RESOURCE_STATES beforeState, D3D12_RESOURCE_STATES afterState);
 
 		static bool CheckTearingSupport();
 		static void EnableDebugLayer();

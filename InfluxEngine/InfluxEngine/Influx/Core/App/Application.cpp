@@ -2,7 +2,7 @@
 #include "Application.h"
 
 #include "Influx/Core/Window/Window.h"
-#include "Influx/Renderer/Renderer.h"
+#include "Influx/Graphics/Renderer.h"
 
 namespace Influx
 {

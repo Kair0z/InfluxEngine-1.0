@@ -39,7 +39,8 @@ namespace Influx
 		sPtr<PipelineState> mpPSO; // Pipeline State Object:
 
 		// Clear the Render Target View of the current Swapchainbuffer (backbuffer)
-		void ClearRt(Ptr<ID3D12GraphicsCommandList2> cmdList, const Vector4f& clearColor);
+		void Cmd_ClearRt(Ptr<ID3D12GraphicsCommandList2> cmdList, const Vector4f& clearColor);
+		void Cmd_TargetBackbuffer(Ptr<ID3D12GraphicsCommandList2> cmdList);
 		void Present();
 
 		bool mIsInitialized = false;

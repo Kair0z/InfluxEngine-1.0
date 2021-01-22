@@ -130,12 +130,13 @@ namespace Influx
 	}
 
 	// Creating Resources:
-	Ptr<ID3D12DescriptorHeap> DxLayer::CreateDescriptorHeap(Ptr<ID3D12Device2> device, D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t numDescriptors)
+	Ptr<ID3D12DescriptorHeap> DxLayer::CreateDescriptorHeap(Ptr<ID3D12Device> device, D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t numDescriptors, D3D12_DESCRIPTOR_HEAP_FLAGS flags)
 	{
 		Ptr<ID3D12DescriptorHeap> descHeap;
 		D3D12_DESCRIPTOR_HEAP_DESC desc = {};
 		desc.NumDescriptors = numDescriptors;
 		desc.Type = type;
+		desc.Flags = flags;
 
 		ThrowOnFail(device->CreateDescriptorHeap(&desc, IID_PPV_ARGS(&descHeap)));
 		return descHeap;
@@ -254,7 +255,7 @@ namespace Influx
 		WaitForFenceValue(fence, fenceUnlockValue, e);
 	}
 
-	void DxLayer::TransitionResource(Ptr<ID3D12GraphicsCommandList2> cmdList, Ptr<ID3D12Resource> resource, D3D12_RESOURCE_STATES beforeState, D3D12_RESOURCE_STATES afterState)
+	void DxLayer::Cmd_TransitionResource(Ptr<ID3D12GraphicsCommandList2> cmdList, Ptr<ID3D12Resource> resource, D3D12_RESOURCE_STATES beforeState, D3D12_RESOURCE_STATES afterState)
 	{
 		CD3DX12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(resource, beforeState, afterState);
 		cmdList->ResourceBarrier(1, &barrier);
