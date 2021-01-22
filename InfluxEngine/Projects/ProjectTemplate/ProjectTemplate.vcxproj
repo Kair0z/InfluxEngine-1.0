@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{29A873D2-58FD-4E87-B70D-342C1884A703}</ProjectGuid>
+    <ProjectGuid>{D6A6A0B5-0365-46FB-BEEF-AA671AA0576D}</ProjectGuid>
     <RootNamespace>Sandbox</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>

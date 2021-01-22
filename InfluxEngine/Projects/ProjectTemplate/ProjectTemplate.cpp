@@ -2,7 +2,6 @@
 
 void ProjectTemplate::OnStart()
 {
-
 }
 
 void ProjectTemplate::OnFrame()

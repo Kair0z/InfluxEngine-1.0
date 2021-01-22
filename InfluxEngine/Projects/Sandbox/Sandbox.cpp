@@ -2,7 +2,6 @@
 
 void Sandbox::OnStart()
 {
-
 }
 
 void Sandbox::OnFrame()

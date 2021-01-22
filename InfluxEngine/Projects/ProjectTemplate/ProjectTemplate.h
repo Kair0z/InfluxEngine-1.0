@@ -3,6 +3,10 @@
 
 using namespace Influx;
 
+// ***********************************************
+//  * ProjectTemplate *
+// *********************************************** 
+
 class ProjectTemplate final : 
 	public Influx::Application
 {
@@ -21,7 +25,7 @@ private:
 	virtual void OnMouseEvent() override final;
 };
 
-// [!] Override the main application to create... [!]
+// [!] Override the main application to be created... [!]
 sPtr<Application> Application::Create()
 {
 	return sPtr<ProjectTemplate>(new ProjectTemplate());

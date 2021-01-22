@@ -3,12 +3,13 @@
 
 using namespace Influx;
 
+// ***********************************************
+//  * Sandbox *
+// *********************************************** 
+
 class Sandbox final : 
 	public Influx::Application
 {
-public:
-	Sandbox() = default;
-
 private:
 	// * Called at Application start
 	virtual void OnStart() override final;
@@ -24,7 +25,7 @@ private:
 	virtual void OnMouseEvent() override final;
 };
 
-// [!] Override the main application to create... [!]
+// [!] Override the main application to be created... [!]
 sPtr<Application> Application::Create()
 {
 	return sPtr<Sandbox>(new Sandbox());
