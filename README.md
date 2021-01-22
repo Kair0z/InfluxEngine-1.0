@@ -1,5 +1,5 @@
 # The InfluxEngine-1.0
-A compact rendering engine using the DirectX 12 render API
+A start-up, indie rendering engine drawing upon the powers of the DirectX 12 render API
 
 # How-to-use:
 1. Navigate to InfluxEngine > Projects > ...
