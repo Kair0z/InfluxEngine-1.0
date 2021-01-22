@@ -26,13 +26,14 @@ namespace Influx
 		AppState mState;
 		sPtr<Window> mpWindow;
 
-		sPtr<Renderer> mpRen;
+		sPtr<Renderer> mpRenderer;
 
 		void Initialize(HINSTANCE i);
 		void Update();
 
 	public:
 		static sPtr<Application> Create(); // define in client project
+
 		void Run(HINSTANCE i);
 
 	protected:

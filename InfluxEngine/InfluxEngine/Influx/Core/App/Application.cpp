@@ -27,16 +27,20 @@ namespace Influx
 				::DispatchMessage(&msg);
 			}
 
-			// Update
+			// Update:
 			Update();
+
+			// Render:
+			mpRenderer->Render();
 		}
 	}
 
 	void Application::Initialize(HINSTANCE i)
 	{
+		Vector2u dimensions = { 1280, 720 };
 		// Create the window:
 		Window::Desc desc;
-		desc.dimensions = {1280, 720};
+		desc.dimensions = dimensions;
 		desc.name = L"Influx Demo";
 
 		mpWindow = Window::Create(desc, i);
@@ -46,8 +50,13 @@ namespace Influx
 
 		// Create the renderer:
 		Renderer::Desc renderDesc;
-		mpRen = Renderer::Create(renderDesc);
-		mpRen->Initialize();
+		renderDesc.dimensions = dimensions;
+		renderDesc.vSync = true;
+		renderDesc.tearingSupported = false;
+		renderDesc.windowHandle = mpWindow->GetWindowsHandle();
+
+		mpRenderer = Renderer::Create(renderDesc);
+		mpRenderer->Initialize();
 	}
 
 	void Application::Update()
@@ -56,6 +65,6 @@ namespace Influx
 
 	sPtr<Renderer> Application::GetRenderer() const
 	{
-		return mpRen;
+		return mpRenderer;
 	}
 }

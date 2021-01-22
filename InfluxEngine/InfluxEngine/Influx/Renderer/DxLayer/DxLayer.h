@@ -10,11 +10,9 @@ namespace Influx
 	struct DxLayer final
 	{
 	public:
-		struct Desc
-		{
-			bool mUseWarp;
-		};
+		struct Desc { bool mUseWarp; };
 		static Ptr<DxLayer> LoadDX12(const Desc& desc);
+		IFX_DelCpyMove(DxLayer);
 
 		static HRESULT CompileShader(LPCWSTR srcFile, LPCSTR entryPoint, LPCSTR profile, ID3DBlob** shaderBlob);
 		static Ptr<ID3D12RootSignature> CreateRootSignature(Ptr<ID3D12Device2> device, const D3D12_VERSIONED_ROOT_SIGNATURE_DESC* pDesc);
@@ -28,26 +26,25 @@ namespace Influx
 		using FenceEvent = HANDLE;
 		static Ptr<ID3D12Fence> CreateFence(Ptr<ID3D12Device2> device);
 		static FenceEvent CreateFenceEventHandle();
-
-		// Signalling a fence only happens at the end of the cmdQueue!
 		static uint64_t SignalFence(Ptr<ID3D12CommandQueue> cmdQueue, Ptr<ID3D12Fence> fence, uint64_t& fenceValue);
-
 		// If unlockvalue is never reached, cpu thread will block for min. 584 million years
 		static void WaitForFenceValue(Ptr<ID3D12Fence> fence, uint64_t unlockValue, FenceEvent e, std::chrono::milliseconds duration = std::chrono::milliseconds::max());
 		static bool IsFenceComplete(Ptr<ID3D12Fence> fence, uint64_t unlockValue);
 		// This will block the calling thread until the fence val has been reached. Afterwards, it's safe to release any resources referenced in GPU
 		static void Flush(Ptr<ID3D12CommandQueue> cmdQueue, Ptr<ID3D12Fence> fence, uint64_t& fenceValue, FenceEvent e);
 
+		static void TransitionResource(Ptr<ID3D12GraphicsCommandList2> cmdList, Ptr<ID3D12Resource> resource, D3D12_RESOURCE_STATES beforeState, D3D12_RESOURCE_STATES afterState);
+
 		static bool CheckTearingSupport();
 		static void EnableDebugLayer();
 		static void ReportLiveObjects(Ptr<ID3D12Device2> device);
 
-		Ptr<IDXGIAdapter4> GetAdapter() const { return mpAdapter; }
-		Ptr<ID3D12Device2> GetDevice() const { return mpDevice; }
+		sPtr<IDXGIAdapter4> GetAdapter() const { return mpAdapter; }
+		sPtr<ID3D12Device2> GetDevice() const { return mpDevice; }
 
 	private:
-		Ptr<IDXGIAdapter4> mpAdapter;
-		Ptr<ID3D12Device2> mpDevice;
+		sPtr<IDXGIAdapter4> mpAdapter;
+		sPtr<ID3D12Device2> mpDevice;
 
 		std::vector<ID3D12DescriptorHeap> mpDescHeaps;
 

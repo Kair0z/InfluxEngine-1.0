@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InfluxEngine", "InfluxEngine\InfluxEngine.vcxproj", "{CD70DB3B-846F-46B5-BFEC-D5DDC7366D20}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Projects\Sandbox\Sandbox.vcxproj", "{29A873D2-58FD-4E87-B70D-342C1884A703}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{CD70DB3B-846F-46B5-BFEC-D5DDC7366D20}.Release|x64.Build.0 = Release|x64
 		{CD70DB3B-846F-46B5-BFEC-D5DDC7366D20}.Release|x86.ActiveCfg = Release|Win32
 		{CD70DB3B-846F-46B5-BFEC-D5DDC7366D20}.Release|x86.Build.0 = Release|Win32
+		{29A873D2-58FD-4E87-B70D-342C1884A703}.Debug|x64.ActiveCfg = Debug|x64
+		{29A873D2-58FD-4E87-B70D-342C1884A703}.Debug|x64.Build.0 = Debug|x64
+		{29A873D2-58FD-4E87-B70D-342C1884A703}.Debug|x86.ActiveCfg = Debug|Win32
+		{29A873D2-58FD-4E87-B70D-342C1884A703}.Debug|x86.Build.0 = Debug|Win32
+		{29A873D2-58FD-4E87-B70D-342C1884A703}.Release|x64.ActiveCfg = Release|x64
+		{29A873D2-58FD-4E87-B70D-342C1884A703}.Release|x64.Build.0 = Release|x64
+		{29A873D2-58FD-4E87-B70D-342C1884A703}.Release|x86.ActiveCfg = Release|Win32
+		{29A873D2-58FD-4E87-B70D-342C1884A703}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

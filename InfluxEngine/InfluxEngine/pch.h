@@ -20,12 +20,13 @@
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib,"d3dcompiler.lib")
 
-#ifdef max
-#undef max
-#endif
-#ifdef min
-#undef min
-#endif
+
+// Defines
+#include "Influx/Core/Defines.h"
+#include "Influx/Core/Alias.h"
+
+// Math:
+#include "Influx/Math/Math.h"
 
 // STL:
 #include <stdint.h>

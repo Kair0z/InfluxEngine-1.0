@@ -7,8 +7,8 @@ namespace Influx
 	{
 		Ptr<DxLayer> layer = new DxLayer();
 
-		layer->mpAdapter = FindAdapter(desc.mUseWarp);
-		layer->mpDevice = CreateDevice(layer->mpAdapter);
+		layer->mpAdapter = sPtr<IDXGIAdapter4>(FindAdapter(desc.mUseWarp));
+		layer->mpDevice = sPtr<ID3D12Device2>(CreateDevice(layer->mpAdapter.get()));
 
 		layer->InitInfoQueue();
 
@@ -252,6 +252,12 @@ namespace Influx
 	{
 		uint64_t fenceUnlockValue = SignalFence(cmdQueue, fence, fenceValue);
 		WaitForFenceValue(fence, fenceUnlockValue, e);
+	}
+
+	void DxLayer::TransitionResource(Ptr<ID3D12GraphicsCommandList2> cmdList, Ptr<ID3D12Resource> resource, D3D12_RESOURCE_STATES beforeState, D3D12_RESOURCE_STATES afterState)
+	{
+		CD3DX12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(resource, beforeState, afterState);
+		cmdList->ResourceBarrier(1, &barrier);
 	}
 
 	// Misc:

@@ -18,6 +18,7 @@ namespace Influx
 			Vector2u dimensions;
 		};
 		static sPtr<Window> Create(const Desc& wDesc, HINSTANCE hInst);
+		IFX_DelCpyMove(Window);
 
 		void Show();
 

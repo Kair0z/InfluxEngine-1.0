@@ -7,6 +7,7 @@ namespace Influx
 	{
 	public:
 		static sPtr<Scene> Create();
+		IFX_DelCpyMove(Scene);
 
 	public:
 		enum class UpdateFlags
