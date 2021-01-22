@@ -14,11 +14,11 @@ namespace Influx
 	{
 	public:
 		struct Desc { D3D12_COMMAND_LIST_TYPE type; };
-		static sPtr<CommandQueue> Create(sPtr<ID3D12Device2> device, const Desc& desc);
+		static sPtr<CommandQueue> Create(comPtr<ID3D12Device2> device, const Desc& desc);
 		~CommandQueue();
 
 		// Returns a fresh command list in recording state [no need for resetting]
-		Ptr<ID3D12GraphicsCommandList2> GetCommandList(sPtr<ID3D12Device2> device);
+		Ptr<ID3D12GraphicsCommandList2> GetCommandList(comPtr<ID3D12Device2> device);
 		uint64_t ExecuteCommandList(Ptr<ID3D12GraphicsCommandList2> list);
 
 		// Synchronization
@@ -27,18 +27,18 @@ namespace Influx
 		void WaitForFence(uint64_t unlockValue);
 		void Flush();
 
-		sPtr<ID3D12CommandQueue> GetDxCommandQueue() const;
+		comPtr<ID3D12CommandQueue> GetDxCommandQueue() const;
 
 	private:
 		CommandQueue() = default;
 		IFX_DelCpyMove(CommandQueue);
 
-		sPtr<ID3D12CommandQueue> mpDxCommandQueue;
+		comPtr<ID3D12CommandQueue> mpDxCommandQueue;
 		D3D12_COMMAND_LIST_TYPE mType;
 
 		// Command Lists & Command Allocators:
-		Ptr<ID3D12CommandAllocator> CreateCommandAllocator(sPtr<ID3D12Device2> device);
-		Ptr<ID3D12GraphicsCommandList2> CreateCommandList(sPtr<ID3D12Device2> device, Ptr<ID3D12CommandAllocator> allocator);
+		Ptr<ID3D12CommandAllocator> CreateCommandAllocator(comPtr<ID3D12Device2> device);
+		Ptr<ID3D12GraphicsCommandList2> CreateCommandList(comPtr<ID3D12Device2> device, Ptr<ID3D12CommandAllocator> allocator);
 
 		struct CommandAllocatorEntry // Keeping track of in-flight allocators
 		{
@@ -52,7 +52,7 @@ namespace Influx
 		CommandListQueue mCommandListQueue;
 
 		// Synchronization
-		sPtr<ID3D12Fence> mpFence;
+		comPtr<ID3D12Fence> mpFence;
 		HANDLE mFenceEvent;
 		uint64_t mFenceVal;
 	};

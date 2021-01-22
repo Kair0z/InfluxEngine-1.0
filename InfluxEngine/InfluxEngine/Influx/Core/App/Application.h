@@ -24,8 +24,8 @@ namespace Influx
 
 	private:
 		AppState mState;
-		sPtr<Window> mpWindow;
 
+		sPtr<Window> mpWindow;
 		sPtr<Renderer> mpRenderer;
 
 		void Initialize(HINSTANCE i);
@@ -38,8 +38,6 @@ namespace Influx
 
 	protected:
 		sPtr<Renderer> GetRenderer() const;
-
-		
 	};
 }
 

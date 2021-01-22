@@ -24,8 +24,7 @@ namespace Influx
 #endif
 
 		// Load DxLayer Instance (Holds Adapter & Device)
-		DxLayer::Desc dxDesc;
-		dxDesc.mUseWarp = true;
+		DxLayer::Desc dxDesc; dxDesc.mUseWarp = true;
 		mpDx = sPtr<DxLayer>(DxLayer::LoadDX12(dxDesc));
 
 		// Create Command Queue:
@@ -89,7 +88,7 @@ namespace Influx
 
 		// Check for live objects: 
 		// (TODO: remove device from this report-list as it's obviously not yet released)
-		//DxLayer::ReportLiveObjects(mpDx->GetDevice().get());
+		DxLayer::ReportLiveObjects(mpDx->GetDevice().Get());
 
 		// Release Device happens in smartpointer destructor...
 	}

@@ -4,19 +4,18 @@
 
 namespace Influx
 {
-	sPtr<SwapChain> SwapChain::Create(const Desc& desc, sPtr<ID3D12CommandQueue> commandQueue, sPtr<ID3D12Device2> device)
+	sPtr<SwapChain> SwapChain::Create(const Desc& desc, comPtr<ID3D12CommandQueue> commandQueue, comPtr<ID3D12Device2> device)
 	{
 		sPtr<SwapChain> swapChain(new SwapChain());
 
 		// Create Swap Chain:
-		swapChain->mpDxSwapChain = 
-			sPtr<IDXGISwapChain4>(DxLayer::CreateSwapChain(desc.windowHandle, commandQueue.get(), desc.dimensions.x, desc.dimensions.y, desc.bufferCount));
+		swapChain->mpDxSwapChain = DxLayer::CreateSwapChain(desc.windowHandle, commandQueue.Get(), desc.dimensions.x, desc.dimensions.y, desc.bufferCount);
 		swapChain->mCurBufferIdx = swapChain->mpDxSwapChain->GetCurrentBackBufferIndex();
 
 		// Create buffers:
 		swapChain->mpBuffers.resize(desc.bufferCount);
 		swapChain->mRtDescSize = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
-		swapChain->mpRtDescHeap = sPtr<ID3D12DescriptorHeap>(DxLayer::CreateDescriptorHeap(device.get(), D3D12_DESCRIPTOR_HEAP_TYPE_RTV, desc.bufferCount));
+		swapChain->mpRtDescHeap = DxLayer::CreateDescriptorHeap(device.Get(), D3D12_DESCRIPTOR_HEAP_TYPE_RTV, desc.bufferCount);
 		CD3DX12_CPU_DESCRIPTOR_HANDLE rtDescHandle(swapChain->mpRtDescHeap->GetCPUDescriptorHandleForHeapStart());
 		for (uint32_t i = 0; i < desc.bufferCount; ++i)
 		{
@@ -64,7 +63,7 @@ namespace Influx
 		ThrowOnFail(mpDxSwapChain->Present(syncintv, presentFlags));
 	}
 
-	sPtr<IDXGISwapChain4> SwapChain::GetDxSwapChain() const
+	comPtr<IDXGISwapChain4> SwapChain::GetDxSwapChain() const
 	{
 		return mpDxSwapChain;
 	}

@@ -4,18 +4,18 @@
 
 namespace Influx
 {
-	sPtr<CommandQueue> CommandQueue::Create(sPtr<ID3D12Device2> device, const Desc& desc)
+	sPtr<CommandQueue> CommandQueue::Create(comPtr<ID3D12Device2> device, const Desc& desc)
 	{
 		sPtr<CommandQueue> commandQueue(new CommandQueue());
 
 		// Create Dx Command Queue
 		commandQueue->mpDxCommandQueue = 
-			sPtr<ID3D12CommandQueue>(DxLayer::CreateCommandQueue(device.get(), desc.type));
+			comPtr<ID3D12CommandQueue>(DxLayer::CreateCommandQueue(device.Get(), desc.type));
 
 		commandQueue->mType = desc.type;
 
 		// Create fence:
-		commandQueue->mpFence = sPtr<ID3D12Fence>(DxLayer::CreateFence(device.get()));
+		commandQueue->mpFence = comPtr<ID3D12Fence>(DxLayer::CreateFence(device.Get()));
 		commandQueue->mFenceEvent = DxLayer::CreateFenceEventHandle();
 		commandQueue->mFenceVal = 0;
 
@@ -48,7 +48,7 @@ namespace Influx
 
 		return fenceValue;
 	}
-	Ptr<ID3D12GraphicsCommandList2> CommandQueue::GetCommandList(sPtr<ID3D12Device2> device)
+	Ptr<ID3D12GraphicsCommandList2> CommandQueue::GetCommandList(comPtr<ID3D12Device2> device)
 	{
 		Ptr<ID3D12CommandAllocator> allocator = nullptr;
 		Ptr<ID3D12GraphicsCommandList2> cmdList = nullptr;
@@ -83,38 +83,38 @@ namespace Influx
 	}
 
 	// Internal creation of resources:
-	Ptr<ID3D12CommandAllocator> CommandQueue::CreateCommandAllocator(sPtr<ID3D12Device2> device)
+	Ptr<ID3D12CommandAllocator> CommandQueue::CreateCommandAllocator(comPtr<ID3D12Device2> device)
 	{
-		return DxLayer::CreateCommandAllocator(device.get(), mType);
+		return DxLayer::CreateCommandAllocator(device.Get(), mType);
 	}
-	Ptr<ID3D12GraphicsCommandList2> CommandQueue::CreateCommandList(sPtr<ID3D12Device2> device, Ptr<ID3D12CommandAllocator> allocator)
+	Ptr<ID3D12GraphicsCommandList2> CommandQueue::CreateCommandList(comPtr<ID3D12Device2> device, Ptr<ID3D12CommandAllocator> allocator)
 	{
 		// TODO: Secure compatibility list1 vs list2...
 		Ptr<ID3D12GraphicsCommandList2> l2 = nullptr;
-		DxLayer::CreateCommandList(device.get(), allocator, mType)->QueryInterface(&l2);
+		DxLayer::CreateCommandList(device.Get(), allocator, mType)->QueryInterface(&l2);
 		return l2;
 	}
 
 #pragma region Synchronization
 	uint64_t CommandQueue::Signal()
 	{
-		return DxLayer::SignalFence(mpDxCommandQueue.get(), mpFence.get(), mFenceVal);
+		return DxLayer::SignalFence(mpDxCommandQueue.Get(), mpFence.Get(), mFenceVal);
 	}
 	bool CommandQueue::IsFenceComplete(uint64_t unlockValue)
 	{
-		return DxLayer::IsFenceComplete(mpFence.get(), unlockValue);
+		return DxLayer::IsFenceComplete(mpFence.Get(), unlockValue);
 	}
 	void CommandQueue::WaitForFence(uint64_t unlockValue)
 	{
-		DxLayer::WaitForFenceValue(mpFence.get(), unlockValue, mFenceEvent);
+		DxLayer::WaitForFenceValue(mpFence.Get(), unlockValue, mFenceEvent);
 	}
 	void CommandQueue::Flush()
 	{
-		DxLayer::Flush(mpDxCommandQueue.get(), mpFence.get(), mFenceVal, mFenceEvent);
+		DxLayer::Flush(mpDxCommandQueue.Get(), mpFence.Get(), mFenceVal, mFenceEvent);
 	}
 #pragma endregion
 
-	sPtr<ID3D12CommandQueue> CommandQueue::GetDxCommandQueue() const
+	comPtr<ID3D12CommandQueue> CommandQueue::GetDxCommandQueue() const
 	{
 		return mpDxCommandQueue;
 	}

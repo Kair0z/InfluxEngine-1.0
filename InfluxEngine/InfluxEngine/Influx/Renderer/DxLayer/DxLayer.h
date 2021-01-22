@@ -39,12 +39,12 @@ namespace Influx
 		static void EnableDebugLayer();
 		static void ReportLiveObjects(Ptr<ID3D12Device2> device);
 
-		sPtr<IDXGIAdapter4> GetAdapter() const { return mpAdapter; }
-		sPtr<ID3D12Device2> GetDevice() const { return mpDevice; }
+		comPtr<IDXGIAdapter4> GetAdapter() const { return mpAdapter; }
+		comPtr<ID3D12Device2> GetDevice() const { return mpDevice; }
 
 	private:
-		sPtr<IDXGIAdapter4> mpAdapter;
-		sPtr<ID3D12Device2> mpDevice;
+		comPtr<IDXGIAdapter4> mpAdapter;
+		comPtr<ID3D12Device2> mpDevice;
 
 		std::vector<ID3D12DescriptorHeap> mpDescHeaps;
 

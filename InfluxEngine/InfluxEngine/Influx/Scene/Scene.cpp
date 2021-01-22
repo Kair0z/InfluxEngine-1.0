@@ -5,7 +5,7 @@ namespace Influx
 {
 	sPtr<Scene> Scene::Create()
 	{
-		return sPtr<Scene>();
+		return sPtr<Scene>(new Scene());
 	}
 }
 

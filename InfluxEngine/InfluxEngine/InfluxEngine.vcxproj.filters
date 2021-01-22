@@ -13,10 +13,10 @@
     <ClInclude Include="Influx\Core\Window\Window.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Influx\Renderer\Renderer.h" />
-    <ClInclude Include="Influx\Renderer\DxLayer\DxLayer.h" />
-    <ClInclude Include="Influx\Renderer\DxLayer\CommandQueue.h" />
-    <ClInclude Include="Influx\Renderer\DxLayer\PipelineState.h" />
     <ClInclude Include="Influx\Core\Defines.h" />
+    <ClInclude Include="Influx\Renderer\DxLayer\CommandQueue.h" />
+    <ClInclude Include="Influx\Renderer\DxLayer\DxLayer.h" />
+    <ClInclude Include="Influx\Renderer\DxLayer\PipelineState.h" />
     <ClInclude Include="Influx\Renderer\DxLayer\SwapChain.h" />
   </ItemGroup>
   <ItemGroup>
@@ -27,8 +27,8 @@
     <ClCompile Include="Influx\Resources\Importer\AssimpImporter.cpp" />
     <ClCompile Include="Influx\Core\Window\Window.cpp" />
     <ClCompile Include="Influx\Renderer\Renderer.cpp" />
-    <ClCompile Include="Influx\Renderer\DxLayer\DxLayer.cpp" />
     <ClCompile Include="Influx\Renderer\DxLayer\CommandQueue.cpp" />
+    <ClCompile Include="Influx\Renderer\DxLayer\DxLayer.cpp" />
     <ClCompile Include="Influx\Renderer\DxLayer\PipelineState.cpp" />
     <ClCompile Include="Influx\Renderer\DxLayer\SwapChain.cpp" />
   </ItemGroup>

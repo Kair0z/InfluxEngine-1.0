@@ -21,7 +21,6 @@ namespace Influx
 		IFX_DelCpyMove(Window);
 
 		void Show();
-
 		HWND GetWindowsHandle() const;
 
 	private:

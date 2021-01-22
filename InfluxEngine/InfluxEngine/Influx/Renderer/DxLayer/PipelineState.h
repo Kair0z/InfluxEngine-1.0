@@ -1,7 +1,7 @@
 #pragma once
 
 struct ID3D12Device2;
-struct ID3D12PipelineStateObject;
+struct ID3D12PipelineState;
 
 /// <summary>
 /// Wrapper class for D3D12 Pipeline State Object
@@ -12,16 +12,16 @@ namespace Influx
 	class PipelineState final
 	{
 	public:
-		static sPtr<PipelineState> Create(sPtr<ID3D12Device2> device);
+		static sPtr<PipelineState> Create(comPtr<ID3D12Device2> device);
 		~PipelineState();
 
-		sPtr<ID3D12PipelineStateObject> GetDxPipelineStateObject() const;
+		comPtr<ID3D12PipelineState> GetDxPipelineStateObject() const;
 
 	private:
 		PipelineState() = default;
 		IFX_DelCpyMove(PipelineState);
 
-		sPtr<ID3D12PipelineStateObject> mpDxPipelineStateObject;
+		comPtr<ID3D12PipelineState> mpDxPipelineStateObject;
 	};
 }
 

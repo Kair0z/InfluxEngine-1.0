@@ -7,8 +7,8 @@ namespace Influx
 	{
 		Ptr<DxLayer> layer = new DxLayer();
 
-		layer->mpAdapter = sPtr<IDXGIAdapter4>(FindAdapter(desc.mUseWarp));
-		layer->mpDevice = sPtr<ID3D12Device2>(CreateDevice(layer->mpAdapter.get()));
+		layer->mpAdapter = comPtr<IDXGIAdapter4>(FindAdapter(desc.mUseWarp));
+		layer->mpDevice = comPtr<ID3D12Device2>(CreateDevice(layer->mpAdapter.Get()));
 
 		layer->InitInfoQueue();
 

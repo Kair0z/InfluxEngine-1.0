@@ -17,13 +17,13 @@ namespace Influx
 			Vector2u dimensions;
 			uint32_t bufferCount;
 		};
-		static sPtr<SwapChain> Create(const Desc& desc, sPtr<ID3D12CommandQueue> commandQueue, sPtr<ID3D12Device2> device);
+		static sPtr<SwapChain> Create(const Desc& desc, comPtr<ID3D12CommandQueue> commandQueue, comPtr<ID3D12Device2> device);
 
 		~SwapChain();
 
 		void Present(UINT syncintv, UINT presentFlags);
 		
-		sPtr<IDXGISwapChain4> GetDxSwapChain() const;
+		comPtr<IDXGISwapChain4> GetDxSwapChain() const;
 
 		Ptr<DxBuffer> GetCurrentBuffer() const;
 		Ptr<DxBuffer> GetBuffer(uint32_t idx) const;
@@ -34,8 +34,8 @@ namespace Influx
 	private:
 		SwapChain() = default;
 
-		sPtr<IDXGISwapChain4> mpDxSwapChain;
-		sPtr<ID3D12DescriptorHeap> mpRtDescHeap; // The descriptor heap 4 our render targets
+		comPtr<IDXGISwapChain4> mpDxSwapChain;
+		comPtr<ID3D12DescriptorHeap> mpRtDescHeap; // The descriptor heap 4 our render targets
 		std::vector<Ptr<DxBuffer>> mpBuffers;
 
 		uint32_t mCurBufferIdx;

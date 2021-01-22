@@ -4,7 +4,7 @@
 
 namespace Influx
 {
-	sPtr<PipelineState> PipelineState::Create(sPtr<ID3D12Device2> device)
+	sPtr<PipelineState> PipelineState::Create(comPtr<ID3D12Device2> device)
 	{
 		sPtr<PipelineState> pipelineState(new PipelineState());
 
@@ -16,10 +16,11 @@ namespace Influx
 
 	PipelineState::~PipelineState()
 	{
-		// TODO: Release Pipeline State object
+		if (mpDxPipelineStateObject)
+			mpDxPipelineStateObject->Release();
 	}
 
-	sPtr<ID3D12PipelineStateObject> PipelineState::GetDxPipelineStateObject() const
+	comPtr<ID3D12PipelineState> PipelineState::GetDxPipelineStateObject() const
 	{
 		return mpDxPipelineStateObject;
 	}

@@ -19,7 +19,12 @@ namespace Influx
 
 			All = -1
 		};
-		struct SceneStats;
+		struct SceneStats
+		{
+			ui64 uTriangleCount = 0;
+			ui64 uVertexCount = 0;
+			//...
+		};
 		
 	private:
 		Scene() = default;
@@ -34,12 +39,7 @@ namespace Influx
 		// Camera Data...
 	};
 
-	struct Scene::SceneStats
-	{
-		ui64 uTriangleCount = 0;
-		ui64 uVertexCount = 0;
-		//...
-	};
+	
 }
 
 
