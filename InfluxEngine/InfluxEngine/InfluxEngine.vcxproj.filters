@@ -27,6 +27,9 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="Influx\Core\Utils\Action.h" />
+    <ClInclude Include="Influx\Graphics\Gui\Widgets\BaseWidget.h" />
+    <ClInclude Include="Influx\Graphics\Gui\Widgets\DemoWidget.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Influx\Scene\Scene.cpp" />
@@ -48,5 +51,7 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Influx\Core\Utils\Action.cpp" />
+    <ClCompile Include="Influx\Graphics\Gui\Widgets\DemoWidget.cpp" />
   </ItemGroup>
 </Project>

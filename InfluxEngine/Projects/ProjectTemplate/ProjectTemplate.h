@@ -23,6 +23,9 @@ private:
 	// * Called at Input Events
 	virtual void OnKeyEvent() override final;
 	virtual void OnMouseEvent() override final;
+
+	// * Called at rendering Gui (Before the frame)
+	virtual void OnGuiRender() const override final;
 };
 
 // [!] Override the main application to be created... [!]

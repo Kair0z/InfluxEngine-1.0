@@ -179,6 +179,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Influx\Graphics\Gui\Widgets\DemoWidget.h" />
+    <ClInclude Include="Influx\Core\Utils\Action.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_dx12.h" />
@@ -194,6 +196,7 @@
     <ClInclude Include="Influx\Core\Alias.h" />
     <ClInclude Include="Influx\Core\Entrypoint.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\DxLayer.h" />
+    <ClInclude Include="Influx\Graphics\Gui\Widgets\BaseWidget.h" />
     <ClInclude Include="Influx\Resources\Importer\AssimpImporter.h" />
     <ClInclude Include="Influx.h" />
     <ClInclude Include="Influx\Math\Math.h" />
@@ -207,6 +210,8 @@
     <ClInclude Include="Influx\Graphics\DxLayer\SwapChain.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Influx\Graphics\Gui\Widgets\DemoWidget.cpp" />
+    <ClCompile Include="Influx\Core\Utils\Action.cpp" />
     <ClCompile Include="imgui\imgui.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>

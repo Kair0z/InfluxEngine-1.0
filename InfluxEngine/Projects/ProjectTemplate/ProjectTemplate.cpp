@@ -19,3 +19,8 @@ void ProjectTemplate::OnKeyEvent()
 void ProjectTemplate::OnMouseEvent()
 {
 }
+
+void ProjectTemplate::OnGuiRender() const
+{
+	
+}

@@ -3,6 +3,7 @@
 
 #include "Influx/Core/Window/Window.h"
 #include "Influx/Graphics/Renderer.h"
+#include "Influx/Graphics/Gui/Gui.h"
 
 namespace Influx
 {
@@ -57,6 +58,9 @@ namespace Influx
 
 		mpRenderer = Renderer::Create(renderDesc);
 		mpRenderer->Initialize();
+
+		// Subscribe to Gui Callback:
+		Gui::ListenOnRender(std::bind(&Application::OnGuiRender, this));
 	}
 
 	void Application::Update()

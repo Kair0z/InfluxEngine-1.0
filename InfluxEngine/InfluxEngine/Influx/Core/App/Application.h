@@ -17,6 +17,8 @@ namespace Influx
 		virtual void OnKeyEvent() {};
 		virtual void OnMouseEvent() {};
 
+		virtual void OnGuiRender() const {};
+
 		enum class AppState
 		{
 			None, Uninitialized, Running

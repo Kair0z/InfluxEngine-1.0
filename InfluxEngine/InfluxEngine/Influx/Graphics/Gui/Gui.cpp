@@ -5,6 +5,9 @@
 
 namespace Influx
 {
+	// Global OnGuiRender Callback:
+	Action Gui::sOnGuiRender{};
+
 	ID3D12DescriptorHeap* Gui::spFontSrvDescHeap = nullptr;
 
 	void Gui::Initialize(const Dx12Impl_Desc& dxDesc, ID3D12Device* device)
@@ -30,8 +33,9 @@ namespace Influx
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 
-		ImGui::ShowDemoWindow();
-		
+		// Call On Gui Render signal:
+		sOnGuiRender();
+
 		ImGui::Render();
 	}
 
@@ -48,6 +52,11 @@ namespace Influx
 		ImGui::DestroyContext();
 
 		spFontSrvDescHeap->Release();
+	}
+
+	void Gui::ListenOnRender(const std::function<void()>& f)
+	{
+		sOnGuiRender.AddListener(f);
 	}
 }
 

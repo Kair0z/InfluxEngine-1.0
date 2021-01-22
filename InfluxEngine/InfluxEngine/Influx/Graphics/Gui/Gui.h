@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 
 struct ID3D12DescriptorHeap;
 
@@ -20,8 +21,11 @@ namespace Influx
 
 		static void Cleanup();
 
+		static void ListenOnRender(const std::function<void()>& f);
+
 	private:
 		static Ptr<ID3D12DescriptorHeap> spFontSrvDescHeap;
+		static Action sOnGuiRender;
 	};
 }
 
