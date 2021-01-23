@@ -3,7 +3,7 @@
 
 namespace Influx::Widgets
 {
-	void DemoWidget::operator()()
+	DemoWidget::DemoWidget()
 	{
 		ImGui::ShowDemoWindow();
 	}
