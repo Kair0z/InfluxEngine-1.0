@@ -1,5 +1,7 @@
 #include "Sandbox.h"
 
+using namespace Influx;
+
 void Sandbox::OnStart()
 {
 }
@@ -17,5 +19,9 @@ void Sandbox::OnKeyEvent()
 }
 
 void Sandbox::OnMouseEvent()
+{
+}
+
+void Sandbox::OnGuiRender() const
 {
 }

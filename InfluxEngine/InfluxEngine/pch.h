@@ -20,6 +20,9 @@
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib,"d3dcompiler.lib")
 
+// Assimp:
+#pragma comment(lib, "assimp.lib")
+
 // ImGui:
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_win32.h"

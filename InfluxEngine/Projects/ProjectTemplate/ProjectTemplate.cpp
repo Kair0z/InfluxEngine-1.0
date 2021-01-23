@@ -1,5 +1,7 @@
 #include "ProjectTemplate.h"
 
+using namespace Influx;
+
 void ProjectTemplate::OnStart()
 {
 }
@@ -22,5 +24,4 @@ void ProjectTemplate::OnMouseEvent()
 
 void ProjectTemplate::OnGuiRender() const
 {
-	
 }

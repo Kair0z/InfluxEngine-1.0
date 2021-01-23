@@ -4,10 +4,10 @@
 using namespace Influx;
 
 // ***********************************************
-//  * Sandbox *
+//  * Jawaddedadde *
 // *********************************************** 
 
-class Sandbox final : 
+class Jawaddedadde final : 
 	public Influx::Application
 {
 private:
@@ -31,7 +31,7 @@ private:
 // [!] Override the main application to be created... [!]
 sPtr<Application> Application::Create()
 {
-	return sPtr<Sandbox>(new Sandbox());
+	return sPtr<Jawaddedadde>(new Jawaddedadde());
 }
 
 

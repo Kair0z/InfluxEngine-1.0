@@ -6,30 +6,31 @@
 #include "assimp/mesh.h"
 
 #include "Influx/Resources/Mesh/Mesh.h"
+#include "Influx/Scene/SceneBuilder.h"
 
 namespace Influx
 {
-	bool AssimpImporter::Import(const std::string& file)
+	bool AssimpImporter::Import(const std::string& file, SceneBuilder& builder)
 	{
 		// TODO: Manage finding files by name
-		std::string fullpath;
+		std::string fullpath = file;
 
 		// TODO: Decide/define Assimp import flags
 		uint32_t assimpFlags = 0;
 
 		Assimp::Importer imp;
 		const aiScene* pScene = imp.ReadFile(fullpath, assimpFlags);
-
-		// TODO: Handle read-error better
 		if (pScene == nullptr) return false;
+		// TODO: Handle read-error better...
+
 
 		// TODO: retrieve data from aiScene...
-		LoadMeshData(pScene);
+		LoadMeshData(pScene, builder);
 
 		return false;
 	}
 
-	bool AssimpImporter::LoadMeshData(const aiScene* pScene)
+	bool AssimpImporter::LoadMeshData(const aiScene* pScene, SceneBuilder& builder)
 	{
 		if (!pScene->HasMeshes()) 
 			return true;
@@ -53,27 +54,6 @@ namespace Influx
 		}
 
 		return true;
-	}
-
-	bool AssimpImporter::LoadCameraData(const aiScene* pScene)
-	{
-		return false;
-	}
-	bool AssimpImporter::LoadLightData(const aiScene* pScene)
-	{
-		return false;
-	}
-	bool AssimpImporter::LoadMaterialData(const aiScene* pScene)
-	{
-		return false;
-	}
-	bool AssimpImporter::LoadSceneGraphData(const aiScene* pScene)
-	{
-		return false;
-	}
-	bool AssimpImporter::LoadAnimationData(const aiScene* pScene)
-	{
-		return false;
 	}
 }
 

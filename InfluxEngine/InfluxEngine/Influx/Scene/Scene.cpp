@@ -7,5 +7,10 @@ namespace Influx
 	{
 		return sPtr<Scene>(new Scene());
 	}
+
+	sPtr<Scene> Scene::Create(const std::string& filename)
+	{
+		return sPtr<Scene>();
+	}
 }
 

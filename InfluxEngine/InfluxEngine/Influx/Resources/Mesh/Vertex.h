@@ -11,6 +11,12 @@ namespace Influx
 		Vector2f mTexCoord;
 		// bone data...
 	};
+
+	struct ShVertex
+	{
+		Vector3f mPosition;
+		Vector3f mColor;
+	};
 }
 
 

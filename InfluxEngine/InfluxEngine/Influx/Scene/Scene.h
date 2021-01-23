@@ -7,6 +7,7 @@ namespace Influx
 	{
 	public:
 		static sPtr<Scene> Create();
+		static sPtr<Scene> Create(const std::string& filename);
 		IFX_DelCpyMove(Scene);
 
 	public:

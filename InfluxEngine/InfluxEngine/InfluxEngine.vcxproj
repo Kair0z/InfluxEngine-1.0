@@ -96,7 +96,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>IFLX_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -115,7 +115,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -138,7 +138,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>IFLX_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -157,7 +157,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -179,6 +179,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Influx\Graphics\DxLayer\IndexBuffer.h" />
+    <ClInclude Include="Influx\Graphics\DxLayer\VertexBuffer.h" />
     <ClInclude Include="Influx\Graphics\Gui\Widgets\DemoWidget.h" />
     <ClInclude Include="Influx\Core\Utils\Action.h" />
     <ClInclude Include="imgui\imconfig.h" />
@@ -196,7 +198,6 @@
     <ClInclude Include="Influx\Core\Alias.h" />
     <ClInclude Include="Influx\Core\Entrypoint.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\DxLayer.h" />
-    <ClInclude Include="Influx\Graphics\Gui\Widgets\BaseWidget.h" />
     <ClInclude Include="Influx\Resources\Importer\AssimpImporter.h" />
     <ClInclude Include="Influx.h" />
     <ClInclude Include="Influx\Math\Math.h" />
@@ -208,8 +209,12 @@
     <ClInclude Include="Influx\Graphics\Renderer.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\PipelineState.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\SwapChain.h" />
+    <ClInclude Include="Influx\Graphics\Gui\Widgets\Widgets.h" />
+    <ClInclude Include="Influx\Scene\SceneBuilder.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Influx\Graphics\DxLayer\IndexBuffer.cpp" />
+    <ClCompile Include="Influx\Graphics\DxLayer\VertexBuffer.cpp" />
     <ClCompile Include="Influx\Graphics\Gui\Widgets\DemoWidget.cpp" />
     <ClCompile Include="Influx\Core\Utils\Action.cpp" />
     <ClCompile Include="imgui\imgui.cpp">
@@ -266,6 +271,8 @@
     <ClCompile Include="Influx\Graphics\Renderer.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\PipelineState.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\SwapChain.cpp" />
+    <ClCompile Include="Influx\Graphics\Gui\Widgets\Widgets.cpp" />
+    <ClCompile Include="Influx\Scene\SceneBuilder.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

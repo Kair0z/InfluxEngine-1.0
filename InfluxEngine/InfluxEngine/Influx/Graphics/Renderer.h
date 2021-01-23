@@ -38,8 +38,13 @@ namespace Influx
 		sPtr<CommandQueue> mpCommandQueue; // CommandQueue:
 		sPtr<PipelineState> mpPSO; // Pipeline State Object:
 
+		comPtr<ID3D12Resource> mpDxDepthBuffer;
+		comPtr<ID3D12DescriptorHeap> mpDSVHeap;
+
 		// Clear the Render Target View of the current Swapchainbuffer (backbuffer)
 		void Cmd_ClearRt(Ptr<ID3D12GraphicsCommandList2> cmdList, const Vector4f& clearColor);
+		void Cmd_ClearDepth(Ptr<ID3D12GraphicsCommandList2> cmdList, const float depth = 1.0f);
+
 		void Cmd_TargetBackbuffer(Ptr<ID3D12GraphicsCommandList2> cmdList);
 		void Present();
 
