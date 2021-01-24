@@ -75,9 +75,6 @@ namespace Influx
 		Cmd_ClearRt(cmdList, Vector4f{ 0.4f, 0.6f, 0.9f, 1.0f });
 		Cmd_ClearDepth(cmdList, 1.0f);
 
-		// COMMAND: Set render target to current backbuffer:
-		Cmd_TargetBackbuffer(cmdList);
-
 
 		cmdList->SetPipelineState(mpPSO->GetDxPipelineStateObject().Get());
 		// We explicitly set the root signature before binding resources to the pipeline... (else runtime error)
@@ -95,17 +92,20 @@ namespace Influx
 		cmdList->RSSetScissorRects(1, &mConstructDesc.mScissorRect);
 
 		// Set Output Merger: Binding the render target & DepthBuffer:
-		auto rtDescHandle = mpSwapChain->GetCurrentRtDescHandle();
-		auto dsvDescHandle = mpDSVHeap->GetCPUDescriptorHandleForHeapStart();
-		cmdList->OMSetRenderTargets(1, &rtDescHandle, FALSE, &dsvDescHandle);
+		Cmd_TargetBackbuffer(cmdList);
 
 		// Update Root Params:
-		Matrix4x4 w = Identity4x4();
-		Matrix4x4 v = glm::lookAtLH(Vector3f{0.0f, 0.f, -10.f}, Vector3f{ 0.f, 0.f, 1.f }, Vector3f{ 0.f, 1.f, 0.f });
-		Matrix4x4 p = glm::perspectiveFovLH(45.0f, (float)mConstructDesc.dimensions.x, (float)mConstructDesc.dimensions.y, 
-			0.001f, 10000.f);
-		Matrix4x4 wvp = w * v * p;
-		cmdList->SetGraphicsRoot32BitConstants(0, sizeof(Matrix4x4) / 4, &wvp, 0);
+		/*Matrix4x4 w = Identity4x4();
+		Matrix4x4 v = glm::lookAtLH(Vector3f{0.0f, 0.f, -50.f}, Vector3f{ 0.f, 0.f, 1.f }, Vector3f{ 0.f, 1.f, 0.f });
+		Matrix4x4 p = glm::perspectiveFovLH(45.0f, (float)mConstructDesc.dimensions.x, (float)mConstructDesc.dimensions.y, 0.001f, 10000.f);*/
+
+		using namespace DirectX;
+		DirectX::XMMATRIX w = XMMatrixIdentity();
+		DirectX::XMMATRIX v = XMMatrixLookAtLH({0, 0, -10}, {0, 0, 1}, {0, 1, 0});
+		DirectX::XMMATRIX p = XMMatrixPerspectiveFovLH(45.0f, (float)mConstructDesc.dimensions.x / (float)mConstructDesc.dimensions.y, 0.001f, 10000.0f);
+
+		XMMATRIX wvp = w * v * p;
+		cmdList->SetGraphicsRoot32BitConstants(0, sizeof(XMMATRIX) / 4, &wvp, 0);
 
 		// Draw call
 		cmdList->DrawIndexedInstanced(_countof(Temp::gCubeIndicies), 1, 0, 0, 0);
@@ -157,7 +157,7 @@ namespace Influx
 
 		// A single 32-bit constant root parameter that is used by the vertex shader. (WVP matrix)
 		CD3DX12_ROOT_PARAMETER1 rootParameters[1];
-		rootParameters[0].InitAsConstants(sizeof(Matrix4x4) / 4, 0, 0, D3D12_SHADER_VISIBILITY_VERTEX);
+		rootParameters[0].InitAsConstants(sizeof(DirectX::XMMATRIX) / 4, 0, 0, D3D12_SHADER_VISIBILITY_VERTEX);
 
 		auto rsDesc = DxLayer::CreateRootSignatureDesc(rootParameters, rootSignatureFlags);
 		mpRootSignature = DxLayer::CreateRootSignature(mpDx->GetDevice().Get(), &rsDesc);
@@ -235,7 +235,8 @@ namespace Influx
 	void Renderer::Cmd_TargetBackbuffer(Ptr<ID3D12GraphicsCommandList2> cmdList)
 	{
 		auto rtvHandle = mpSwapChain->GetCurrentRtDescHandle();
-		cmdList->OMSetRenderTargets(1, &rtvHandle,FALSE, NULL);
+		auto dsvHandle = mpDSVHeap->GetCPUDescriptorHandleForHeapStart();
+		cmdList->OMSetRenderTargets(1, &rtvHandle,FALSE, &dsvHandle);
 	}
 
 	void Renderer::Present()

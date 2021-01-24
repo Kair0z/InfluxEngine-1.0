@@ -16,6 +16,7 @@ namespace Influx
 		swapChain->mpBuffers.resize(desc.bufferCount);
 		swapChain->mRtDescSize = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 		swapChain->mpRtDescHeap = DxLayer::CreateDescriptorHeap(device.Get(), D3D12_DESCRIPTOR_HEAP_TYPE_RTV, desc.bufferCount);
+
 		CD3DX12_CPU_DESCRIPTOR_HANDLE rtDescHandle(swapChain->mpRtDescHeap->GetCPUDescriptorHandleForHeapStart());
 		for (uint32_t i = 0; i < desc.bufferCount; ++i)
 		{

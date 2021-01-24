@@ -20,7 +20,7 @@ namespace Influx
 
 		// Create the IndexbufferView:
 		mIndexBufferView.BufferLocation = mpDxIndexBuffer->GetGPUVirtualAddress();
-		mIndexBufferView.Format = DXGI_FORMAT_R16_UINT;
+		mIndexBufferView.Format = DXGI_FORMAT_R32_UINT;
 		mIndexBufferView.SizeInBytes = eSize * eCount;
 	}
 
