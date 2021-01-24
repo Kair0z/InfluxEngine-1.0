@@ -48,6 +48,15 @@ namespace Influx
 		return hr;
 	}
 
+	D3D12_VERSIONED_ROOT_SIGNATURE_DESC DxLayer::CreateRootSignatureDesc(const CD3DX12_ROOT_PARAMETER1* rootParams, D3D12_ROOT_SIGNATURE_FLAGS flags)
+	{
+		CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC rootSigDesc;
+		UINT numParams = sizeof(*rootParams) / sizeof(rootParams[0]);
+		rootSigDesc.Init_1_1(numParams, rootParams, 0, nullptr, (D3D12_ROOT_SIGNATURE_FLAGS)flags);
+
+		return rootSigDesc;
+	}
+
 	Ptr<ID3D12RootSignature> DxLayer::CreateRootSignature(Ptr<ID3D12Device2> device, const D3D12_VERSIONED_ROOT_SIGNATURE_DESC* pDesc)
 	{
 		Ptr<ID3D12RootSignature> rootSignature = nullptr;
@@ -206,6 +215,58 @@ namespace Influx
 
 		return cmdList;
 	}
+
+	Ptr<ID3D12PipelineState> DxLayer::CreatePipelineState(Ptr<ID3D12Device2> device, const D3D12_PIPELINE_STATE_STREAM_DESC& desc)
+	{
+		Ptr<ID3D12PipelineState> pipelineState;
+		ThrowOnFail(device->CreatePipelineState(&desc, IID_PPV_ARGS(&pipelineState)));
+		return pipelineState;
+	}
+
+	void DxLayer::LoadBufferResource(Ptr<ID3D12Device> device, Ptr<ID3D12GraphicsCommandList> cmdList, ID3D12Resource** destResource, ID3D12Resource** intResource, 
+		size_t nElements, size_t elementSize, const void* pData, D3D12_RESOURCE_FLAGS flags)
+	{
+		size_t bufferSize = nElements * elementSize;
+
+		auto heapProps = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+		auto resourceDesc = CD3DX12_RESOURCE_DESC::Buffer(bufferSize, flags);
+
+		// Create Commited resource and put it in destResource
+		ThrowOnFail(device->CreateCommittedResource(
+			&heapProps,
+			D3D12_HEAP_FLAG_NONE,
+			&resourceDesc,
+			D3D12_RESOURCE_STATE_COPY_DEST,
+			nullptr,
+			IID_PPV_ARGS(destResource)));
+
+		// Upload data to buffer:
+		if (pData != nullptr)
+		{
+			// Create Commited resource (as uploadbuffer [HEAP_TYPE_UPLOAD && RESOURCE_STATE_GENERIC_READ]) 
+			// To upload data to buffer:
+			heapProps = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+			resourceDesc = CD3DX12_RESOURCE_DESC::Buffer(bufferSize);
+			ThrowOnFail(device->CreateCommittedResource
+			(
+				&heapProps,
+				D3D12_HEAP_FLAG_NONE,
+				&resourceDesc,
+				D3D12_RESOURCE_STATE_GENERIC_READ,
+				nullptr,
+				IID_PPV_ARGS(intResource)
+			));
+
+			D3D12_SUBRESOURCE_DATA subResData = {};
+			subResData.pData = pData;
+			subResData.RowPitch = bufferSize;
+			subResData.SlicePitch = bufferSize;
+
+			UpdateSubresources(cmdList, *destResource, *intResource,
+				0, 0, 1, &subResData);
+		}
+	}
+
 	Ptr<ID3D12Fence> DxLayer::CreateFence(Ptr<ID3D12Device2> device)
 	{
 		Ptr<ID3D12Fence> f;
@@ -283,14 +344,15 @@ namespace Influx
 		pDbgInt->EnableDebugLayer();
 #endif
 	}
-	void DxLayer::ReportLiveObjects(Ptr<ID3D12Device2> device)
+
+#include <dxgidebug.h>
+	void DxLayer::ReportLiveObjects()
 	{
-		ID3D12DebugDevice* debugdev = nullptr;
-		if (SUCCEEDED(device->QueryInterface(&debugdev)))
-		{
-			debugdev->ReportLiveDeviceObjects(D3D12_RLDO_DETAIL | D3D12_RLDO_IGNORE_INTERNAL);
-			debugdev->Release();
-		}
+		IDXGIDebug1* dxgiDebug;
+		DXGIGetDebugInterface1(0, IID_PPV_ARGS(&dxgiDebug));
+
+		//dxgiDebug->ReportLiveObjects(, DXGI_DEBUG_RLO_IGNORE_INTERNAL);
+		dxgiDebug->Release();
 	}
 }
 

@@ -4,13 +4,15 @@
 
 namespace Influx
 {
-	sPtr<PipelineState> PipelineState::Create(comPtr<ID3D12Device2> device)
+	sPtr<PipelineState> PipelineState::Create(comPtr<ID3D12Device2> device, const Desc& desc)
 	{
 		sPtr<PipelineState> pipelineState(new PipelineState());
+		pipelineState->mStream = desc.mStateStream;
 
-		// TODO: static Create in DxLayer
-		pipelineState->mpDxPipelineStateObject;
-
+		D3D12_PIPELINE_STATE_STREAM_DESC pipelineStateStreamDesc = {
+			sizeof(PipelineStateStream), &pipelineState->mStream
+		};
+		pipelineState->mpDxPipelineStateObject = DxLayer::CreatePipelineState(device.Get(), pipelineStateStreamDesc);
 		return pipelineState;
 	}
 

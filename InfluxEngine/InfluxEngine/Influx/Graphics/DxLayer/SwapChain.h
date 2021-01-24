@@ -15,7 +15,7 @@ namespace Influx
 		{
 			HWND windowHandle;
 			Vector2u dimensions;
-			uint32_t bufferCount;
+			uint8_t bufferCount;
 		};
 		static sPtr<SwapChain> Create(const Desc& desc, comPtr<ID3D12CommandQueue> commandQueue, comPtr<ID3D12Device2> device);
 
@@ -26,10 +26,10 @@ namespace Influx
 		comPtr<IDXGISwapChain4> GetDxSwapChain() const;
 
 		Ptr<DxBuffer> GetCurrentBuffer() const;
-		Ptr<DxBuffer> GetBuffer(uint32_t idx) const;
+		Ptr<DxBuffer> GetBuffer(uint8_t idx) const;
 
 		DxDescriptorHandle GetCurrentRtDescHandle() const;
-		DxDescriptorHandle GetDescRtHandle(uint32_t idx) const;
+		DxDescriptorHandle GetDescRtHandle(uint8_t idx) const;
 
 	private:
 		SwapChain() = default;

@@ -30,7 +30,7 @@ namespace Influx
 		return false;
 	}
 
-	bool AssimpImporter::LoadMeshData(const aiScene* pScene, SceneBuilder& builder)
+	bool AssimpImporter::LoadMeshData(const aiScene* pScene, SceneBuilder&)
 	{
 		if (!pScene->HasMeshes()) 
 			return true;

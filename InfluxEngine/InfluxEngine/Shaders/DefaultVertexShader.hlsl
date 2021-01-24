@@ -14,12 +14,12 @@ struct VS_Output
 	float4 Position : SV_POSITION;
 };
 
-VS_Output mainVS(VS_Input input)
+VS_Output VS_Main(VS_Input input)
 {
 	VS_Output output = (VS_Output)0;
 
 	output.Position = mul(cbModelViewProjection.MVP, float4(input.Position, 1));
-	output.Color = float4(input.color, 1.0f);
+	output.Color = float4(input.Color, 1.0f);
 
 	return output;
 }

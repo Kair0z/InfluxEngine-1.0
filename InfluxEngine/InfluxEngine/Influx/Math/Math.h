@@ -1,4 +1,6 @@
 #pragma once
+#include "glm/ext/matrix_transform.hpp"
+#include "glm/ext/matrix_clip_space.hpp"
 #include "glm/vec2.hpp"
 #include "glm/vec3.hpp"
 #include "glm/vec4.hpp"
@@ -28,4 +30,6 @@ namespace Influx
 	using Matrix2x2 = glm::mat2x2;
 	using Matrix3x3 = glm::mat3x3;
 	using Matrix4x4 = glm::mat4x4;
+
+	inline Matrix4x4 Identity4x4() { return Matrix4x4(1.0); }
 }

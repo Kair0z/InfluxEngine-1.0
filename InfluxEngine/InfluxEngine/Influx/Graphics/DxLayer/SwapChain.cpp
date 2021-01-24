@@ -35,9 +35,9 @@ namespace Influx
 
 	Ptr<SwapChain::DxBuffer> SwapChain::GetCurrentBuffer() const
 	{
-		return GetBuffer(mpDxSwapChain->GetCurrentBackBufferIndex());
+		return GetBuffer((uint8_t)mpDxSwapChain->GetCurrentBackBufferIndex());
 	}
-	Ptr<SwapChain::DxBuffer> SwapChain::GetBuffer(uint32_t idx) const
+	Ptr<SwapChain::DxBuffer> SwapChain::GetBuffer(uint8_t idx) const
 	{
 		assert(idx < mpBuffers.size());
 		return mpBuffers[idx];
@@ -45,9 +45,9 @@ namespace Influx
 
 	SwapChain::DxDescriptorHandle SwapChain::GetCurrentRtDescHandle() const
 	{
-		return GetDescRtHandle(mpDxSwapChain->GetCurrentBackBufferIndex());
+		return GetDescRtHandle((uint8_t)mpDxSwapChain->GetCurrentBackBufferIndex());
 	}
-	SwapChain::DxDescriptorHandle SwapChain::GetDescRtHandle(uint32_t idx) const
+	SwapChain::DxDescriptorHandle SwapChain::GetDescRtHandle(uint8_t idx) const
 	{
 		assert(idx < mpBuffers.size());
 		return CD3DX12_CPU_DESCRIPTOR_HANDLE(mpRtDescHeap->GetCPUDescriptorHandleForHeapStart(), idx, mRtDescSize);
