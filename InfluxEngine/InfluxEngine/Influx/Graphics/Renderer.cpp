@@ -22,11 +22,6 @@ namespace Influx
 	{
 		if (mIsInitialized) return;
 
-		// Enable the Debug layer
-#ifdef _DEBUG
-		DxLayer::EnableDebugLayer();
-#endif
-
 		// Load DxLayer Instance (Holds Adapter & Device)
 		DxLayer::Desc dxDesc; dxDesc.mUseWarp = true;
 		mpDx = sPtr<DxLayer>(DxLayer::LoadDX12(dxDesc));
@@ -75,7 +70,6 @@ namespace Influx
 		Cmd_ClearRt(cmdList, Vector4f{ 0.4f, 0.6f, 0.9f, 1.0f });
 		Cmd_ClearDepth(cmdList, 1.0f);
 
-
 		cmdList->SetPipelineState(mpPSO->GetDxPipelineStateObject().Get());
 		// We explicitly set the root signature before binding resources to the pipeline... (else runtime error)
 		cmdList->SetGraphicsRootSignature(mpRootSignature.Get());
@@ -95,10 +89,6 @@ namespace Influx
 		Cmd_TargetBackbuffer(cmdList);
 
 		// Update Root Params:
-		/*Matrix4x4 w = Identity4x4();
-		Matrix4x4 v = glm::lookAtLH(Vector3f{0.0f, 0.f, -50.f}, Vector3f{ 0.f, 0.f, 1.f }, Vector3f{ 0.f, 1.f, 0.f });
-		Matrix4x4 p = glm::perspectiveFovLH(45.0f, (float)mConstructDesc.dimensions.x, (float)mConstructDesc.dimensions.y, 0.001f, 10000.f);*/
-
 		using namespace DirectX;
 		DirectX::XMMATRIX w = XMMatrixIdentity();
 		DirectX::XMMATRIX v = XMMatrixLookAtLH({0, 0, -10}, {0, 0, 1}, {0, 1, 0});

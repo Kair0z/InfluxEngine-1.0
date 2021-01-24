@@ -9,6 +9,7 @@
 
 namespace Influx
 {
+	class SwapChain;
 	struct Window
 	{
 	public:

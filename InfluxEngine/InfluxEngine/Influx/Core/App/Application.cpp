@@ -39,6 +39,7 @@ namespace Influx
 	void Application::Initialize(HINSTANCE i)
 	{
 		Vector2u dimensions = { 1280, 720 };
+
 		// Create the window:
 		Window::Desc desc;
 		desc.dimensions = dimensions;
