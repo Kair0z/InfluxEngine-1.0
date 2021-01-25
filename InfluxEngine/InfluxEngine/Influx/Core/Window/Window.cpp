@@ -45,6 +45,8 @@ namespace Influx
 
 		SetWindowIcon("../../InfluxEngine/Resources/Main/Logo.ico", pWindow->mWindowHandle);
 
+		pWindow->mWindowDesc = wDesc;
+
 		return pWindow;
 	}
 
@@ -56,6 +58,11 @@ namespace Influx
 	HWND Window::GetWindowsHandle() const
 	{
 		return mWindowHandle;
+	}
+
+	Window::Desc Window::GetWindowsDesc() const
+	{
+		return mWindowDesc;
 	}
 
 	void Window::SetWindowIcon(const std::string& iconPath, const HWND& windowHandle)

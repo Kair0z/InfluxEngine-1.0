@@ -23,6 +23,7 @@ namespace Influx
 
 		void Show();
 		HWND GetWindowsHandle() const;
+		Desc GetWindowsDesc() const;
 
 		static void SetWindowIcon(const std::string& iconPath, const HWND& windowHandle);
 
@@ -30,6 +31,7 @@ namespace Influx
 		Window() = default;
 
 		HWND mWindowHandle;
+		Window::Desc mWindowDesc;
 
 		static void RegisterWindowClass(HINSTANCE i, const wchar_t* wndClassName);
 		static HWND CreateWindow(HINSTANCE i, const wchar_t* title, const wchar_t* wndClassName, uint32_t w, uint32_t h);

@@ -67,6 +67,13 @@ namespace Influx
 
 	void Application::Update()
 	{
+		mTimer.Tick();
+
+		std::wstring fps = mpWindow->GetWindowsDesc().name;
+		fps += L" | FPS: ";
+		fps += std::to_wstring(mTimer.GetFramesPerSecond());
+		
+		SetWindowText(mpWindow->GetWindowsHandle(), fps.c_str());
 	}
 
 	sPtr<Renderer> Application::GetRenderer() const

@@ -1,6 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include "Influx/Core/Alias.h"
+#include "Influx/Utils/Timer.h"
 
 namespace Influx
 {
@@ -26,6 +27,7 @@ namespace Influx
 
 	private:
 		AppState mState;
+		Timer mTimer;
 
 		sPtr<Window> mpWindow;
 		sPtr<Renderer> mpRenderer;
