@@ -57,6 +57,13 @@ namespace Influx
 	Influx::SwapChain::~SwapChain()
 	{
 		mpDxSwapChain->Release();
+		
+		for (auto buffer : mpBuffers)
+		{
+			buffer->Release();
+		}
+
+		mpRtDescHeap->Release();
 	}
 
 	void SwapChain::Present(UINT syncintv, UINT presentFlags)

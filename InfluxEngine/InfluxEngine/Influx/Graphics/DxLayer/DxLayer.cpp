@@ -334,6 +334,7 @@ namespace Influx
 				allowTear = !FAILED(fac5->CheckFeatureSupport(DXGI_FEATURE_PRESENT_ALLOW_TEARING, &allowTear, sizeof(allowTear)));
 		}
 
+		fac4->Release();
 		return allowTear;
 	}
 	void DxLayer::EnableDebugLayer()
@@ -342,16 +343,19 @@ namespace Influx
 		ID3D12Debug* pDbgInt;
 		ThrowOnFail(D3D12GetDebugInterface(IID_PPV_ARGS(&pDbgInt)));
 		pDbgInt->EnableDebugLayer();
+		pDbgInt->Release();
 #endif
 	}
 
 #include <dxgidebug.h>
+#pragma comment(lib, "dxguid.lib")
+
 	void DxLayer::ReportLiveObjects()
 	{
 		IDXGIDebug1* dxgiDebug;
 		DXGIGetDebugInterface1(0, IID_PPV_ARGS(&dxgiDebug));
 
-		//dxgiDebug->ReportLiveObjects(, DXGI_DEBUG_RLO_IGNORE_INTERNAL);
+		dxgiDebug->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_FLAGS(DXGI_DEBUG_RLO_IGNORE_INTERNAL | DXGI_DEBUG_RLO_DETAIL));
 		dxgiDebug->Release();
 	}
 }

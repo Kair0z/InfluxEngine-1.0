@@ -50,7 +50,7 @@ namespace Influx
 		Gui::Initialize(guiDesc, mpDx->GetDevice().Get());
 
 		// Load external content:
-		LoadContent();
+		//LoadContent();
 
 		mIsInitialized = true;
 	}
@@ -69,35 +69,6 @@ namespace Influx
 		// COMMAND: Clear the rtv of the backbuffer
 		Cmd_ClearRt(cmdList, Vector4f{ 0.4f, 0.6f, 0.9f, 1.0f });
 		Cmd_ClearDepth(cmdList, 1.0f);
-
-		cmdList->SetPipelineState(mpPSO->GetDxPipelineStateObject().Get());
-		// We explicitly set the root signature before binding resources to the pipeline... (else runtime error)
-		cmdList->SetGraphicsRootSignature(mpRootSignature.Get());
-
-		// Set Input assembler:
-		cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		auto vtxBufferView = mpVertexBuffer_Temp->GetView();
-		auto idxBufferView = mpIndexBuffer_Temp->GetView();
-		cmdList->IASetIndexBuffer(&idxBufferView);
-		cmdList->IASetVertexBuffers(0, 1, &vtxBufferView);
-
-		// Set Viewport & ScissorRect
-		cmdList->RSSetViewports(1, &mConstructDesc.mViewport);
-		cmdList->RSSetScissorRects(1, &mConstructDesc.mScissorRect);
-
-		// Set Output Merger: Binding the render target & DepthBuffer:
-		Cmd_TargetBackbuffer(cmdList);
-
-		// Update Root Params:
-		Matrix4x4 w = glm::mat4x4();
-		Matrix4x4 v = glm::lookAtLH(Vector3f{ 0, 0, -10 }, Vector3f{ 0, 0, 1 }, Vector3f{ 0, 1, 0 });
-		Matrix4x4 p = glm::perspectiveFovLH_ZO(45.0f, (float)mConstructDesc.dimensions.x, (float)mConstructDesc.dimensions.y, 0.001f, 100000.0f);
-
-		Matrix4x4 wvp = glm::transpose(w * v * p);
-		cmdList->SetGraphicsRoot32BitConstants(0, sizeof(Matrix4x4), &w, 0);
-
-		// Draw call
-		cmdList->DrawIndexedInstanced(_countof(Temp::gCubeIndicies), 1, 0, 0, 0);
 
 		// COMMAND: Render ImGui DrawData
 		Gui::Cmd_SubmitDrawData(cmdList);
@@ -238,6 +209,12 @@ namespace Influx
 	{
 		// Cleanup Gui:
 		Gui::Cleanup();
+
+		if (mpDxDepthBuffer) mpDxDepthBuffer->Release();
+		if (mpRootSignature) mpRootSignature->Release();
+		if (mpPShaderBlob) mpPShaderBlob->Release();
+		if (mpVShaderBlob) mpVShaderBlob->Release();
+		if (mpDSVHeap) mpDSVHeap->Release();
 	}
 }
 

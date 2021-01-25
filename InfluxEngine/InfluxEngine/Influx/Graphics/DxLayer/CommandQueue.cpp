@@ -46,6 +46,11 @@ namespace Influx
 		// Add List to current queue
 		mCommandListQueue.push(list);
 
+		// The ownership of the command allocator has been transferred to the ComPtr
+		// in the command allocator queue. It is safe to release the reference 
+		// in this temporary COM pointer here.
+		cmdAlloc->Release();
+
 		return fenceValue;
 	}
 	Ptr<ID3D12GraphicsCommandList2> CommandQueue::GetCommandList(comPtr<ID3D12Device2> device)
