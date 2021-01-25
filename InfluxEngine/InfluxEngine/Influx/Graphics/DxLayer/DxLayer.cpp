@@ -115,7 +115,8 @@ namespace Influx
 				}
 			}
 		}
-
+	
+		dxgiFac->Release();
 		return dxgiAdap4;
 	}
 	Ptr<ID3D12Device2> DxLayer::CreateDevice(Ptr<IDXGIAdapter4> adapter)
@@ -198,6 +199,7 @@ namespace Influx
 
 		ThrowOnFail(dxgiFac->MakeWindowAssociation(wndHandle, DXGI_MWA_NO_ALT_ENTER));
 		dxgiSwapChain4 = (Ptr<IDXGISwapChain4>)dxgiSwapChain1;
+		dxgiFac->Release();
 		return dxgiSwapChain4;
 	}
 	Ptr<ID3D12CommandAllocator> DxLayer::CreateCommandAllocator(Ptr<ID3D12Device2> pDevice, D3D12_COMMAND_LIST_TYPE type)

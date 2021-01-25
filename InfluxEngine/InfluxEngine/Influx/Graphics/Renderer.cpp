@@ -50,7 +50,7 @@ namespace Influx
 		Gui::Initialize(guiDesc, mpDx->GetDevice().Get());
 
 		// Load external content:
-		//LoadContent();
+		LoadContent();
 
 		mIsInitialized = true;
 	}
