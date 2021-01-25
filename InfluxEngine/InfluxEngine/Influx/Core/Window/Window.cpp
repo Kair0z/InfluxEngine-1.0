@@ -43,6 +43,8 @@ namespace Influx
 		// Create Windows window:
 		pWindow->mWindowHandle = CreateWindow(hInst, wDesc.name, wClass, wDesc.dimensions.x, wDesc.dimensions.y);
 
+		SetWindowIcon("../../InfluxEngine/Resources/Main/Logo.ico", pWindow->mWindowHandle);
+
 		return pWindow;
 	}
 
@@ -54,6 +56,13 @@ namespace Influx
 	HWND Window::GetWindowsHandle() const
 	{
 		return mWindowHandle;
+	}
+
+	void Window::SetWindowIcon(const std::string& iconPath, const HWND& windowHandle)
+	{
+		HANDLE hIcon = LoadImageA(GetModuleHandle(NULL), iconPath.c_str(), IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE);
+		HWND hWnd = windowHandle ? windowHandle : GetActiveWindow();
+		SendMessage(hWnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
 	}
 
 	void Window::RegisterWindowClass(HINSTANCE i, const wchar_t* wndClassName)

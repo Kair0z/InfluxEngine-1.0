@@ -100,8 +100,8 @@ namespace Influx
 		mpIndexBuffer_Temp->Upload(cmdList, device, Temp::gCubeIndicies, _countof(Temp::gCubeIndicies));
 
 		// Load Shaders:
-		auto vsFile = L"../../InfluxEngine/Shaders/DefaultVertexShader.hlsl";
-		auto psFile = L"../../InfluxEngine/Shaders/DefaultPixelShader.hlsl";
+		auto vsFile = L"../../InfluxEngine/Resources/Shaders/DefaultVertexShader.hlsl";
+		auto psFile = L"../../InfluxEngine/Resources/Shaders/DefaultPixelShader.hlsl";
 
 		DxLayer::CompileShader(vsFile, "VS_Main", "vs_5_1", &mpVShaderBlob);
 		DxLayer::CompileShader(psFile, "PS_Main", "ps_5_1", &mpPShaderBlob);
