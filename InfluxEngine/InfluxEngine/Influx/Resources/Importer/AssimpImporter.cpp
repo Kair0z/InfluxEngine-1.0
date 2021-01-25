@@ -5,7 +5,6 @@
 #include "assimp/scene.h"
 #include "assimp/mesh.h"
 
-#include "Influx/Resources/Mesh/Mesh.h"
 #include "Influx/Scene/SceneBuilder.h"
 
 namespace Influx
@@ -41,16 +40,6 @@ namespace Influx
 		{
 			const aiMesh* pAiMesh = pScene->mMeshes[i];
 			const uint32_t perFaceIdxCount = pAiMesh->mFaces[0].mNumIndices;
-
-			Mesh mesh;
-			mesh.mName = pAiMesh->mName.C_Str();
-			mesh.mStats.faceCount = pAiMesh->mNumFaces;
-
-			// Load vertexData
-			assert(pAiMesh->mVertices);
-			mesh.mStats.vertexCount = pAiMesh->mNumVertices;
-			mesh.mData.mpPositions = reinterpret_cast<Vector3f*>(pAiMesh->mNormals);
-			mesh.mData.mpNormals = reinterpret_cast<Vector3f*>(pAiMesh->mVertices);
 		}
 
 		return true;
