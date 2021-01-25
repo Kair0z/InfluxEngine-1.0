@@ -154,6 +154,10 @@
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs\Assimp\x64\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -177,6 +181,10 @@
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs\Assimp\x64\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Influx\Graphics\DxLayer\IndexBuffer.h" />

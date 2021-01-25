@@ -24,6 +24,8 @@ namespace Influx
 		void Show();
 		HWND GetWindowsHandle() const;
 
+		static void SetWindowIcon(const std::string& iconPath, const HWND& windowHandle);
+
 	private:
 		Window() = default;
 
