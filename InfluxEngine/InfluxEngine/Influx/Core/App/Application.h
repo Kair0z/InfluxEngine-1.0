@@ -10,6 +10,11 @@ namespace Influx
 
 	class Application
 	{
+		enum class AppState
+		{
+			None, Uninitialized, Running
+		};
+
 	private:
 		// Inheritable events:
 		virtual void OnStart() {};
@@ -19,11 +24,6 @@ namespace Influx
 		virtual void OnMouseEvent() {};
 
 		virtual void OnGuiRender() const {};
-
-		enum class AppState
-		{
-			None, Uninitialized, Running
-		};
 
 	private:
 		AppState mState;
