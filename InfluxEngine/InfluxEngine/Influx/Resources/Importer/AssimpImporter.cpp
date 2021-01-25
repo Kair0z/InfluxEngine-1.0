@@ -10,7 +10,7 @@
 
 namespace Influx
 {
-	bool AssimpImporter::Import(const std::string& file, SceneBuilder& builder)
+	bool AssimpImporter::Import(const std::string& file, Scene& builder)
 	{
 		// TODO: Manage finding files by name
 		std::string fullpath = file;
