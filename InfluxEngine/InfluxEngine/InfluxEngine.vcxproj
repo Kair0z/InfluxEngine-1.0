@@ -250,8 +250,8 @@
     <ClInclude Include="Influx\Graphics\DxLayer\PipelineState.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\SwapChain.h" />
     <ClInclude Include="Influx\Graphics\Gui\Widgets\Widgets.h" />
-    <ClInclude Include="Influx\Scene\SceneBuilder.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\Shaders\Shader.h" />
+    <ClInclude Include="Influx\Scene\SceneBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Influx\Graphics\DxLayer\IndexBuffer.cpp" />
@@ -340,8 +340,8 @@
     <ClCompile Include="Influx\Graphics\DxLayer\PipelineState.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\SwapChain.cpp" />
     <ClCompile Include="Influx\Graphics\Gui\Widgets\Widgets.cpp" />
-    <ClCompile Include="Influx\Scene\SceneBuilder.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\Shaders\Shader.cpp" />
+    <ClCompile Include="Influx\Scene\SceneBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Influx\Graphics\DxLayer\VertexBuffer.cpp" />

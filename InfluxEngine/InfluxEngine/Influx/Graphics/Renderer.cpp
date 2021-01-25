@@ -89,13 +89,12 @@ namespace Influx
 		Cmd_TargetBackbuffer(cmdList);
 
 		// Update Root Params:
-		using namespace DirectX;
-		DirectX::XMMATRIX w = XMMatrixIdentity();
-		DirectX::XMMATRIX v = XMMatrixLookAtLH({0, 0, -10}, {0, 0, 1}, {0, 1, 0});
-		DirectX::XMMATRIX p = XMMatrixPerspectiveFovLH(45.0f, (float)mConstructDesc.dimensions.x / (float)mConstructDesc.dimensions.y, 0.001f, 10000.0f);
+		Matrix4x4 w = glm::mat4x4();
+		Matrix4x4 v = glm::lookAtLH(Vector3f{ 0, 0, -10 }, Vector3f{ 0, 0, 1 }, Vector3f{ 0, 1, 0 });
+		Matrix4x4 p = glm::perspectiveFovLH_ZO(45.0f, (float)mConstructDesc.dimensions.x, (float)mConstructDesc.dimensions.y, 0.001f, 100000.0f);
 
-		XMMATRIX wvp = w * v * p;
-		cmdList->SetGraphicsRoot32BitConstants(0, sizeof(XMMATRIX) / 4, &wvp, 0);
+		Matrix4x4 wvp = glm::transpose(w * v * p);
+		cmdList->SetGraphicsRoot32BitConstants(0, sizeof(Matrix4x4), &w, 0);
 
 		// Draw call
 		cmdList->DrawIndexedInstanced(_countof(Temp::gCubeIndicies), 1, 0, 0, 0);
@@ -147,7 +146,7 @@ namespace Influx
 
 		// A single 32-bit constant root parameter that is used by the vertex shader. (WVP matrix)
 		CD3DX12_ROOT_PARAMETER1 rootParameters[1];
-		rootParameters[0].InitAsConstants(sizeof(DirectX::XMMATRIX) / 4, 0, 0, D3D12_SHADER_VISIBILITY_VERTEX);
+		rootParameters[0].InitAsConstants(sizeof(Matrix4x4), 0, 0, D3D12_SHADER_VISIBILITY_VERTEX);
 
 		auto rsDesc = DxLayer::CreateRootSignatureDesc(rootParameters, rootSignatureFlags);
 		mpRootSignature = DxLayer::CreateRootSignature(mpDx->GetDevice().Get(), &rsDesc);

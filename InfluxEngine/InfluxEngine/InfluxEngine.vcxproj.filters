@@ -30,10 +30,10 @@
     <ClInclude Include="Influx\Core\Utils\Action.h" />
     <ClInclude Include="Influx\Graphics\Gui\Widgets\DemoWidget.h" />
     <ClInclude Include="Influx\Graphics\Gui\Widgets\Widgets.h" />
-    <ClInclude Include="Influx\Scene\SceneBuilder.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\IndexBuffer.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\VertexBuffer.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\Shaders\Shader.h" />
+    <ClInclude Include="Influx\Scene\SceneBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Influx\Scene\Scene.cpp" />
@@ -58,9 +58,9 @@
     <ClCompile Include="Influx\Core\Utils\Action.cpp" />
     <ClCompile Include="Influx\Graphics\Gui\Widgets\DemoWidget.cpp" />
     <ClCompile Include="Influx\Graphics\Gui\Widgets\Widgets.cpp" />
-    <ClCompile Include="Influx\Scene\SceneBuilder.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\IndexBuffer.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\Shaders\Shader.cpp" />
+    <ClCompile Include="Influx\Scene\SceneBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Influx\Graphics\DxLayer\VertexBuffer.cpp" />

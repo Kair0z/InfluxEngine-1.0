@@ -12,6 +12,8 @@
 namespace Influx
 {
 	// Defining 'our' math structs
+
+	// Vector
 	using Vector2f = glm::vec2;
 	using Vector2d = glm::dvec2;
 	using Vector2u = glm::uvec2;
@@ -27,9 +29,15 @@ namespace Influx
 	using Vector4u = glm::uvec4;
 	using Vector4i = glm::ivec4;
 
+	// Matrix
 	using Matrix2x2 = glm::mat2x2;
 	using Matrix3x3 = glm::mat3x3;
 	using Matrix4x4 = glm::mat4x4;
 
 	inline Matrix4x4 Identity4x4() { return Matrix4x4(1.0); }
+
+
+	
+
+	
 }
