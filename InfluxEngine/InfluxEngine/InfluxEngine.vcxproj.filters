@@ -4,7 +4,6 @@
     <ClInclude Include="Influx.h" />
     <ClInclude Include="Influx\Scene\Scene.h" />
     <ClInclude Include="Influx\Math\Math.h" />
-    <ClInclude Include="Influx\Resources\Mesh\Mesh.h" />
     <ClInclude Include="Influx\Resources\Mesh\Vertex.h" />
     <ClInclude Include="Influx\Core\App\Application.h" />
     <ClInclude Include="Influx\Resources\Importer\AssimpImporter.h" />
@@ -34,10 +33,12 @@
     <ClInclude Include="Influx\Graphics\DxLayer\VertexBuffer.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\Shaders\Shader.h" />
     <ClInclude Include="Influx\Scene\SceneBuilder.h" />
+    <ClInclude Include="Influx\Resources\ResourceManagement\ILoader.h" />
+    <ClInclude Include="Influx\Resources\ResourceManagement\Loading.h" />
+    <ClInclude Include="Influx\Resources\ResourceManagement\ResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Influx\Scene\Scene.cpp" />
-    <ClCompile Include="Influx\Resources\Mesh\Mesh.cpp" />
     <ClCompile Include="Influx\Resources\Mesh\Vertex.cpp" />
     <ClCompile Include="Influx\Core\App\Application.cpp" />
     <ClCompile Include="Influx\Resources\Importer\AssimpImporter.cpp" />
