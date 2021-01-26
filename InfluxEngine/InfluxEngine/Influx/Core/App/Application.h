@@ -26,15 +26,10 @@ namespace Influx
 		virtual void OnGuiRender() const {};
 
 	private:
-<<<<<<< Updated upstream
-		AppState mState;
-		Timer mTimer;
-
-=======
->>>>>>> Stashed changes
 		sPtr<Window> mpWindow;
 		sPtr<Renderer> mpRenderer;
 
+		Timer mTimer;
 		AppState mState;
 
 		void Initialize(HINSTANCE i);

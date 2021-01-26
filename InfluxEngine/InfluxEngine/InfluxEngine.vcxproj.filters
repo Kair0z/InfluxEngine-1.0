@@ -1,23 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Influx.h" />
-    <ClInclude Include="Influx\Scene\Scene.h" />
-    <ClInclude Include="Influx\Math\Math.h" />
-    <ClInclude Include="Influx\Resources\Mesh\Vertex.h" />
-    <ClInclude Include="Influx\Core\App\Application.h" />
-    <ClInclude Include="Influx\Resources\Importer\AssimpImporter.h" />
-    <ClInclude Include="Influx\Core\Alias.h" />
-    <ClInclude Include="Influx\Core\Entrypoint.h" />
-    <ClInclude Include="Influx\Core\Window\Window.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="Influx\Core\Defines.h" />
-    <ClInclude Include="Influx\Graphics\DxLayer\CommandQueue.h" />
-    <ClInclude Include="Influx\Graphics\DxLayer\DxLayer.h" />
-    <ClInclude Include="Influx\Graphics\DxLayer\PipelineState.h" />
-    <ClInclude Include="Influx\Graphics\DxLayer\SwapChain.h" />
-    <ClInclude Include="Influx\Graphics\Renderer.h" />
-    <ClInclude Include="Influx\Graphics\Gui\Gui.h" />
+    <ClCompile Include="Influx\Graphics\DxLayer\IndexBuffer.cpp" />
+    <ClCompile Include="Influx\Graphics\Gui\Widgets\DemoWidget.cpp" />
+    <ClCompile Include="Influx\Core\Utils\Action.cpp" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui\imgui_impl_dx12.cpp" />
+    <ClCompile Include="imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui\imgui_tables.cpp" />
+    <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Influx\Graphics\Gui\Gui.cpp" />
+    <ClCompile Include="Influx\Graphics\DxLayer\CommandQueue.cpp" />
+    <ClCompile Include="Influx\Core\App\Application.cpp" />
+    <ClCompile Include="Influx\Graphics\DxLayer\DxLayer.cpp" />
+    <ClCompile Include="Influx\Resources\Importer\AssimpImporter.cpp" />
+    <ClCompile Include="Influx\Scene\Scene.cpp" />
+    <ClCompile Include="Influx\Resources\Mesh\Vertex.cpp" />
+    <ClCompile Include="Influx\Core\Window\Window.cpp" />
+    <ClCompile Include="Influx\Graphics\Renderer.cpp" />
+    <ClCompile Include="Influx\Graphics\DxLayer\PipelineState.cpp" />
+    <ClCompile Include="Influx\Graphics\DxLayer\SwapChain.cpp" />
+    <ClCompile Include="Influx\Graphics\Gui\Widgets\Widgets.cpp" />
+    <ClCompile Include="Influx\Graphics\DxLayer\Shaders\Shader.cpp" />
+    <ClCompile Include="Influx\Scene\SceneBuilder.cpp" />
+    <ClCompile Include="Influx\Core\Utils\Timer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Influx\Graphics\DxLayer\IndexBuffer.h" />
+    <ClInclude Include="Influx\Graphics\DxLayer\VertexBuffer.h" />
+    <ClInclude Include="Influx\Graphics\Gui\Widgets\DemoWidget.h" />
+    <ClInclude Include="Influx\Core\Utils\Action.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_dx12.h" />
@@ -26,52 +40,30 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
-    <ClInclude Include="Influx\Core\Utils\Action.h" />
-    <ClInclude Include="Influx\Graphics\Gui\Widgets\DemoWidget.h" />
-    <ClInclude Include="Influx\Graphics\Gui\Widgets\Widgets.h" />
-    <ClInclude Include="Influx\Graphics\DxLayer\IndexBuffer.h" />
-    <ClInclude Include="Influx\Graphics\DxLayer\VertexBuffer.h" />
-    <ClInclude Include="Influx\Graphics\DxLayer\Shaders\Shader.h" />
-    <ClInclude Include="Influx\Scene\SceneBuilder.h" />
+    <ClInclude Include="Influx\Graphics\Gui\Gui.h" />
+    <ClInclude Include="Influx\Core\Defines.h" />
+    <ClInclude Include="Influx\Graphics\DxLayer\CommandQueue.h" />
+    <ClInclude Include="Influx\Core\App\Application.h" />
+    <ClInclude Include="Influx\Core\Alias.h" />
+    <ClInclude Include="Influx\Core\Entrypoint.h" />
+    <ClInclude Include="Influx\Graphics\DxLayer\DxLayer.h" />
+    <ClInclude Include="Influx\Resources\Importer\AssimpImporter.h" />
+    <ClInclude Include="Influx.h" />
+    <ClInclude Include="Influx\Math\Math.h" />
+    <ClInclude Include="Influx\Resources\ResourceManagement\ResourceManager.h" />
     <ClInclude Include="Influx\Resources\ResourceManagement\ILoader.h" />
     <ClInclude Include="Influx\Resources\ResourceManagement\Loading.h" />
-    <ClInclude Include="Influx\Resources\ResourceManagement\ResourceManager.h" />
-<<<<<<< Updated upstream
+    <ClInclude Include="Influx\Scene\Scene.h" />
+    <ClInclude Include="Influx\Resources\Mesh\Vertex.h" />
+    <ClInclude Include="Influx\Core\Window\Window.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Influx\Graphics\Renderer.h" />
+    <ClInclude Include="Influx\Graphics\DxLayer\PipelineState.h" />
+    <ClInclude Include="Influx\Graphics\DxLayer\SwapChain.h" />
+    <ClInclude Include="Influx\Graphics\Gui\Widgets\Widgets.h" />
+    <ClInclude Include="Influx\Graphics\DxLayer\Shaders\Shader.h" />
+    <ClInclude Include="Influx\Scene\SceneBuilder.h" />
     <ClInclude Include="Influx\Core\Utils\Timer.h" />
-=======
-    <ClInclude Include="Influx\Graphics\DxLayer\Experimental\UploadBuffer.h" />
->>>>>>> Stashed changes
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Influx\Scene\Scene.cpp" />
-    <ClCompile Include="Influx\Resources\Mesh\Vertex.cpp" />
-    <ClCompile Include="Influx\Core\App\Application.cpp" />
-    <ClCompile Include="Influx\Resources\Importer\AssimpImporter.cpp" />
-    <ClCompile Include="Influx\Core\Window\Window.cpp" />
-    <ClCompile Include="Influx\Graphics\DxLayer\CommandQueue.cpp" />
-    <ClCompile Include="Influx\Graphics\DxLayer\DxLayer.cpp" />
-    <ClCompile Include="Influx\Graphics\DxLayer\PipelineState.cpp" />
-    <ClCompile Include="Influx\Graphics\DxLayer\SwapChain.cpp" />
-    <ClCompile Include="Influx\Graphics\Renderer.cpp" />
-    <ClCompile Include="Influx\Graphics\Gui\Gui.cpp" />
-    <ClCompile Include="imgui\imgui.cpp" />
-    <ClCompile Include="imgui\imgui_demo.cpp" />
-    <ClCompile Include="imgui\imgui_draw.cpp" />
-    <ClCompile Include="imgui\imgui_impl_dx12.cpp" />
-    <ClCompile Include="imgui\imgui_impl_win32.cpp" />
-    <ClCompile Include="imgui\imgui_tables.cpp" />
-    <ClCompile Include="imgui\imgui_widgets.cpp" />
-    <ClCompile Include="Influx\Core\Utils\Action.cpp" />
-    <ClCompile Include="Influx\Graphics\Gui\Widgets\DemoWidget.cpp" />
-    <ClCompile Include="Influx\Graphics\Gui\Widgets\Widgets.cpp" />
-    <ClCompile Include="Influx\Graphics\DxLayer\IndexBuffer.cpp" />
-    <ClCompile Include="Influx\Graphics\DxLayer\Shaders\Shader.cpp" />
-    <ClCompile Include="Influx\Scene\SceneBuilder.cpp" />
-<<<<<<< Updated upstream
-    <ClCompile Include="Influx\Core\Utils\Timer.cpp" />
-=======
-    <ClCompile Include="Influx\Graphics\DxLayer\Experimental\UploadBuffer.cpp" />
->>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <None Include="Influx\Graphics\DxLayer\VertexBuffer.cpp" />

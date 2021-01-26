@@ -262,11 +262,7 @@
     <ClInclude Include="Influx\Graphics\Gui\Widgets\Widgets.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\Shaders\Shader.h" />
     <ClInclude Include="Influx\Scene\SceneBuilder.h" />
-<<<<<<< Updated upstream
     <ClInclude Include="Influx\Core\Utils\Timer.h" />
-=======
-    <ClInclude Include="Influx\Graphics\DxLayer\Experimental\UploadBuffer.h" />
->>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Influx\Graphics\DxLayer\IndexBuffer.cpp" />
@@ -356,11 +352,7 @@
     <ClCompile Include="Influx\Graphics\Gui\Widgets\Widgets.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\Shaders\Shader.cpp" />
     <ClCompile Include="Influx\Scene\SceneBuilder.cpp" />
-<<<<<<< Updated upstream
     <ClCompile Include="Influx\Core\Utils\Timer.cpp" />
-=======
-    <ClCompile Include="Influx\Graphics\DxLayer\Experimental\UploadBuffer.cpp" />
->>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <None Include="Influx\Graphics\DxLayer\VertexBuffer.cpp" />
