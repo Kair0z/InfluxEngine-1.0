@@ -17,7 +17,7 @@ namespace Influx
 		static void Initialize(const Dx12Impl_Desc& dxDesc, ID3D12Device* device);
 
 		static void Render();
-		static void Cmd_SubmitDrawData(ID3D12GraphicsCommandList* cmdList);
+		static void SubmitDrawData(ID3D12GraphicsCommandList* cmdList);
 
 		static void Cleanup();
 

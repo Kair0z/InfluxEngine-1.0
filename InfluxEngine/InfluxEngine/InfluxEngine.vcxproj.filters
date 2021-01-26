@@ -19,7 +19,6 @@
     <ClCompile Include="Influx\Scene\Scene.cpp" />
     <ClCompile Include="Influx\Resources\Mesh\Vertex.cpp" />
     <ClCompile Include="Influx\Core\Window\Window.cpp" />
-    <ClCompile Include="Influx\Graphics\Renderer.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\PipelineState.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\SwapChain.cpp" />
     <ClCompile Include="Influx\Graphics\Gui\Widgets\Widgets.cpp" />
@@ -27,6 +26,7 @@
     <ClCompile Include="Influx\Scene\SceneBuilder.cpp" />
     <ClCompile Include="Influx\Core\Utils\Timer.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\Fbo\FrameBuffer.cpp" />
+    <ClCompile Include="Influx\Core\Utils\ServiceLocator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Influx\Graphics\DxLayer\IndexBuffer.h" />
@@ -58,7 +58,6 @@
     <ClInclude Include="Influx\Resources\Mesh\Vertex.h" />
     <ClInclude Include="Influx\Core\Window\Window.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Influx\Graphics\Renderer.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\PipelineState.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\SwapChain.h" />
     <ClInclude Include="Influx\Graphics\Gui\Widgets\Widgets.h" />
@@ -66,6 +65,7 @@
     <ClInclude Include="Influx\Scene\SceneBuilder.h" />
     <ClInclude Include="Influx\Core\Utils\Timer.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\Fbo\FrameBuffer.h" />
+    <ClInclude Include="Influx\Core\Utils\ServiceLocator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Influx\Graphics\DxLayer\VertexBuffer.cpp" />

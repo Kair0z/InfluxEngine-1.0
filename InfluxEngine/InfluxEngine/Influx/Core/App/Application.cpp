@@ -33,8 +33,7 @@ namespace Influx
 			// Update:
 			Update();
 
-			// Render:
-			mpRenderer->Render();
+			// [TODO] main render loop
 		}
 	}
 
@@ -46,25 +45,18 @@ namespace Influx
 		Window::Desc desc;
 		desc.dimensions = dimensions;
 		desc.name = L"Influx Demo";
-
 		mpWindow = Window::Create(desc, i);
 
 		// Show the window:
 		mpWindow->Show();
 
-		// Create the renderer:
-		Renderer::Desc renderDesc;
-		renderDesc.dimensions = dimensions;
-		renderDesc.vSync = true;
-		renderDesc.tearingSupported = false;
-		renderDesc.windowHandle = mpWindow->GetWindowsHandle();
-		renderDesc.mScissorRect = CD3DX12_RECT(0, 0, LONG_MAX, LONG_MAX);
-		renderDesc.mViewport = CD3DX12_VIEWPORT(0.0f, 0.0f, float(dimensions.x), float(dimensions.y));
-		mpRenderer = Renderer::Create(renderDesc);
-		mpRenderer->Initialize();
+		// Setup DxLayer:
+		DxLayer::Desc dxDesc;
+		dxDesc.mUseWarp = true;
+		mpDx = sPtr<DxLayer>(DxLayer::LoadDX12(dxDesc));
 
-		// Subscribe to Gui Callback:
-		Gui::ListenOnRender(std::bind(&Application::OnGuiRender, this));
+		// Setup window Swapchain:
+		//mpWindow->SetupSwapChain(mpDx->GetDevice());
 	}
 
 	void Application::Update()
@@ -78,10 +70,5 @@ namespace Influx
 		
 		//Set windows top border text
 		SetWindowText(mpWindow->GetWindowsHandle(), fps.c_str());
-	}
-
-	sPtr<Renderer> Application::GetRenderer() const
-	{
-		return mpRenderer;
 	}
 }

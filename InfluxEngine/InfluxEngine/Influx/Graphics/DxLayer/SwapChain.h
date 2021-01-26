@@ -17,7 +17,7 @@ namespace Influx
 			Vector2u dimensions;
 			uint8_t bufferCount;
 		};
-		static sPtr<SwapChain> Create(const Desc& desc, comPtr<ID3D12CommandQueue> commandQueue, comPtr<ID3D12Device2> device);
+		static sPtr<SwapChain> Create(const Desc& desc, comPtr<ID3D12CommandQueue> commandQueue, comPtr<ID3D12Device> device);
 
 		~SwapChain();
 

@@ -111,6 +111,7 @@ namespace Influx
 	sPtr<Window> Window::Create(const Desc& wDesc, HINSTANCE hInst)
 	{
 		sPtr<Window> pWindow = sPtr<Window>(new Window());
+		pWindow->mWindowDesc = wDesc;
 
 		// Register window class:
 		const wchar_t* wClass = L"DX12WindowClass";
@@ -118,10 +119,7 @@ namespace Influx
 
 		// Create Windows window:
 		pWindow->mWindowHandle = CreateWindow(hInst, wDesc.name, wClass, wDesc.dimensions.x, wDesc.dimensions.y);
-
 		SetWindowIcon("../../InfluxEngine/Resources/Main/Logo.ico", pWindow->mWindowHandle);
-
-		pWindow->mWindowDesc = wDesc;
 
 		return pWindow;
 	}
@@ -139,6 +137,18 @@ namespace Influx
 	Window::Desc Window::GetWindowsDesc() const
 	{
 		return mWindowDesc;
+	}
+
+	sPtr<SwapChain> Window::SetupSwapChain(comPtr<ID3D12Device> device, const uint8_t bufferCount)
+	{
+		// Create Swapchain:
+		SwapChain::Desc swapDesc{};
+		swapDesc.bufferCount = bufferCount;
+		swapDesc.dimensions = mWindowDesc.dimensions;
+		swapDesc.windowHandle = mWindowHandle;
+
+		mpSwapChain = SwapChain::Create(swapDesc, nullptr, device);
+		return mpSwapChain;
 	}
 
 	void Window::SetWindowIcon(const std::string& iconPath, const HWND& windowHandle)

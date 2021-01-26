@@ -41,7 +41,7 @@ namespace Influx
 		Desc mConstructDesc;
 
 		// Dx-Related Stuff
-		sPtr<DxLayer> mpDx;
+		
 		sPtr<SwapChain> mpSwapChain; // Swap Chain:
 
 		comPtr<ID3D12RootSignature> mpRootSignature;

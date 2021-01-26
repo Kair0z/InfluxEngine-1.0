@@ -25,6 +25,7 @@ namespace Influx
 		HWND GetWindowsHandle() const;
 		Desc GetWindowsDesc() const;
 
+		sPtr<SwapChain> SetupSwapChain(comPtr<ID3D12Device> device, const uint8_t buffercount = 3);
 		static void SetWindowIcon(const std::string& iconPath, const HWND& windowHandle);
 
 	private:
@@ -33,6 +34,9 @@ namespace Influx
 		HWND mWindowHandle;
 		Window::Desc mWindowDesc;
 
+		sPtr<SwapChain> mpSwapChain;
+
+	private:
 		static void RegisterWindowClass(HINSTANCE i, const wchar_t* wndClassName);
 		static HWND CreateWindow(HINSTANCE i, const wchar_t* title, const wchar_t* wndClassName, uint32_t w, uint32_t h);
 	};

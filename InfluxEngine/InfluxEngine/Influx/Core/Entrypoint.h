@@ -13,6 +13,10 @@ int CALLBACK wWinMain(HINSTANCE i, HINSTANCE, PWSTR, int)
 	{
 		// Declared in App class... Defined in inheriting application project!
 		sPtr<Application> app = Application::Create();
+
+		// Load the app inside the Service locator
+		LocateApp::Load(app);
+
 		app->Run(i);
 	}
 

@@ -4,7 +4,7 @@
 
 namespace Influx
 {
-	sPtr<SwapChain> SwapChain::Create(const Desc& desc, comPtr<ID3D12CommandQueue> commandQueue, comPtr<ID3D12Device2> device)
+	sPtr<SwapChain> SwapChain::Create(const Desc& desc, comPtr<ID3D12CommandQueue> commandQueue, comPtr<ID3D12Device> device)
 	{
 		sPtr<SwapChain> swapChain(new SwapChain());
 

@@ -2,6 +2,7 @@
 #include "Gui.h"
 
 #include "../DxLayer/DxLayer.h"
+#include "Influx/Core/App/Application.h"
 
 namespace Influx
 {
@@ -39,7 +40,7 @@ namespace Influx
 		ImGui::Render();
 	}
 
-	void Gui::Cmd_SubmitDrawData(ID3D12GraphicsCommandList* cmdList)
+	void Gui::SubmitDrawData(ID3D12GraphicsCommandList* cmdList)
 	{
 		cmdList->SetDescriptorHeaps(1, &spFontSrvDescHeap);
 		ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), cmdList);

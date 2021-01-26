@@ -1,14 +1,14 @@
 #pragma once
 #include <Windows.h>
-#include "Influx/Core/Alias.h"
 #include "Influx/Core/Utils/Timer.h"
 
 namespace Influx
 {
 	struct Window;
 	class Renderer;
+	struct DxLayer;
 
-	class Application
+	class Application 
 	{
 		enum class AppState
 		{
@@ -27,7 +27,7 @@ namespace Influx
 
 	private:
 		sPtr<Window> mpWindow;
-		sPtr<Renderer> mpRenderer;
+		sPtr<DxLayer> mpDx;
 
 		Timer mTimer;
 		AppState mState;
@@ -36,13 +36,11 @@ namespace Influx
 		void Update();
 
 	public:
-		static sPtr<Application> Create(); // define in client project
-
+		static sPtr<Application> Create(); // This gets defined in client project
 		void Run(HINSTANCE i);
-
-	protected:
-		sPtr<Renderer> GetRenderer() const;
 	};
 }
 
+#include "Influx/Core/Utils/ServiceLocator.h"
+class LocateApp : public Influx::ServiceLocator<Influx::Application> {};
 
