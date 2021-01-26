@@ -136,6 +136,34 @@ namespace Influx
 
 			//pInfoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, TRUE);
 		}
+
+
+		//Supress whole categories of warning messages [REV]
+		D3D12_MESSAGE_SEVERITY serverities[] =
+		{
+			D3D12_MESSAGE_SEVERITY_INFO,
+			D3D12_MESSAGE_SEVERITY_WARNING
+		};
+
+		//Supress individual messages [REV]
+		D3D12_MESSAGE_ID denyIds[] = {
+			D3D12_MESSAGE_ID_CLEARRENDERTARGETVIEW_MISMATCHINGCLEARVALUE,   // I'm really not sure how to avoid this message.
+			D3D12_MESSAGE_ID_MAP_INVALID_NULLRANGE,                         // This warning occurs when using capture frame while graphics debugging.
+			D3D12_MESSAGE_ID_UNMAP_INVALID_NULLRANGE,
+		};
+
+		//Create filter description [REV]
+		D3D12_INFO_QUEUE_FILTER NewFilter = {};
+		//NewFilter.DenyList.NumCategories = _countof(Categories);
+		//NewFilter.DenyList.pCategoryList = Categories;
+		NewFilter.DenyList.NumSeverities = _countof(serverities);
+		NewFilter.DenyList.pSeverityList = serverities;
+		NewFilter.DenyList.NumIDs = _countof(denyIds);
+		NewFilter.DenyList.pIDList = denyIds;
+
+		//Apply filter
+		ThrowOnFail(pInfoQueue->PushStorageFilter(&NewFilter));
+
 #endif
 	}
 
