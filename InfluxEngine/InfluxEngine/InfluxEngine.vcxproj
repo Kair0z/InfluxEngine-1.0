@@ -264,6 +264,7 @@
     <ClInclude Include="Influx\Scene\SceneBuilder.h" />
     <ClInclude Include="Influx\Core\Utils\Timer.h" />
     <ClInclude Include="Influx\Core\Utils\ServiceLocator.h" />
+    <ClInclude Include="Influx\Core\App\QueueManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Influx\Graphics\DxLayer\Fbo\FrameBuffer.cpp" />
@@ -355,6 +356,7 @@
     <ClCompile Include="Influx\Scene\SceneBuilder.cpp" />
     <ClCompile Include="Influx\Core\Utils\Timer.cpp" />
     <ClCompile Include="Influx\Core\Utils\ServiceLocator.cpp" />
+    <ClCompile Include="Influx\Core\App\QueueManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Influx\Graphics\DxLayer\VertexBuffer.cpp" />

@@ -139,7 +139,7 @@ namespace Influx
 		return mWindowDesc;
 	}
 
-	sPtr<SwapChain> Window::SetupSwapChain(comPtr<ID3D12Device> device, const uint8_t bufferCount)
+	sPtr<SwapChain> Window::SetupSwapChain(comPtr<ID3D12Device> device, comPtr<ID3D12CommandQueue> cmdQueue, const uint8_t bufferCount)
 	{
 		// Create Swapchain:
 		SwapChain::Desc swapDesc{};
@@ -147,7 +147,7 @@ namespace Influx
 		swapDesc.dimensions = mWindowDesc.dimensions;
 		swapDesc.windowHandle = mWindowHandle;
 
-		mpSwapChain = SwapChain::Create(swapDesc, nullptr, device);
+		mpSwapChain = SwapChain::Create(swapDesc, cmdQueue, device);
 		return mpSwapChain;
 	}
 

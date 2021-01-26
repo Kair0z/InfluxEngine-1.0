@@ -3,7 +3,9 @@
 
 #include "Influx/Core/Window/Window.h"
 #include "Influx/Graphics/Renderer.h"
+#include "Influx/Graphics/DxLayer/CommandQueue.h"
 #include "Influx/Graphics/Gui/Gui.h"
+#include "QueueManager.h"
 
 namespace Influx
 {
@@ -31,7 +33,7 @@ namespace Influx
 			}
 
 			// Update:
-			Update();
+			//Update();
 
 			// [TODO] main render loop
 		}
@@ -53,10 +55,14 @@ namespace Influx
 		// Setup DxLayer:
 		DxLayer::Desc dxDesc;
 		dxDesc.mUseWarp = true;
-		mpDx = sPtr<DxLayer>(DxLayer::LoadDX12(dxDesc));
+		mpDx = DxLayer::LoadDX12(dxDesc);
+
+		// Initialize our command queues:
+		mpQueueManager = QueueManager::CreateQueues(mpDx->GetDevice());
 
 		// Setup window Swapchain:
-		//mpWindow->SetupSwapChain(mpDx->GetDevice());
+		mpWindow->SetupSwapChain(mpDx->GetDevice(), 
+			mpQueueManager->GetQueue(QueueManager::QueueTag::Direct)->GetDxCommandQueue());
 	}
 
 	void Application::Update()

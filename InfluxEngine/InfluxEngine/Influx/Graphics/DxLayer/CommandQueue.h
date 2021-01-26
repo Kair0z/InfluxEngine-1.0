@@ -14,7 +14,7 @@ namespace Influx
 	{
 	public:
 		struct Desc { D3D12_COMMAND_LIST_TYPE type; };
-		static sPtr<CommandQueue> Create(comPtr<ID3D12Device2> device, const Desc& desc);
+		static sPtr<CommandQueue> Create(comPtr<ID3D12Device> device, const Desc& desc);
 		~CommandQueue();
 
 		// Returns a fresh command list in recording state [no need for resetting]

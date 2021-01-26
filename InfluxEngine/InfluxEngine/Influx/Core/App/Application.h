@@ -7,6 +7,7 @@ namespace Influx
 	struct Window;
 	class Renderer;
 	struct DxLayer;
+	class QueueManager;
 
 	class Application 
 	{
@@ -28,11 +29,13 @@ namespace Influx
 	private:
 		sPtr<Window> mpWindow;
 		sPtr<DxLayer> mpDx;
+		sPtr<QueueManager> mpQueueManager;
 
 		Timer mTimer;
 		AppState mState;
 
 		void Initialize(HINSTANCE i);
+
 		void Update();
 
 	public:

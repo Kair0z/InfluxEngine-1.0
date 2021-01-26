@@ -3,9 +3,9 @@
 
 namespace Influx
 {
-	Ptr<DxLayer> DxLayer::LoadDX12(const Desc& desc)
+	sPtr<DxLayer> DxLayer::LoadDX12(const Desc& desc)
 	{
-		Ptr<DxLayer> layer = new DxLayer();
+		sPtr<DxLayer> layer(new DxLayer());
 
 		layer->mpAdapter = comPtr<IDXGIAdapter4>(FindAdapter(desc.mUseWarp));
 		layer->mpDevice = comPtr<ID3D12Device2>(CreateDevice(layer->mpAdapter.Get()));
@@ -80,27 +80,26 @@ namespace Influx
 	// Fundamentals:
 	Ptr<IDXGIAdapter4> DxLayer::FindAdapter(bool useWarp)
 	{
-		Ptr<IDXGIFactory4> dxgiFac;
+		Ptr<IDXGIFactory4> factory;
 		UINT createFacFlags = 0;
-
 #ifdef _DEBUG
 		createFacFlags = DXGI_CREATE_FACTORY_DEBUG;
 #endif
 
-		ThrowOnFail(CreateDXGIFactory2(createFacFlags, IID_PPV_ARGS(&dxgiFac)));
+		ThrowOnFail(CreateDXGIFactory2(createFacFlags, IID_PPV_ARGS(&factory)));
 
 		Ptr<IDXGIAdapter1> dxgiAdap1 = nullptr;
 		Ptr<IDXGIAdapter4> dxgiAdap4 = nullptr;
 
 		if (useWarp)
 		{
-			ThrowOnFail(dxgiFac->EnumWarpAdapter(IID_PPV_ARGS(&dxgiAdap1)));
-			dxgiAdap4 = (Ptr<IDXGIAdapter4>)dxgiAdap1;
+			ThrowOnFail(factory->EnumWarpAdapter(IID_PPV_ARGS(&dxgiAdap1)));
+			dxgiAdap1->QueryInterface(&dxgiAdap4);
 		}
 		else
 		{
 			size_t maxDedicatedVideoMem = 0;
-			for (UINT i = 0; dxgiFac->EnumAdapters1(i, &dxgiAdap1) != DXGI_ERROR_NOT_FOUND; ++i)
+			for (UINT i = 0; factory->EnumAdapters1(i, &dxgiAdap1) != DXGI_ERROR_NOT_FOUND; ++i)
 			{
 				DXGI_ADAPTER_DESC1 adapDesc;
 				dxgiAdap1->GetDesc1(&adapDesc);
@@ -111,12 +110,12 @@ namespace Influx
 					adapDesc.DedicatedVideoMemory > maxDedicatedVideoMem) // Adapter has higher video memory...
 				{
 					maxDedicatedVideoMem = adapDesc.DedicatedVideoMemory;
-					dxgiAdap4 = (Ptr<IDXGIAdapter4>)dxgiAdap1;
+					dxgiAdap1->QueryInterface(&dxgiAdap4);
 				}
 			}
 		}
 	
-		dxgiFac->Release();
+		factory->Release();
 		return dxgiAdap4;
 	}
 	Ptr<ID3D12Device2> DxLayer::CreateDevice(Ptr<IDXGIAdapter4> adapter)
@@ -179,7 +178,7 @@ namespace Influx
 		ThrowOnFail(device->CreateDescriptorHeap(&desc, IID_PPV_ARGS(&descHeap)));
 		return descHeap;
 	}
-	Ptr<ID3D12CommandQueue> DxLayer::CreateCommandQueue(Ptr<ID3D12Device2> pDevice, D3D12_COMMAND_LIST_TYPE type)
+	Ptr<ID3D12CommandQueue> DxLayer::CreateCommandQueue(Ptr<ID3D12Device> pDevice, D3D12_COMMAND_LIST_TYPE type)
 	{
 		Ptr<ID3D12CommandQueue> q;
 		D3D12_COMMAND_QUEUE_DESC desc = {};
@@ -297,7 +296,7 @@ namespace Influx
 		}
 	}
 
-	Ptr<ID3D12Fence> DxLayer::CreateFence(Ptr<ID3D12Device2> device)
+	Ptr<ID3D12Fence> DxLayer::CreateFence(Ptr<ID3D12Device> device)
 	{
 		Ptr<ID3D12Fence> f;
 		ThrowOnFail(device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&f)));
@@ -312,7 +311,6 @@ namespace Influx
 
 		return e;
 	}
-
 	uint64_t DxLayer::SignalFence(Ptr<ID3D12CommandQueue> cmdQueue, Ptr<ID3D12Fence> fence, uint64_t& fenceValue)
 	{
 		// The value the fence will be waiting for...
@@ -324,7 +322,6 @@ namespace Influx
 		// This is the signal the fence will be waiting for...
 		return fenceValForSignal;
 	}
-
 	void DxLayer::WaitForFenceValue(Ptr<ID3D12Fence> fence, uint64_t unlockValue, FenceEvent e, std::chrono::milliseconds duration)
 	{
 		// If my fence does not have the correct value yet... WAIT (for max 584 million years...)
@@ -334,19 +331,18 @@ namespace Influx
 			::WaitForSingleObject(e, static_cast<DWORD>(duration.count()));
 		}
 	}
-
 	bool DxLayer::IsFenceComplete(Ptr<ID3D12Fence> fence, uint64_t unlockValue)
 	{
 		return !(fence->GetCompletedValue() < unlockValue);
 	}
 
-	void DxLayer::Flush(Ptr<ID3D12CommandQueue> cmdQueue, Ptr<ID3D12Fence> fence, uint64_t& fenceValue, FenceEvent e)
+	void DxLayer::FlushCommandQueue(Ptr<ID3D12CommandQueue> cmdQueue, Ptr<ID3D12Fence> fence, uint64_t& fenceValue, FenceEvent e)
 	{
 		uint64_t fenceUnlockValue = SignalFence(cmdQueue, fence, fenceValue);
 		WaitForFenceValue(fence, fenceUnlockValue, e);
 	}
 
-	void DxLayer::Cmd_TransitionResource(Ptr<ID3D12GraphicsCommandList2> cmdList, Ptr<ID3D12Resource> resource, D3D12_RESOURCE_STATES beforeState, D3D12_RESOURCE_STATES afterState)
+	void DxLayer::TransitionResource(Ptr<ID3D12GraphicsCommandList2> cmdList, Ptr<ID3D12Resource> resource, D3D12_RESOURCE_STATES beforeState, D3D12_RESOURCE_STATES afterState)
 	{
 		CD3DX12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(resource, beforeState, afterState);
 		cmdList->ResourceBarrier(1, &barrier);

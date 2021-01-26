@@ -4,7 +4,7 @@
 
 namespace Influx
 {
-	sPtr<CommandQueue> CommandQueue::Create(comPtr<ID3D12Device2> device, const Desc& desc)
+	sPtr<CommandQueue> CommandQueue::Create(comPtr<ID3D12Device> device, const Desc& desc)
 	{
 		sPtr<CommandQueue> commandQueue(new CommandQueue());
 
@@ -115,7 +115,7 @@ namespace Influx
 	}
 	void CommandQueue::Flush()
 	{
-		DxLayer::Flush(mpDxCommandQueue.Get(), mpFence.Get(), mFenceVal, mFenceEvent);
+		DxLayer::FlushCommandQueue(mpDxCommandQueue.Get(), mpFence.Get(), mFenceVal, mFenceEvent);
 	}
 #pragma endregion
 
