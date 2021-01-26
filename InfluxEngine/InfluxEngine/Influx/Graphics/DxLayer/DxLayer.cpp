@@ -357,7 +357,8 @@ namespace Influx
 		IDXGIDebug1* dxgiDebug;
 		DXGIGetDebugInterface1(0, IID_PPV_ARGS(&dxgiDebug));
 
-		dxgiDebug->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_FLAGS(DXGI_DEBUG_RLO_IGNORE_INTERNAL | DXGI_DEBUG_RLO_DETAIL));
+		//dxgiDebug->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_FLAGS(DXGI_DEBUG_RLO_IGNORE_INTERNAL | DXGI_DEBUG_RLO_DETAIL)); // Original Debug RLDO flags from Arne
+		dxgiDebug->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_FLAGS(D3D12_RLDO_DETAIL));
 		dxgiDebug->Release();
 	}
 }

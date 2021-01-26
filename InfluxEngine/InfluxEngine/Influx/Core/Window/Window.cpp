@@ -5,6 +5,21 @@
 // Forward declare message handler from imgui_impl_win32.cpp
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+
+//Windows GUI global Variables & functions
+HMENU hMenu;
+void CreateMenus(HWND hWnd);
+
+//Windows GUI ID's of the Header menu
+#define IFX_LOADMENU_LOADSCENE 1
+#define IFX_LOADMENU_LOADOBJECT 2
+#define IFX_LOADMENU_LOADSHADER 3
+#define IFX_EDITMENU_ANTIALIASING 4
+#define IFX_EDITMENU_RENDERINGTECHNIQUE_RASTERIZER 5
+#define IFX_EDITMENU_RENDERINGTECHNIQUE_RAYTRACER 6
+#define IFX_EDITMENU_POSTPROCESSING 7
+#define IFX_HELPMENU 8 
+
 // Windows Callback function:
 LRESULT CALLBACK WndProc(HWND hwnd, UINT mssg, WPARAM wParam, LPARAM lParam)
 {
@@ -13,6 +28,23 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT mssg, WPARAM wParam, LPARAM lParam)
 
 	switch (mssg)
 	{
+	case WM_CREATE:
+		CreateMenus(hwnd);
+		break;
+	case WM_COMMAND:
+
+		//When button is pressed in the Windows GIU (TODO)
+		switch (lParam)
+		{
+		case IFX_LOADMENU_LOADSCENE:
+			break;
+		case IFX_LOADMENU_LOADOBJECT:
+			break;
+		case IFX_LOADMENU_LOADSHADER:
+			break;
+		}
+
+		break;
 	case WM_SYSKEYDOWN:
 		break;
 
@@ -28,6 +60,49 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT mssg, WPARAM wParam, LPARAM lParam)
 	}
 
 	return 0;
+}
+
+void CreateMenus(HWND hWnd)
+{
+	//Create Header Menu Bar
+	hMenu = CreateMenu();
+
+	//Create Load menu and sub sections
+	HMENU hLoadMenu = CreateMenu();
+
+	AppendMenu(hMenu, MF_POPUP, (UINT_PTR)hLoadMenu, (LPCWSTR)L"Load");
+	{
+		AppendMenu(hLoadMenu, MF_STRING, IFX_LOADMENU_LOADSCENE, (LPCWSTR)L"Load Scene");
+		AppendMenu(hLoadMenu, MF_STRING, IFX_LOADMENU_LOADOBJECT, (LPCWSTR)L"Load Object");
+		AppendMenu(hLoadMenu, MF_STRING, IFX_LOADMENU_LOADSHADER, (LPCWSTR)L"Load Shader");
+	}
+
+	//Edit menu and other sub sections
+	HMENU hEditMenu = CreateMenu();
+	
+	AppendMenu(hMenu, MF_POPUP, (UINT_PTR)hEditMenu, (LPCWSTR)L"Edit");
+	{
+		//Anti-Aliasing modes
+		AppendMenu(hEditMenu, MF_STRING, 4, (LPCWSTR)L"Anti Aliasing");
+		
+		//Techniques
+		HMENU hEditMenuRenderingTechnique = CreateMenu();
+
+		AppendMenu(hEditMenu, MF_POPUP, (UINT_PTR)hEditMenuRenderingTechnique, (LPCWSTR)L"Rendering Technique");
+		{
+			AppendMenu(hEditMenuRenderingTechnique, MF_STRING, IFX_EDITMENU_RENDERINGTECHNIQUE_RASTERIZER, (LPCWSTR)L"Rasterizer Technique");
+			AppendMenu(hEditMenuRenderingTechnique, MF_STRING, IFX_EDITMENU_RENDERINGTECHNIQUE_RAYTRACER, (LPCWSTR)L"Raytracer Technique");
+		}
+
+		//Post Processing Modes
+		AppendMenu(hEditMenu, MF_STRING, IFX_EDITMENU_POSTPROCESSING, (LPCWSTR)L"Post Processing");
+	}
+
+	//Help menu (TODO)
+	AppendMenu(hMenu, MF_STRING, IFX_HELPMENU, (LPCWSTR)L"Help");
+
+	//Final step: to set the menu
+	SetMenu(hWnd, hMenu);
 }
 
 namespace Influx
@@ -70,6 +145,7 @@ namespace Influx
 		HANDLE hIcon = LoadImageA(GetModuleHandle(NULL), iconPath.c_str(), IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE);
 		HWND hWnd = windowHandle ? windowHandle : GetActiveWindow();
 		SendMessage(hWnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+		
 	}
 
 	void Window::RegisterWindowClass(HINSTANCE i, const wchar_t* wndClassName)

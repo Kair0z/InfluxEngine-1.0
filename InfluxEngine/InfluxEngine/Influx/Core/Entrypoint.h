@@ -8,7 +8,7 @@ int CALLBACK wWinMain(HINSTANCE i, HINSTANCE, PWSTR, int)
 	using namespace Influx;
 
 	// This reports 'fake d3d12 leaks'
-	//DxLayer::EnableDebugLayer();
+	DxLayer::EnableDebugLayer();
 
 	{
 		// Declared in App class... Defined in inheriting application project!
