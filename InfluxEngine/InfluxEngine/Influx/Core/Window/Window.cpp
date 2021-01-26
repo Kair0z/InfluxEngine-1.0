@@ -33,7 +33,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT mssg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_COMMAND:
 
-		//When button is pressed in the Windows GIU (TODO)
+		//When button is pressed in the Windows GIU [TODO]
 		switch (lParam)
 		{
 		case IFX_LOADMENU_LOADSCENE:
@@ -64,6 +64,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT mssg, WPARAM wParam, LPARAM lParam)
 
 void CreateMenus(HWND hWnd)
 {
+
 	//Create Header Menu Bar
 	hMenu = CreateMenu();
 
@@ -98,7 +99,7 @@ void CreateMenus(HWND hWnd)
 		AppendMenu(hEditMenu, MF_STRING, IFX_EDITMENU_POSTPROCESSING, (LPCWSTR)L"Post Processing");
 	}
 
-	//Help menu (TODO)
+	//Help menu [TODO]
 	AppendMenu(hMenu, MF_STRING, IFX_HELPMENU, (LPCWSTR)L"Help");
 
 	//Final step: to set the menu
