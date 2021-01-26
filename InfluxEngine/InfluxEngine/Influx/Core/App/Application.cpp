@@ -19,6 +19,8 @@ namespace Influx
 
 		MSG msg = {};
 		mState = AppState::Running;
+
+		//When quit button is pressed
 		while (msg.message != WM_QUIT)
 		{
 			// Peek Windows Messages
@@ -69,10 +71,12 @@ namespace Influx
 	{
 		mTimer.Tick();
 
+		//Temporary - FPS text counter
 		std::wstring fps = mpWindow->GetWindowsDesc().name;
 		fps += L" | FPS: ";
 		fps += std::to_wstring(mTimer.GetFramesPerSecond());
 		
+		//Set windows top border text
 		SetWindowText(mpWindow->GetWindowsHandle(), fps.c_str());
 	}
 

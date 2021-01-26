@@ -36,7 +36,7 @@
     <ClInclude Include="Influx\Resources\ResourceManagement\ILoader.h" />
     <ClInclude Include="Influx\Resources\ResourceManagement\Loading.h" />
     <ClInclude Include="Influx\Resources\ResourceManagement\ResourceManager.h" />
-    <ClInclude Include="Influx\Utils\Timer.h" />
+    <ClInclude Include="Influx\Core\Utils\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Influx\Scene\Scene.cpp" />
@@ -63,7 +63,7 @@
     <ClCompile Include="Influx\Graphics\DxLayer\IndexBuffer.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\Shaders\Shader.cpp" />
     <ClCompile Include="Influx\Scene\SceneBuilder.cpp" />
-    <ClCompile Include="Influx\Utils\Timer.cpp" />
+    <ClCompile Include="Influx\Core\Utils\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Influx\Graphics\DxLayer\VertexBuffer.cpp" />

@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include "Influx/Core/Alias.h"
-#include "Influx/Utils/Timer.h"
+#include "Influx/Core/Utils/Timer.h"
 
 namespace Influx
 {

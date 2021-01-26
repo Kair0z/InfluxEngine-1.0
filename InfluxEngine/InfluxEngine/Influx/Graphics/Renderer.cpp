@@ -100,11 +100,11 @@ namespace Influx
 		mpIndexBuffer_Temp->Upload(cmdList, device, Temp::gCubeIndicies, _countof(Temp::gCubeIndicies));
 
 		// Load Shaders:
-		auto vsFile = L"../../InfluxEngine/Resources/Shaders/DefaultVertexShader.hlsl";
-		auto psFile = L"../../InfluxEngine/Resources/Shaders/DefaultPixelShader.hlsl";
-
-		DxLayer::CompileShader(vsFile, "VS_Main", "vs_5_1", &mpVShaderBlob);
-		DxLayer::CompileShader(psFile, "PS_Main", "ps_5_1", &mpPShaderBlob);
+		auto vsFile = L"../../InfluxEngine/Resources/Shaders/DefaultVertexShader.hlsl";		  // SHOULD BE RE-STRUCTURED
+		auto psFile = L"../../InfluxEngine/Resources/Shaders/DefaultPixelShader.hlsl";		  // SHOULD BE RE-STRUCTURED
+																							  // SHOULD BE RE-STRUCTURED
+		DxLayer::CompileShader(vsFile, "VS_Main", "vs_5_1", &mpVShaderBlob);				  // SHOULD BE RE-STRUCTURED
+		DxLayer::CompileShader(psFile, "PS_Main", "ps_5_1", &mpPShaderBlob);				  // SHOULD BE RE-STRUCTURED
 
 		// Create Root Signature:
 		// Allow input layout and deny unnecessary access to certain pipeline stages.

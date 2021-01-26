@@ -46,3 +46,4 @@ void Influx::Timer::Tick()
 		mSecondCounter %= mFrequency.QuadPart;
 	}
 }
+
