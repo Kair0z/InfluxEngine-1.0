@@ -63,7 +63,7 @@ namespace Influx
 	{
 		mTimer.Tick();
 
-		//Temporary - FPS text counter
+		//Temporary - FPS text counter [REV]
 		std::wstring fps = mpWindow->GetWindowsDesc().name;
 		fps += L" | FPS: ";
 		fps += std::to_wstring(mTimer.GetFramesPerSecond());
