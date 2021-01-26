@@ -43,6 +43,8 @@ namespace Influx
 		// Dx-Related Stuff
 		sPtr<DxLayer> mpDx;
 		sPtr<SwapChain> mpSwapChain; // Swap Chain:
+
+		comPtr<ID3D12RootSignature> mpRootSignature;
 		sPtr<CommandQueue> mpCommandQueue; // CommandQueue:
 		sPtr<PipelineState> mpPSO; // Pipeline State Object:
 
@@ -55,7 +57,7 @@ namespace Influx
 		comPtr<ID3DBlob> mpVShaderBlob;
 		comPtr<ID3DBlob> mpPShaderBlob;
 
-		comPtr<ID3D12RootSignature> mpRootSignature;
+		
 
 		// Clear the Render Target View of the current Swapchainbuffer (backbuffer)
 		void Cmd_ClearRt(Ptr<ID3D12GraphicsCommandList2> cmdList, const Vector4f& clearColor);

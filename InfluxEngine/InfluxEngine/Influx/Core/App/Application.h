@@ -26,11 +26,11 @@ namespace Influx
 		virtual void OnGuiRender() const {};
 
 	private:
-		AppState mState;
-		Timer mTimer;
-
 		sPtr<Window> mpWindow;
 		sPtr<Renderer> mpRenderer;
+
+		Timer mTimer;
+		AppState mState;
 
 		void Initialize(HINSTANCE i);
 		void Update();
