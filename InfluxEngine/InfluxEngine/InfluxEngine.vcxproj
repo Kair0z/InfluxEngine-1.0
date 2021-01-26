@@ -187,6 +187,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Influx\Graphics\DxLayer\Fbo\FrameBuffer.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\IndexBuffer.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\VertexBuffer.h" />
     <ClInclude Include="Influx\Graphics\Gui\Widgets\DemoWidget.h" />
@@ -265,6 +266,7 @@
     <ClInclude Include="Influx\Core\Utils\Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Influx\Graphics\DxLayer\Fbo\FrameBuffer.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\IndexBuffer.cpp" />
     <ClCompile Include="Influx\Graphics\Gui\Widgets\DemoWidget.cpp" />
     <ClCompile Include="Influx\Core\Utils\Action.cpp" />

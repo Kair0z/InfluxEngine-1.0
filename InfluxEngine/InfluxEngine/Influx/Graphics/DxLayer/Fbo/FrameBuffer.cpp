@@ -23,8 +23,8 @@ namespace Influx
 			Ptr<ID3D12Resource> buffer;
 			// [TODO]: Dx CREATING THE BUFFERS...
 
-			device->CreateRenderTargetView(buffer, nullptr, rtDescHandle);
-			framebuffer->mpBuffers[i] = buffer;
+			//device->CreateRenderTargetView(buffer, nullptr, rtDescHandle);
+			//framebuffer->mpBuffers[i] = buffer;
 
 			// Offset next location:
 			rtDescHandle.Offset(framebuffer->mRtDescSize);

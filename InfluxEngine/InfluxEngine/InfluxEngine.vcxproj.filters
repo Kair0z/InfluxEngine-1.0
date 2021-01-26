@@ -26,6 +26,7 @@
     <ClCompile Include="Influx\Graphics\DxLayer\Shaders\Shader.cpp" />
     <ClCompile Include="Influx\Scene\SceneBuilder.cpp" />
     <ClCompile Include="Influx\Core\Utils\Timer.cpp" />
+    <ClCompile Include="Influx\Graphics\DxLayer\Fbo\FrameBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Influx\Graphics\DxLayer\IndexBuffer.h" />
@@ -64,6 +65,7 @@
     <ClInclude Include="Influx\Graphics\DxLayer\Shaders\Shader.h" />
     <ClInclude Include="Influx\Scene\SceneBuilder.h" />
     <ClInclude Include="Influx\Core\Utils\Timer.h" />
+    <ClInclude Include="Influx\Graphics\DxLayer\Fbo\FrameBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Influx\Graphics\DxLayer\VertexBuffer.cpp" />
