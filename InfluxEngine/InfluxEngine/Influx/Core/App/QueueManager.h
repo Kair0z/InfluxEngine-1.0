@@ -7,9 +7,9 @@ namespace Influx
 	public:
 		static sPtr<QueueManager> CreateQueues(comPtr<ID3D12Device> device);
 
-		enum class QueueTag { Direct, Upload, Compute };
-		sPtr<CommandQueue> GetQueue(const QueueTag queue) const;
-		sPtr<CommandQueue> operator[](const QueueTag queue) const;
+		enum class QType { Direct, Upload, Compute };
+		sPtr<CommandQueue> GetQueue(const QType queue) const;
+		sPtr<CommandQueue> operator[](const QType queue) const;
 
 	private:
 		QueueManager() = default;

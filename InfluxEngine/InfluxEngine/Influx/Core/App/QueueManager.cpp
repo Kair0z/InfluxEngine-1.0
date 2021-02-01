@@ -20,17 +20,17 @@ namespace Influx
 		return queueManager;
 	}
 
-	sPtr<CommandQueue> QueueManager::GetQueue(const QueueTag queue) const
+	sPtr<CommandQueue> QueueManager::GetQueue(const QType queue) const
 	{
 		switch (queue)
 		{
-		case QueueTag::Compute: return mpComputeQueue;
-		case QueueTag::Direct: return mpDirectQueue;
-		case QueueTag::Upload: return mpUploadQueue;
+		case QType::Compute: return mpComputeQueue;
+		case QType::Direct: return mpDirectQueue;
+		case QType::Upload: return mpUploadQueue;
 		default: return mpDirectQueue;
 		}
 	}
-	sPtr<CommandQueue> QueueManager::operator[](const QueueTag tag) const
+	sPtr<CommandQueue> QueueManager::operator[](const QType tag) const
 	{
 		return GetQueue(tag);
 	}

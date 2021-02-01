@@ -18,7 +18,7 @@ namespace Influx
 		~CommandQueue();
 
 		// Returns a fresh command list in recording state [no need for resetting]
-		Ptr<ID3D12GraphicsCommandList2> GetCommandList(comPtr<ID3D12Device2> device);
+		Ptr<ID3D12GraphicsCommandList2> GetCommandList(comPtr<ID3D12Device> device);
 		uint64_t ExecuteCommandList(Ptr<ID3D12GraphicsCommandList2> list);
 
 		// Synchronization
@@ -37,8 +37,8 @@ namespace Influx
 		D3D12_COMMAND_LIST_TYPE mType;
 
 		// Command Lists & Command Allocators:
-		Ptr<ID3D12CommandAllocator> CreateCommandAllocator(comPtr<ID3D12Device2> device);
-		Ptr<ID3D12GraphicsCommandList2> CreateCommandList(comPtr<ID3D12Device2> device, Ptr<ID3D12CommandAllocator> allocator);
+		Ptr<ID3D12CommandAllocator> CreateCommandAllocator(comPtr<ID3D12Device> device);
+		Ptr<ID3D12GraphicsCommandList2> CreateCommandList(comPtr<ID3D12Device> device, Ptr<ID3D12CommandAllocator> allocator);
 
 		struct CommandAllocatorEntry // Keeping track of in-flight allocators
 		{

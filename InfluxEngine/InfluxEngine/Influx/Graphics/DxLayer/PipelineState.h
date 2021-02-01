@@ -29,7 +29,7 @@ namespace Influx
 
 			// Additional Settings:
 		};
-		static sPtr<PipelineState> Create(comPtr<ID3D12Device2> device, const Desc& desc);
+		static sPtr<PipelineState> Create(comPtr<ID3D12Device> device, const Desc& desc);
 		~PipelineState();
 
 		comPtr<ID3D12PipelineState> GetDxPipelineStateObject() const;

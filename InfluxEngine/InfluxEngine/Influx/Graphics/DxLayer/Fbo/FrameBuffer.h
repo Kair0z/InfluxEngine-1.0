@@ -13,10 +13,11 @@ namespace Influx
 	public:
 		struct Desc final
 		{
-			Vector2u dimensions;
-			uint8_t nColorTargets;
-			bool useDepthTarget;
+			Vector2u dimensions{};
+			uint8_t nColorTargets{};
+			bool useDepthTarget = false;
 		};
+		static sPtr<FrameBuffer> Create(const Desc& desc);
 		static sPtr<FrameBuffer> Create(comPtr<ID3D12Device> device, const Desc& desc);
 		IFX_DelCpyMove(FrameBuffer);
 
@@ -27,16 +28,24 @@ namespace Influx
 		// [REV] Clearing stencils...
 
 		uint8_t GetNumColorTargets() const;
+		bool HasDepthTarget() const;
 
-		// [TODO]
-		comPtr<DxBuffer> GetColorTarget(size_t idx) const;
-		comPtr<DxBuffer> GetDepthTarget() const;
+		comPtr<DxBuffer> GetColorTargetResource(size_t idx) const;
+		comPtr<DxBuffer> GetDepthTargetResource() const;
+
+
+		enum class ViewType{ RTV, SRV };
+		D3D12_CPU_DESCRIPTOR_HANDLE GetColorCpuHandle(size_t idx, ViewType asView) const;
+		D3D12_GPU_DESCRIPTOR_HANDLE GetColorGpuHandle(size_t idx, ViewType asView) const;
+		D3D12_CPU_DESCRIPTOR_HANDLE GetDepthCpuHandle() const;
+		D3D12_GPU_DESCRIPTOR_HANDLE GetDepthGpuHandle() const;
 
 	private:
 		FrameBuffer() = default;
 
 		// Color Targets:
-		comPtr<ID3D12DescriptorHeap> mpRtDescHeap;
+		comPtr<ID3D12DescriptorHeap> mpRtvDescHeap;
+		comPtr<ID3D12DescriptorHeap> mpSrvDescHeap;
 		std::vector<comPtr<DxBuffer>> mpBuffers;
 
 		// Depth Target:
@@ -44,7 +53,8 @@ namespace Influx
 		comPtr<DxBuffer> mpDepthBuffer;
 
 		Desc mConstructDesc;
-		uint32_t mRtDescSize;
+		uint32_t mRtvDescSize;
+		uint32_t mSrvDescSize;
 	};
 }
 

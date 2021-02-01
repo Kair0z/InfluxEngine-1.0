@@ -4,6 +4,7 @@
 #include "Influx/Core/Window/Window.h"
 #include "Influx/Graphics/Renderer.h"
 #include "Influx/Graphics/DxLayer/CommandQueue.h"
+#include "Influx/Graphics/DxLayer/SwapChain.h"
 #include "Influx/Graphics/Gui/Gui.h"
 #include "QueueManager.h"
 
@@ -33,10 +34,29 @@ namespace Influx
 			}
 
 			// Update:
-			//Update();
+			Update();
 
-			// [TODO] main render loop
+			// main render loop
+			Render();
 		}
+	}
+
+	comPtr<ID3D12Device> Application::GetDevice() const
+	{
+		return mpDx->GetDevice();
+	}
+
+	sPtr<QueueManager> Application::GetQueueManager() const
+	{
+		return mpQueueManager;
+	}
+
+	Application::AppInfo Application::GetInfo() const
+	{
+		AppInfo info;
+		info.windowDimensions = mpWindow->GetWindowsDesc().dimensions;
+		info.windowName = mpWindow->GetWindowsDesc().name;
+		return info;
 	}
 
 	void Application::Initialize(HINSTANCE i)
@@ -61,8 +81,18 @@ namespace Influx
 		mpQueueManager = QueueManager::CreateQueues(mpDx->GetDevice());
 
 		// Setup window Swapchain:
+		uint8_t bufferCount = 3;
 		mpWindow->SetupSwapChain(mpDx->GetDevice(), 
-			mpQueueManager->GetQueue(QueueManager::QueueTag::Direct)->GetDxCommandQueue());
+			mpQueueManager->GetQueue(QueueManager::QType::Direct)->GetDxCommandQueue(), bufferCount);
+
+		// Initialize Gui:
+		Gui::Dx12Impl_Desc guiDesc;
+		guiDesc.bufferFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
+		guiDesc.nBuffers = bufferCount;
+		guiDesc.windowHandle = mpWindow->GetWindowsHandle();
+		Gui::Initialize(guiDesc, mpDx->GetDevice().Get());
+
+		Gui::ListenOnRender(std::bind(&Application::OnGuiRender, this));
 	}
 
 	void Application::Update()
@@ -76,5 +106,36 @@ namespace Influx
 		
 		//Set windows top border text
 		SetWindowText(mpWindow->GetWindowsHandle(), fps.c_str());
+	}
+
+	void Application::Render()
+	{
+		Gui::Render();
+		
+		// Get the Direct Command Queue & a fresh command list:
+		sPtr<CommandQueue> directCmdQueue = mpQueueManager->GetQueue(QueueManager::QType::Direct);
+		ID3D12GraphicsCommandList2* cmdList = directCmdQueue->GetCommandList(mpDx->GetDevice());
+
+		// Get Backbuffer from SwapChain: (And transition it to the Rt State)
+		ID3D12Resource* backbuffer = mpWindow->GetSwapChain()->GetCurrentBuffer(); // Get Swapchain Backbuffer
+		DxLayer::TransitionResource(cmdList, backbuffer, D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+		
+		auto bbCpuHandle = mpWindow->GetSwapChain()->GetCurrentRtDescHandle();
+
+		// Clear backbuffer:
+		const Vector4f clearColor{ 0.5f, 0.5f, 0.5f, 1 };
+		cmdList->ClearRenderTargetView(bbCpuHandle, &clearColor.x, 0, nullptr);
+
+		cmdList->OMSetRenderTargets(1, &bbCpuHandle, FALSE, nullptr);
+
+		// Submit UI Draw Data:
+		Gui::SubmitDrawData(cmdList);
+
+		DxLayer::TransitionResource(cmdList, backbuffer, D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+
+		uint64_t f = directCmdQueue->ExecuteCommandList(cmdList);
+		directCmdQueue->WaitForFence(f);
+
+		mpWindow->GetSwapChain()->GetDxSwapChain()->Present(1, 0);
 	}
 }

@@ -229,14 +229,14 @@ namespace Influx
 		dxgiFac->Release();
 		return dxgiSwapChain4;
 	}
-	Ptr<ID3D12CommandAllocator> DxLayer::CreateCommandAllocator(Ptr<ID3D12Device2> pDevice, D3D12_COMMAND_LIST_TYPE type)
+	Ptr<ID3D12CommandAllocator> DxLayer::CreateCommandAllocator(Ptr<ID3D12Device> pDevice, D3D12_COMMAND_LIST_TYPE type)
 	{
 		Ptr<ID3D12CommandAllocator> cmdAlloc;
 		ThrowOnFail(pDevice->CreateCommandAllocator(type, IID_PPV_ARGS(&cmdAlloc)));
 
 		return cmdAlloc;
 	}
-	Ptr<ID3D12GraphicsCommandList> DxLayer::CreateCommandList(Ptr<ID3D12Device2> device, Ptr<ID3D12CommandAllocator> alloc, D3D12_COMMAND_LIST_TYPE type)
+	Ptr<ID3D12GraphicsCommandList> DxLayer::CreateCommandList(Ptr<ID3D12Device> device, Ptr<ID3D12CommandAllocator> alloc, D3D12_COMMAND_LIST_TYPE type)
 	{
 		Ptr<ID3D12GraphicsCommandList> cmdList;
 		ThrowOnFail(device->CreateCommandList(0, type, alloc, nullptr, IID_PPV_ARGS(&cmdList)));
@@ -245,10 +245,12 @@ namespace Influx
 		return cmdList;
 	}
 
-	Ptr<ID3D12PipelineState> DxLayer::CreatePipelineState(Ptr<ID3D12Device2> device, const D3D12_PIPELINE_STATE_STREAM_DESC& desc)
+	Ptr<ID3D12PipelineState> DxLayer::CreatePipelineState(Ptr<ID3D12Device> device, const D3D12_PIPELINE_STATE_STREAM_DESC& desc)
 	{
 		Ptr<ID3D12PipelineState> pipelineState;
-		ThrowOnFail(device->CreatePipelineState(&desc, IID_PPV_ARGS(&pipelineState)));
+		Ptr<ID3D12Device2> device2;
+		device->QueryInterface(&device2);
+		ThrowOnFail(device2->CreatePipelineState(&desc, IID_PPV_ARGS(&pipelineState)));
 		return pipelineState;
 	}
 
@@ -295,6 +297,25 @@ namespace Influx
 				0, 0, 1, &subResData);
 		}
 	}
+	
+	void DxLayer::CreateResourceTexture2D(Ptr<ID3D12Device> device, const Tex2DDesc& texDesc, Ptr<ID3D12Resource>* destResource)
+	{
+		D3D12_RESOURCE_DESC resDesc{};
+		resDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+		resDesc.Width = texDesc.dimensions.x;
+		resDesc.Height = texDesc.dimensions.y;
+		resDesc.DepthOrArraySize = 1;
+		resDesc.MipLevels = texDesc.mipLevels;
+		resDesc.Format = texDesc.format;
+		resDesc.SampleDesc.Count = 1;
+		resDesc.SampleDesc.Quality = 0;
+		resDesc.Flags = D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET | D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS;
+
+		CD3DX12_HEAP_PROPERTIES heapProps(D3D12_HEAP_TYPE_DEFAULT);
+		ThrowOnFail(device->CreateCommittedResource(&heapProps, D3D12_HEAP_FLAG_NONE, &resDesc,
+			D3D12_RESOURCE_STATE_COPY_DEST, nullptr, IID_PPV_ARGS(destResource)));
+	}
+
 
 	Ptr<ID3D12Fence> DxLayer::CreateFence(Ptr<ID3D12Device> device)
 	{

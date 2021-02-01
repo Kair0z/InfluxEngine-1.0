@@ -7,6 +7,9 @@ using namespace Influx;
 //  * ProjectTemplate *
 // *********************************************** 
 
+class Influx::RasterPass;
+class Influx::FrameBuffer;
+
 class ProjectTemplate final : 
 	public Influx::Application
 {
@@ -26,6 +29,10 @@ private:
 
 	// * Called at rendering Gui (Before the frame)
 	virtual void OnGuiRender() const override final;
+
+private:
+	sPtr<RasterPass> mpRasterizer;
+	sPtr<FrameBuffer> mpBuffer;
 };
 
 // [!] Override the main application to be created... [!]

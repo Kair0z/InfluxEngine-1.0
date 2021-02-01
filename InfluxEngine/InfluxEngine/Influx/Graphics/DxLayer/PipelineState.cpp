@@ -4,7 +4,7 @@
 
 namespace Influx
 {
-	sPtr<PipelineState> PipelineState::Create(comPtr<ID3D12Device2> device, const Desc& desc)
+	sPtr<PipelineState> PipelineState::Create(comPtr<ID3D12Device> device, const Desc& desc)
 	{
 		sPtr<PipelineState> pipelineState(new PipelineState());
 		pipelineState->mStream = desc.mStateStream;

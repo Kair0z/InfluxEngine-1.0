@@ -187,6 +187,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Influx\Graphics\DxLayer\Experimental\DescriptorAllocator.h" />
+    <ClInclude Include="Influx\Graphics\Gui\Widgets\FrameBufferWidget.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\Fbo\FrameBuffer.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\IndexBuffer.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\VertexBuffer.h" />
@@ -256,6 +258,7 @@
     <ClInclude Include="Influx\Scene\Scene.h" />
     <ClInclude Include="Influx\Resources\Mesh\Vertex.h" />
     <ClInclude Include="Influx\Core\Window\Window.h" />
+    <ClInclude Include="Influx\Graphics\RenderPasses\Pass.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\PipelineState.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\SwapChain.h" />
@@ -265,8 +268,13 @@
     <ClInclude Include="Influx\Core\Utils\Timer.h" />
     <ClInclude Include="Influx\Core\Utils\ServiceLocator.h" />
     <ClInclude Include="Influx\Core\App\QueueManager.h" />
+    <ClInclude Include="Influx\Graphics\RenderPasses\Raster\RasterPass.h" />
+    <ClInclude Include="Influx\Resources\Texture\Texture.h" />
+    <ClInclude Include="RootSignature.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Influx\Graphics\DxLayer\Experimental\DescriptorAllocator.cpp" />
+    <ClCompile Include="Influx\Graphics\Gui\Widgets\FrameBufferWidget.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\Fbo\FrameBuffer.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\IndexBuffer.cpp" />
     <ClCompile Include="Influx\Graphics\Gui\Widgets\DemoWidget.cpp" />
@@ -357,6 +365,10 @@
     <ClCompile Include="Influx\Core\Utils\Timer.cpp" />
     <ClCompile Include="Influx\Core\Utils\ServiceLocator.cpp" />
     <ClCompile Include="Influx\Core\App\QueueManager.cpp" />
+    <ClCompile Include="Influx\Graphics\RenderPasses\Pass.cpp" />
+    <ClCompile Include="Influx\Graphics\RenderPasses\Raster\RasterPass.cpp" />
+    <ClCompile Include="Influx\Resources\Texture\Texture.cpp" />
+    <ClCompile Include="RootSignature.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Influx\Graphics\DxLayer\VertexBuffer.cpp" />

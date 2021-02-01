@@ -37,10 +37,21 @@ namespace Influx
 		void Initialize(HINSTANCE i);
 
 		void Update();
+		void Render();
 
 	public:
 		static sPtr<Application> Create(); // This gets defined in client project
 		void Run(HINSTANCE i);
+
+		comPtr<ID3D12Device> GetDevice() const;
+		sPtr<QueueManager> GetQueueManager() const;
+		
+		struct AppInfo final
+		{
+			std::wstring windowName{};
+			Vector2u windowDimensions{};
+		};
+		AppInfo GetInfo() const;
 	};
 }
 

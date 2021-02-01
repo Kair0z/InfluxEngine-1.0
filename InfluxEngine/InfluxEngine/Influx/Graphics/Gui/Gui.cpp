@@ -43,6 +43,7 @@ namespace Influx
 	void Gui::SubmitDrawData(ID3D12GraphicsCommandList* cmdList)
 	{
 		cmdList->SetDescriptorHeaps(1, &spFontSrvDescHeap);
+		cmdList->Descrip
 		ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), cmdList);
 	}
 
