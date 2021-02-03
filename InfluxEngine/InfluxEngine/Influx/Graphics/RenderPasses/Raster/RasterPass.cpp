@@ -3,6 +3,7 @@
 #include "Influx/Graphics/DxLayer/PipelineState.h"
 #include "Influx/Graphics/DxLayer/CommandQueue.h"
 #include "Influx/Graphics/DxLayer/Fbo/FrameBuffer.h"
+#include "Influx/Graphics/DxLayer/RootSignature/RootSignature.h"
 #include "Influx/Core/App/QueueManager.h"
 #include "Influx/Core/App/Application.h"
 
@@ -14,11 +15,14 @@ namespace Influx
 
 		sPtr<RasterPass> pass(new RasterPass());
 
-		// Create the pipeline object:
-		PipelineState::Desc psoDesc{};
-		pass->mpPipelineState = PipelineState::Create(device, psoDesc);
+		// Set Default VertexShader:
+		pass->SetVS("../../InfluxEngine/Resources/Shaders/DefaultVertexShader.hlsl", "VS_Main", Shader::Profile::PF_5_1);
 
-		
+		// Create the rootSignature object:
+		pass->mpRootSignature = RootSignature::Create(device);
+
+		// Create the pipeline object (using the root signature):
+		pass->SetupPipelineStateObject(device);
 		
 		return pass;
 	}
@@ -29,8 +33,72 @@ namespace Influx
 		auto cmdQueue = LocateApp::Get()->GetQueueManager()->GetQueue(QueueManager::QType::Direct);
 		auto cmdList = cmdQueue->GetCommandList(device);
 
-		/*cmdList->OMSetRenderTargets(1, &target->GetColorDescHandle(0), false,
-			(target->HasDepthTarget() ? &target->GetDepthDescHandle() : nullptr) );*/
+		// [TODO]
+		// 0: Resource Binding & pipeline state:
+		ID3D12DescriptorHeap* ppHeaps[] = { nullptr, nullptr };
+		cmdList->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps); // can incur a pipeline flush (to be researched)
+		cmdList->SetGraphicsRootSignature(mpRootSignature->GetDxRootSignature().Get()); // What type of resources are to be bound to the pipeline?
+		SetupPipelineStateObject(device);
+		cmdList->SetPipelineState(mpPipelineState.Get());
+			
+		// 1: Configure Input Assembly [info from Scenedata]
+		// cmdList->IASetIndexBuffer(); 
+		// cmdList->IASetVertexBuffers();
+		// cmdList->IASetPrimitiveTopology();
+
+		// 2: Configure Rasterizer State: [PipelineState]
+		// cmdList->RSSetScissorRects();
+		// Setup viewport
+		D3D12_VIEWPORT vp{};
+		vp.Width = (float)target->GetDimensions().x;
+		vp.Height = (float)target->GetDimensions().y;
+		vp.MinDepth = 0.0f; vp.MaxDepth = 1.0f;
+		vp.TopLeftX = vp.TopLeftY = 0.0f;
+		cmdList->RSSetViewports(1, &vp);
+		
+
+		// 3: Configure Output Merger: [Low priority]
+		// cmdList->OMSetDepthBounds();
+		// cmdList->OMSetStencilRef();
+		// OM: Setup blend factor
+		const float blend_factor[4] = { 0.f, 0.f, 0.f, 0.f };
+		cmdList->OMSetBlendFactor(blend_factor);
+
+		// OM: Setup Render Targets:
+		auto rtvHandle = target->GetColorCpuHandle(0, FrameBuffer::ViewType::RTV);
+		if (target->HasDepthTarget())
+		{
+			auto dsvHandle = target->GetDepthCpuHandle();
+			cmdList->OMSetRenderTargets(1, &rtvHandle, false, &dsvHandle);
+		}
+		else cmdList->OMSetRenderTargets(1, &rtvHandle, false, nullptr);
+	}
+
+	bool RasterPass::SetVS(sPtr<Shader> vertexShader)
+	{
+		mpVertexShader = vertexShader;
+		mStateChanged = true;
+		return mpVertexShader.get();
+	}
+	bool RasterPass::SetVS(const std::string& fName, const std::string& entry, Shader::Profile shaderProfile)
+	{
+		return SetVS(sPtr<Shader>(Shader::Load(fName, Shader::Desc(entry, Shader::Type::VS, shaderProfile))));
+	}
+
+	void RasterPass::SetupPipelineStateObject(comPtr<ID3D12Device> device)
+	{
+		if (!mStateChanged) return;
+		
+		PipelineState::PipelineStateStream stateStream;
+
+		stateStream.VS = CD3DX12_SHADER_BYTECODE(mpVertexShader->GetDxCompileBlob());
+		//stateStream.PS = CD3DX12_SHADER_BYTECODE(mpPixelShader->GetDxCompileBlob());
+		stateStream.pRootSignature = CD3DX12_PIPELINE_STATE_STREAM_ROOT_SIGNATURE(mpRootSignature->GetDxRootSignature().Get());
+		stateStream.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+		// [TODO] Get Primitive topologytype & vertexlayout from mesh data... (seperate struct)
+
+		mpPipelineState = PipelineState::CreatePSO(device, mpRootSignature, stateStream);
+		mStateChanged = false;
 	}
 }
 

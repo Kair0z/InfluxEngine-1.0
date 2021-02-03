@@ -187,7 +187,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Influx\Graphics\DxLayer\Experimental\DescriptorAllocator.h" />
+    <ClInclude Include="Influx\Core\Utils\Utils.h" />
     <ClInclude Include="Influx\Graphics\Gui\Widgets\FrameBufferWidget.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\Fbo\FrameBuffer.h" />
     <ClInclude Include="Influx\Graphics\DxLayer\IndexBuffer.h" />
@@ -270,10 +270,9 @@
     <ClInclude Include="Influx\Core\App\QueueManager.h" />
     <ClInclude Include="Influx\Graphics\RenderPasses\Raster\RasterPass.h" />
     <ClInclude Include="Influx\Resources\Texture\Texture.h" />
-    <ClInclude Include="RootSignature.h" />
+    <ClInclude Include="Influx\Graphics\DxLayer\RootSignature\RootSignature.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Influx\Graphics\DxLayer\Experimental\DescriptorAllocator.cpp" />
     <ClCompile Include="Influx\Graphics\Gui\Widgets\FrameBufferWidget.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\Fbo\FrameBuffer.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\IndexBuffer.cpp" />
@@ -354,6 +353,7 @@
     <ClCompile Include="Influx\Core\App\Application.cpp" />
     <ClCompile Include="Influx\Graphics\DxLayer\DxLayer.cpp" />
     <ClCompile Include="Influx\Resources\Importer\AssimpImporter.cpp" />
+    <ClCompile Include="Influx\Resources\ResourceManagement\ResourceManager.cpp" />
     <ClCompile Include="Influx\Scene\Scene.cpp" />
     <ClCompile Include="Influx\Resources\Mesh\Vertex.cpp" />
     <ClCompile Include="Influx\Core\Window\Window.cpp" />
@@ -368,7 +368,7 @@
     <ClCompile Include="Influx\Graphics\RenderPasses\Pass.cpp" />
     <ClCompile Include="Influx\Graphics\RenderPasses\Raster\RasterPass.cpp" />
     <ClCompile Include="Influx\Resources\Texture\Texture.cpp" />
-    <ClCompile Include="RootSignature.cpp" />
+    <ClCompile Include="Influx\Graphics\DxLayer\RootSignature\RootSignature.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Influx\Graphics\DxLayer\VertexBuffer.cpp" />

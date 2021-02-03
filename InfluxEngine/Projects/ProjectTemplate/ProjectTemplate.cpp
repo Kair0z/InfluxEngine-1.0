@@ -12,7 +12,7 @@ void ProjectTemplate::OnStart()
 	framebufferDesc.useDepthTarget = true;
 
 	mpBuffer = FrameBuffer::Create(framebufferDesc);
-	//mpRasterizer = RasterPass::Create();
+	mpRasterizer = RasterPass::Create();
 }
 
 void ProjectTemplate::OnFrame()

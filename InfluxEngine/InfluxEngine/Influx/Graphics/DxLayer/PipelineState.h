@@ -5,13 +5,17 @@ struct ID3D12PipelineState;
 
 /// <summary>
 /// Wrapper class for D3D12 Pipeline State Object
+/// A PSO is immutable after creation!
+/// https://developer.nvidia.com/dx12-dos-and-donts#pipeline
 /// </summary>
 
 namespace Influx
 {
-	class PipelineState final
+	struct Shader;
+	class RootSignature;
+	namespace PipelineState
 	{
-		struct PipelineStateStream
+		struct PipelineStateStream final
 		{
 			CD3DX12_PIPELINE_STATE_STREAM_ROOT_SIGNATURE pRootSignature;
 			CD3DX12_PIPELINE_STATE_STREAM_INPUT_LAYOUT InputLayout;
@@ -21,26 +25,8 @@ namespace Influx
 			CD3DX12_PIPELINE_STATE_STREAM_DEPTH_STENCIL_FORMAT DSVFormat;
 			CD3DX12_PIPELINE_STATE_STREAM_RENDER_TARGET_FORMATS RTVFormats;
 		};
-
-	public:
-		struct Desc
-		{
-			PipelineStateStream mStateStream;
-
-			// Additional Settings:
-		};
-		static sPtr<PipelineState> Create(comPtr<ID3D12Device> device, const Desc& desc);
-		~PipelineState();
-
-		comPtr<ID3D12PipelineState> GetDxPipelineStateObject() const;
-
-	private:
-		PipelineState() = default;
-		IFX_DelCpyMove(PipelineState);
-
-		PipelineStateStream mStream;
-		comPtr<ID3D12PipelineState> mpDxPipelineStateObject;
-	};
+		comPtr<ID3D12PipelineState> CreatePSO(comPtr<ID3D12Device> device, sPtr<RootSignature> rootSignature, PipelineStateStream statestream);
+	}
 }
 
 

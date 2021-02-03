@@ -17,7 +17,7 @@ namespace Influx
 		static HRESULT CompileShader(LPCWSTR srcFile, LPCSTR entryPoint, LPCSTR profile, ID3DBlob** shaderBlob);
 
 		static D3D12_VERSIONED_ROOT_SIGNATURE_DESC CreateRootSignatureDesc(const CD3DX12_ROOT_PARAMETER1* rootParams, D3D12_ROOT_SIGNATURE_FLAGS flags);
-		static Ptr<ID3D12RootSignature> CreateRootSignature(Ptr<ID3D12Device2> device, const D3D12_VERSIONED_ROOT_SIGNATURE_DESC* pDesc);
+		static Ptr<ID3D12RootSignature> CreateRootSignature(Ptr<ID3D12Device> device, const D3D12_VERSIONED_ROOT_SIGNATURE_DESC* pDesc);
 
 		static Ptr<ID3D12CommandQueue> CreateCommandQueue(Ptr<ID3D12Device> pDevice, D3D12_COMMAND_LIST_TYPE type);
 		static Ptr<IDXGISwapChain4> CreateSwapChain(HWND wndHandle, Ptr<ID3D12CommandQueue> commandQueue, uint32_t w, uint32_t h, uint32_t bffCount);

@@ -4,7 +4,7 @@
 
 namespace Influx
 {
-	sPtr<Texture> Influx::Texture::Create(const Desc& desc)
+	sPtr<Texture> Influx::Texture::Create(const Desc&)
 	{
 		sPtr<Texture> texture(new Texture());
 

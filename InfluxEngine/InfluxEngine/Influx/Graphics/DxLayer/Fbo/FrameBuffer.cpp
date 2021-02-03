@@ -96,13 +96,18 @@ namespace Influx
 	{
 		assert(colorTargetIdx < mpBuffers.size());
 
-		CD3DX12_CPU_DESCRIPTOR_HANDLE rtDesc(mpRtvDescHeap->GetCPUDescriptorHandleForHeapStart(), colorTargetIdx, mRtvDescSize);
+		CD3DX12_CPU_DESCRIPTOR_HANDLE rtDesc(mpRtvDescHeap->GetCPUDescriptorHandleForHeapStart(), (int)colorTargetIdx, mRtvDescSize);
 		cmdList->ClearRenderTargetView(rtDesc, &clearColor.r, 0, nullptr);
 	}
 	void FrameBuffer::ClearDepth(Ptr<ID3D12GraphicsCommandList> cmdList, const float depth)
 	{
 		auto dsv = mpDsvDescHeap->GetCPUDescriptorHandleForHeapStart();
 		cmdList->ClearDepthStencilView(dsv, D3D12_CLEAR_FLAG_DEPTH, depth, 0, 0, nullptr);
+	}
+
+	Vector2u FrameBuffer::GetDimensions() const
+	{
+		return mConstructDesc.dimensions;
 	}
 
 	uint8_t FrameBuffer::GetNumColorTargets() const
@@ -128,9 +133,9 @@ namespace Influx
 		assert(idx < GetNumColorTargets());
 		switch (asView)
 		{
-		case ViewType::RTV: return CD3DX12_CPU_DESCRIPTOR_HANDLE(mpRtvDescHeap->GetCPUDescriptorHandleForHeapStart(), idx, mRtvDescSize);
-		case ViewType::SRV: return CD3DX12_CPU_DESCRIPTOR_HANDLE(mpSrvDescHeap->GetCPUDescriptorHandleForHeapStart(), idx, mSrvDescSize);
-		default: return CD3DX12_CPU_DESCRIPTOR_HANDLE(mpRtvDescHeap->GetCPUDescriptorHandleForHeapStart(), idx, mRtvDescSize);
+		case ViewType::RTV: return CD3DX12_CPU_DESCRIPTOR_HANDLE(mpRtvDescHeap->GetCPUDescriptorHandleForHeapStart(), (int)idx, mRtvDescSize);
+		case ViewType::SRV: return CD3DX12_CPU_DESCRIPTOR_HANDLE(mpSrvDescHeap->GetCPUDescriptorHandleForHeapStart(), (int)idx, mSrvDescSize);
+		default: return CD3DX12_CPU_DESCRIPTOR_HANDLE(mpRtvDescHeap->GetCPUDescriptorHandleForHeapStart(), (int)idx, mRtvDescSize);
 		}
 	}
 	D3D12_GPU_DESCRIPTOR_HANDLE FrameBuffer::GetColorGpuHandle(size_t idx, ViewType asView) const
@@ -138,9 +143,9 @@ namespace Influx
 		assert(idx < GetNumColorTargets());
 		switch (asView)
 		{
-		case ViewType::RTV: return CD3DX12_GPU_DESCRIPTOR_HANDLE(mpRtvDescHeap->GetGPUDescriptorHandleForHeapStart(), idx, mRtvDescSize);
-		case ViewType::SRV: return CD3DX12_GPU_DESCRIPTOR_HANDLE(mpSrvDescHeap->GetGPUDescriptorHandleForHeapStart(), idx, mSrvDescSize);
-		default: return CD3DX12_GPU_DESCRIPTOR_HANDLE(mpRtvDescHeap->GetGPUDescriptorHandleForHeapStart(), idx, mRtvDescSize);
+		case ViewType::RTV: return CD3DX12_GPU_DESCRIPTOR_HANDLE(mpRtvDescHeap->GetGPUDescriptorHandleForHeapStart(), (int)idx, mRtvDescSize);
+		case ViewType::SRV: return CD3DX12_GPU_DESCRIPTOR_HANDLE(mpSrvDescHeap->GetGPUDescriptorHandleForHeapStart(), (int)idx, mSrvDescSize);
+		default: return CD3DX12_GPU_DESCRIPTOR_HANDLE(mpRtvDescHeap->GetGPUDescriptorHandleForHeapStart(), (int)idx, mRtvDescSize);
 		}
 	}
 

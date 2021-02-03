@@ -4,6 +4,11 @@
 #pragma warning(push)
 #pragma warning (disable: 4505)
 
+// Declares allowance for creation & destruction in templated load function...
+#define IFX_DeclLoadingFriend(clsName) \
+	friend clsName* Loading::LoadResource(const std::string& fName); \
+	friend void Loading::UnloadResource(clsName* pObj);
+
 namespace Influx
 {
 	namespace Loading
@@ -15,8 +20,5 @@ namespace Influx
 		static void UnloadResource(Resource* pObj);
 	}
 }
-
-//#include "MeshLoading.h"
-//#include "TextureLoading.h"
 
 #pragma warning(pop)

@@ -44,8 +44,6 @@ namespace Influx
 		if (!pLoader) return;
 		statLoaders.push_back(pLoader);
 	}
-
-	std::vector<Intern::ILoader*> ResourceManager::statLoaders{};
 }
 
 

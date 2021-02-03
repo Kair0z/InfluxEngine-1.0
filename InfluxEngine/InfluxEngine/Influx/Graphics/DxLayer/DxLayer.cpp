@@ -57,7 +57,7 @@ namespace Influx
 		return rootSigDesc;
 	}
 
-	Ptr<ID3D12RootSignature> DxLayer::CreateRootSignature(Ptr<ID3D12Device2> device, const D3D12_VERSIONED_ROOT_SIGNATURE_DESC* pDesc)
+	Ptr<ID3D12RootSignature> DxLayer::CreateRootSignature(Ptr<ID3D12Device> device, const D3D12_VERSIONED_ROOT_SIGNATURE_DESC* pDesc)
 	{
 		Ptr<ID3D12RootSignature> rootSignature = nullptr;
 

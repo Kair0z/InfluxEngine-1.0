@@ -1,23 +1,34 @@
 #pragma once
 #include "../Pass.h"
+#include "Influx/Graphics/DxLayer/Shaders/Shader.h"
+
+struct ID3D12PipelineState;
 
 namespace Influx
 {
 	class FrameBuffer;
-	class Scene;
-
-	class PipelineState;
+	class Scene;	
+	class RootSignature;
 
 	class RasterPass final : public Pass
 	{
 	public:
 		static sPtr<RasterPass> Create();
+
 		void Execute(sPtr<FrameBuffer> target);
 
-	private:
-		sPtr<PipelineState> mpPipelineState;
-		comPtr<ID3D12RootSignature> mpRootSignature;
+		bool SetVS(sPtr<Shader> vertexShader);
+		bool SetVS(const std::string& fName, const std::string& entry, Shader::Profile shaderProfile);
 
+	private:
+		comPtr<ID3D12PipelineState> mpPipelineState;
+		sPtr<RootSignature> mpRootSignature;
+
+		sPtr<Shader> mpVertexShader;
+		sPtr<Shader> mpPixelShader;
+
+		bool mStateChanged = true;
+		void SetupPipelineStateObject(comPtr<ID3D12Device> device);
 		RasterPass() = default;
 	};
 }

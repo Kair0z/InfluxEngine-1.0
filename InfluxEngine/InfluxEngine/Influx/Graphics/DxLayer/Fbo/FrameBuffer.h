@@ -27,12 +27,12 @@ namespace Influx
 		void ClearDepth(Ptr<ID3D12GraphicsCommandList> cmdList, const float depth);
 		// [REV] Clearing stencils...
 
+		Vector2u GetDimensions() const;
 		uint8_t GetNumColorTargets() const;
 		bool HasDepthTarget() const;
 
 		comPtr<DxBuffer> GetColorTargetResource(size_t idx) const;
 		comPtr<DxBuffer> GetDepthTargetResource() const;
-
 
 		enum class ViewType{ RTV, SRV };
 		D3D12_CPU_DESCRIPTOR_HANDLE GetColorCpuHandle(size_t idx, ViewType asView) const;
