@@ -27,26 +27,27 @@ namespace Influx
 		return pass;
 	}
 
+	// [TODO] Render to target FrameBuffer object:
 	void RasterPass::Execute(sPtr<FrameBuffer> target)
 	{
 		auto device = LocateApp::Get()->GetDevice();
 		auto cmdQueue = LocateApp::Get()->GetQueueManager()->GetQueue(QueueManager::QType::Direct);
 		auto cmdList = cmdQueue->GetCommandList(device);
 
-		// [TODO]
 		// 0: Resource Binding & pipeline state:
+		// [TODO] How do we approach the graphics root signature for these passes?
 		ID3D12DescriptorHeap* ppHeaps[] = { nullptr, nullptr };
 		cmdList->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps); // can incur a pipeline flush (to be researched)
 		cmdList->SetGraphicsRootSignature(mpRootSignature->GetDxRootSignature().Get()); // What type of resources are to be bound to the pipeline?
-		SetupPipelineStateObject(device);
+		SetupPipelineStateObject(device); // Creates a new PSO if the previous one was changed
 		cmdList->SetPipelineState(mpPipelineState.Get());
 			
-		// 1: Configure Input Assembly [info from Scenedata]
+		// 1: Configure Input Assembly [based on Scenedata]
 		// cmdList->IASetIndexBuffer(); 
 		// cmdList->IASetVertexBuffers();
 		// cmdList->IASetPrimitiveTopology();
 
-		// 2: Configure Rasterizer State: [PipelineState]
+		// 2: RASTER STATE: [Based on Rasterpass settings]
 		// cmdList->RSSetScissorRects();
 		// Setup viewport
 		D3D12_VIEWPORT vp{};
@@ -57,9 +58,9 @@ namespace Influx
 		cmdList->RSSetViewports(1, &vp);
 		
 
-		// 3: Configure Output Merger: [Low priority]
-		// cmdList->OMSetDepthBounds();
-		// cmdList->OMSetStencilRef();
+		// 3: OUTPUT MERGER: [Based on Rasterpass settings]
+		// cmdList->OMSetDepthBounds(); [REV]
+		// cmdList->OMSetStencilRef(); [REV]
 		// OM: Setup blend factor
 		const float blend_factor[4] = { 0.f, 0.f, 0.f, 0.f };
 		cmdList->OMSetBlendFactor(blend_factor);
@@ -85,6 +86,7 @@ namespace Influx
 		return SetVS(sPtr<Shader>(Shader::Load(fName, Shader::Desc(entry, Shader::Type::VS, shaderProfile))));
 	}
 
+	// [TODO] Create a PSO that doesnt throw...
 	void RasterPass::SetupPipelineStateObject(comPtr<ID3D12Device> device)
 	{
 		if (!mStateChanged) return;
