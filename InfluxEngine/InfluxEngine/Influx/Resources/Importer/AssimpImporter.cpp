@@ -46,8 +46,18 @@ namespace Influx
 			for (uint32_t v = 0; v < pAiMesh->mNumVertices; ++v)
 			{
 				Influx::Vertex vtx{};
-				//vtx.mPosition = pAiMesh->mVertices[v];
 
+				// Vertex Positions:
+				auto aiPos = pAiMesh->mVertices[v];
+				vtx.mPosition = { aiPos.x, aiPos.y, aiPos.z };
+
+				// Vertex Colors:
+				if (pAiMesh->HasVertexColors(0))
+				{
+					auto aiColor = pAiMesh->mColors[v][0];
+					vtx.mColor = { aiColor.r, aiColor.g, aiColor.b };
+				}
+				
 				mesh.mVertices.push_back(vtx);
 			}
 			data.mMeshes.push_back(mesh);

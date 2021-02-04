@@ -51,7 +51,7 @@ namespace Influx
 			std::wstring windowName{};
 			Vector2u windowDimensions{};
 		};
-		AppInfo GetInfo() const;
+		AppInfo GetAppInfo() const;
 	};
 }
 

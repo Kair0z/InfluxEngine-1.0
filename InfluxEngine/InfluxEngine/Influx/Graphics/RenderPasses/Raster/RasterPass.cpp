@@ -16,14 +16,15 @@ namespace Influx
 		sPtr<RasterPass> pass(new RasterPass());
 
 		// Set Default VertexShader:
-		pass->SetVS("../../InfluxEngine/Resources/Shaders/DefaultVertexShader.hlsl", "VS_Main", Shader::Profile::PF_5_1);
+		pass->SetVS("../InfluxEngine/Resources/Shaders/DefaultVertexShader.hlsl", "VS_Main", Shader::Profile::PF_5_1);
 
 		// Create the rootSignature object:
-		pass->mpRootSignature = RootSignature::Create(device);
+		// [TODO: adding root parameters]
+		std::vector<RootSignature::RootParameter> rootParams(1);
+		rootParams[0].InitAsConstants(sizeof(Matrix4x4), 0, 0, D3D12_SHADER_VISIBILITY_VERTEX);
 
-		// Create the pipeline object (using the root signature):
-		pass->SetupPipelineStateObject(device);
-		
+		pass->mpRootSignature = RootSignature::Create(device, rootParams);
+
 		return pass;
 	}
 
@@ -35,11 +36,28 @@ namespace Influx
 		auto cmdList = cmdQueue->GetCommandList(device);
 
 		// 0: Resource Binding & pipeline state:
-		// [TODO] How do we approach the graphics root signature for these passes?
+		// 0.a: Setting up the Root Signature:
 		ID3D12DescriptorHeap* ppHeaps[] = { nullptr, nullptr };
-		cmdList->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps); // can incur a pipeline flush (to be researched)
+		//cmdList->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps); // can incur a pipeline flush (to be researched)
 		cmdList->SetGraphicsRootSignature(mpRootSignature->GetDxRootSignature().Get()); // What type of resources are to be bound to the pipeline?
-		SetupPipelineStateObject(device); // Creates a new PSO if the previous one was changed
+
+		// 0.b: Setting up pipelinestate:
+		PipelineState::PipelineStateStream stateStream;
+		//stateStream.PS = CD3DX12_SHADER_BYTECODE(mpPixelShader->GetDxCompileBlob());
+		stateStream.VS = CD3DX12_SHADER_BYTECODE(mpVertexShader->GetDxCompileBlob());
+		stateStream.pRootSignature = CD3DX12_PIPELINE_STATE_STREAM_ROOT_SIGNATURE(mpRootSignature->GetDxRootSignature().Get());
+		stateStream.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+		D3D12_INPUT_ELEMENT_DESC inputLayout[] = {
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+		};
+		stateStream.InputLayout = { inputLayout, _countof(inputLayout) };
+		stateStream.DSVFormat = DXGI_FORMAT_D32_FLOAT;
+		D3D12_RT_FORMAT_ARRAY rtvFormats = {};
+		rtvFormats.NumRenderTargets = 1;
+		rtvFormats.RTFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
+		stateStream.RTVFormats = rtvFormats;
+		mpPipelineState = PipelineState::CreatePSO(device, mpRootSignature, stateStream);
 		cmdList->SetPipelineState(mpPipelineState.Get());
 		
 		// 1: Configure Input Assembly [based on Scenedata]
@@ -72,34 +90,23 @@ namespace Influx
 			cmdList->OMSetRenderTargets(1, &rtvHandle, false, &dsvHandle);
 		}
 		else cmdList->OMSetRenderTargets(1, &rtvHandle, false, nullptr);
+
+		auto fence = cmdQueue->ExecuteCommandList(cmdList);
+		cmdQueue->WaitForFence(fence);
 	}
 
 	bool RasterPass::SetVS(sPtr<Shader> vertexShader)
 	{
 		mpVertexShader = vertexShader;
-		mStateChanged = true;
 		return mpVertexShader.get();
 	}
 	bool RasterPass::SetVS(const std::string& fName, const std::string& entry, Shader::Profile shaderProfile)
 	{
 		return SetVS(sPtr<Shader>(Shader::Load(fName, Shader::Desc(entry, Shader::Type::VS, shaderProfile))));
 	}
-
-	// [TODO] Create a PSO that doesnt throw...
-	void RasterPass::SetupPipelineStateObject(comPtr<ID3D12Device> device)
+	void RasterPass::SetScene(sPtr<Scene> scene)
 	{
-		if (!mStateChanged) return;
-		
-		PipelineState::PipelineStateStream stateStream;
-
-		stateStream.VS = CD3DX12_SHADER_BYTECODE(mpVertexShader->GetDxCompileBlob());
-		//stateStream.PS = CD3DX12_SHADER_BYTECODE(mpPixelShader->GetDxCompileBlob());
-		stateStream.pRootSignature = CD3DX12_PIPELINE_STATE_STREAM_ROOT_SIGNATURE(mpRootSignature->GetDxRootSignature().Get());
-		stateStream.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
-		// [REV] Get Primitive topologytype & vertexlayout from mesh data... (seperate struct)
-
-		mpPipelineState = PipelineState::CreatePSO(device, mpRootSignature, stateStream);
-		mStateChanged = false;
+		mpTargetScene = scene;
 	}
 }
 

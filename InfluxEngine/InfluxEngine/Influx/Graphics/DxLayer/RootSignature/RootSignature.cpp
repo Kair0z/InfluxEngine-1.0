@@ -4,16 +4,11 @@
 
 namespace Influx
 {
-	sPtr<RootSignature> RootSignature::Create(comPtr<ID3D12Device> device)
+	sPtr<RootSignature> RootSignature::Create(comPtr<ID3D12Device> device, const std::vector<RootParameter>& rootParams)
 	{
 		sPtr<RootSignature> rootSignature(new RootSignature());
 
-		// [TODO: adding root parameters]
-		CD3DX12_ROOT_PARAMETER1 rootParams[1];
-		rootParams[0].InitAsConstantBufferView(0);
-		rootParams[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
-
-		auto rootsigDesc = DxLayer::CreateRootSignatureDesc(rootParams, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+		auto rootsigDesc = DxLayer::CreateRootSignatureDesc(rootParams.data(), D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 		rootSignature->mpDxRootSignature = DxLayer::CreateRootSignature(device.Get(), &rootsigDesc);
 
 		return rootSignature;

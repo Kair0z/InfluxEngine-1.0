@@ -51,7 +51,7 @@ namespace Influx
 		return mpQueueManager;
 	}
 
-	Application::AppInfo Application::GetInfo() const
+	Application::AppInfo Application::GetAppInfo() const
 	{
 		AppInfo info;
 		info.windowDimensions = mpWindow->GetWindowsDesc().dimensions;
@@ -125,8 +125,9 @@ namespace Influx
 		// Clear backbuffer:
 		const Vector4f clearColor{ 0.5f, 0.5f, 0.5f, 1 };
 		cmdList->ClearRenderTargetView(bbCpuHandle, &clearColor.x, 0, nullptr);
-
 		cmdList->OMSetRenderTargets(1, &bbCpuHandle, FALSE, nullptr);
+
+		OnFrame();
 
 		// Submit UI Draw Data:
 		Gui::SubmitDrawData(cmdList);
