@@ -41,7 +41,7 @@ namespace Influx
 		cmdList->SetGraphicsRootSignature(mpRootSignature->GetDxRootSignature().Get()); // What type of resources are to be bound to the pipeline?
 		SetupPipelineStateObject(device); // Creates a new PSO if the previous one was changed
 		cmdList->SetPipelineState(mpPipelineState.Get());
-			
+		
 		// 1: Configure Input Assembly [based on Scenedata]
 		// cmdList->IASetIndexBuffer(); 
 		// cmdList->IASetVertexBuffers();
@@ -57,7 +57,6 @@ namespace Influx
 		vp.TopLeftX = vp.TopLeftY = 0.0f;
 		cmdList->RSSetViewports(1, &vp);
 		
-
 		// 3: OUTPUT MERGER: [Based on Rasterpass settings]
 		// cmdList->OMSetDepthBounds(); [REV]
 		// cmdList->OMSetStencilRef(); [REV]
@@ -97,7 +96,7 @@ namespace Influx
 		//stateStream.PS = CD3DX12_SHADER_BYTECODE(mpPixelShader->GetDxCompileBlob());
 		stateStream.pRootSignature = CD3DX12_PIPELINE_STATE_STREAM_ROOT_SIGNATURE(mpRootSignature->GetDxRootSignature().Get());
 		stateStream.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
-		// [TODO] Get Primitive topologytype & vertexlayout from mesh data... (seperate struct)
+		// [REV] Get Primitive topologytype & vertexlayout from mesh data... (seperate struct)
 
 		mpPipelineState = PipelineState::CreatePSO(device, mpRootSignature, stateStream);
 		mStateChanged = false;

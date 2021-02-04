@@ -3,6 +3,7 @@
 
 namespace Influx
 {
+	struct SceneData;
 	class Scene final
 	{
 	public:
@@ -29,15 +30,7 @@ namespace Influx
 		
 	private:
 		Scene() = default;
-
-		// Data:
-		// Mesh Data...
-
-		// Material Data...
-
-		// Lights Data...
-
-		// Camera Data...
+		sPtr<SceneData> mpSceneData;
 	};
 
 	

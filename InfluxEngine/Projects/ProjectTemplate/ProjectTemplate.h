@@ -33,6 +33,7 @@ private:
 private:
 	sPtr<RasterPass> mpRasterizer;
 	sPtr<FrameBuffer> mpBuffer;
+	sPtr<Scene> mpScene;
 };
 
 // [!] Override the main application to be created... [!]

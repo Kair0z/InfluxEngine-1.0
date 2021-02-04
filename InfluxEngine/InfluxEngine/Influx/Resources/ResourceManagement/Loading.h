@@ -14,10 +14,10 @@ namespace Influx
 	namespace Loading
 	{
 		template <class Resource>
-		static Resource* LoadResource(const std::string& fName);
+		Resource* LoadResource(const std::string& fName);
 
 		template <class Resource>
-		static void UnloadResource(Resource* pObj);
+		void UnloadResource(Resource* pObj);
 	}
 }
 

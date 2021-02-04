@@ -4,23 +4,24 @@
 #include "Influx/Graphics/DxLayer/DxLayer.h"
 #include "Influx/Core/Utils/Utils.h"
 
-namespace Influx
+namespace Influx::Loading
 {
-#pragma region LoadingShaders
 	template<>
-	static Shader* Loading::LoadResource(const std::string&)
+	Shader* LoadResource(const std::string&)
 	{
 		return new Shader();
 	}
 
 	template<>
-	static void Loading::UnloadResource(Shader* pShader)
+	void UnloadResource(Shader* pShader)
 	{
 		delete pShader;
 		pShader = nullptr;
 	}
-#pragma endregion
+}
 
+namespace Influx
+{
 	Shader* Shader::Load(const std::string& fName, const Desc& desc)
 	{
 		Shader* pShader = ResourceManager::Load<Shader>(fName);

@@ -11,8 +11,9 @@ void ProjectTemplate::OnStart()
 	framebufferDesc.nColorTargets = 4;
 	framebufferDesc.useDepthTarget = true;
 
+	mpScene = Scene::Create("../../InfluxEngine/Resources/Meshes/CubeScene.fbx");
 	mpBuffer = FrameBuffer::Create(framebufferDesc);
-	mpRasterizer = RasterPass::Create();
+	//mpRasterizer = RasterPass::Create();
 }
 
 void ProjectTemplate::OnFrame()
@@ -34,6 +35,5 @@ void ProjectTemplate::OnMouseEvent()
 
 void ProjectTemplate::OnGuiRender() const
 {
-	Widgets::FrameBufferWidget bff(mpBuffer);
-	//Widgets::DemoWidget();
+	Widgets::DemoWidget();
 }

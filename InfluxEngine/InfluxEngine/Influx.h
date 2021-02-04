@@ -13,5 +13,6 @@
 #include "Influx/Core/Alias.h"
 
 // User available API
+#include "Influx/Scene/Scene.h"
 #include "Influx/Graphics/RenderPasses/Raster/RasterPass.h"
 #include "Influx/Graphics/DxLayer/Fbo/FrameBuffer.h"
