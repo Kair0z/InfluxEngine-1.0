@@ -87,10 +87,13 @@ namespace Influx
 #endif
 
 		ThrowOnFail(CreateDXGIFactory2(createFacFlags, IID_PPV_ARGS(&factory)));
-
-		Ptr<IDXGIAdapter1> dxgiAdap1 = nullptr;
+		
+		//IDXGI Adapter represents a display Sub-System (Including one or more GPU): https://docs.microsoft.com/en-us/windows/win32/api/dxgi/nn-dxgi-idxgiadapter
+		//TIP: A display sub-system is often referred as a video card or some machine it's their motherboard
+		Ptr<IDXGIAdapter1> dxgiAdap1 = nullptr; 
 		Ptr<IDXGIAdapter4> dxgiAdap4 = nullptr;
 
+		//WARP = Windows Advanced Rasterizer Program: https://docs.microsoft.com/en-us/windows/win32/direct3darticles/directx-warp#what-is-warp
 		if (useWarp)
 		{
 			ThrowOnFail(factory->EnumWarpAdapter(IID_PPV_ARGS(&dxgiAdap1)));
@@ -369,7 +372,7 @@ namespace Influx
 		ID3D12Debug* pDbgInt;
 		ThrowOnFail(D3D12GetDebugInterface(IID_PPV_ARGS(&pDbgInt)));
 		pDbgInt->EnableDebugLayer();
-		pDbgInt->Release();
+		//pDbgInt->Release(); // [REV] ? Why releasing it right after the conroller is being created?
 #endif
 	}
 

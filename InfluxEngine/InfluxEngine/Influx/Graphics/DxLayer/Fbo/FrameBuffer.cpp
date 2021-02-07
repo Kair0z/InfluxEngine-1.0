@@ -12,7 +12,7 @@ namespace Influx
 
 		// Creating the color buffers:
 		framebuffer->mpBuffers.resize(desc.nColorTargets);
-		auto descheapType = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
+		auto descheapType = D3D12_DESCRIPTOR_HEAP_TYPE::D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
 		framebuffer->mRtDescSize = device->GetDescriptorHandleIncrementSize(descheapType); // TODO: Must this always be RTV?
 		framebuffer->mpRtDescHeap = DxLayer::CreateDescriptorHeap(device.Get(), descheapType, desc.nColorTargets);
 
@@ -20,7 +20,7 @@ namespace Influx
 		for (uint32_t i = 0; i < desc.nColorTargets; ++i)
 		{
 			// Get buffers[i]
-			Ptr<ID3D12Resource> buffer;
+			//Ptr<ID3D12Resource> buffer;
 			// [TODO]: Dx CREATING THE BUFFERS...
 
 			//device->CreateRenderTargetView(buffer, nullptr, rtDescHandle);
@@ -70,7 +70,7 @@ namespace Influx
 	{
 		assert(colorTargetIdx < mpBuffers.size());
 
-		CD3DX12_CPU_DESCRIPTOR_HANDLE rtDesc(mpRtDescHeap->GetCPUDescriptorHandleForHeapStart(), colorTargetIdx, mRtDescSize);
+		CD3DX12_CPU_DESCRIPTOR_HANDLE rtDesc(mpRtDescHeap->GetCPUDescriptorHandleForHeapStart(), INT(colorTargetIdx), mRtDescSize);
 		cmdList->ClearRenderTargetView(rtDesc, &clearColor.r, 0, nullptr);
 	}
 	void FrameBuffer::ClearDepth(Ptr<ID3D12GraphicsCommandList> cmdList, const float depth)

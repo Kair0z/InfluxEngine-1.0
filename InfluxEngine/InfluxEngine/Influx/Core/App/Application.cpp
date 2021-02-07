@@ -55,6 +55,7 @@ namespace Influx
 		// Setup DxLayer:
 		DxLayer::Desc dxDesc;
 		dxDesc.mUseWarp = true;
+
 		mpDx = DxLayer::LoadDX12(dxDesc);
 
 		// Initialize our command queues:

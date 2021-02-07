@@ -7,7 +7,7 @@ int CALLBACK wWinMain(HINSTANCE i, HINSTANCE, PWSTR, int)
 {
 	using namespace Influx;
 
-	// This reports 'fake d3d12 leaks'
+	//NOTE: DebugLayer has to be activated before initializing the device, else it will invalide the active device
 	DxLayer::EnableDebugLayer();
 
 	{
