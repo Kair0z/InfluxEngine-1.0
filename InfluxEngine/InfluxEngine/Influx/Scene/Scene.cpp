@@ -13,7 +13,6 @@ namespace Influx
 
 		return scene;
 	}
-
 	sPtr<Scene> Scene::Create(const std::string& file)
 	{
 		// Creating a scene with scene data provided from resource manager [loaded once]
@@ -21,6 +20,11 @@ namespace Influx
 		scene->mpSceneData = sPtr<SceneData>(ResourceManager::Load<SceneData>(file));
 
 		return scene;
+	}
+
+	const std::vector<Mesh>& Scene::GetMeshes() const
+	{
+		return mpSceneData->mMeshes;
 	}
 }
 

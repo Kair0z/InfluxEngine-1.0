@@ -1,9 +1,11 @@
 #include "pch.h"
 #include "RasterPass.h"
+#include "Influx/Graphics/DxLayer/DxLayer.h"
 #include "Influx/Graphics/DxLayer/PipelineState.h"
 #include "Influx/Graphics/DxLayer/CommandQueue.h"
 #include "Influx/Graphics/DxLayer/Fbo/FrameBuffer.h"
 #include "Influx/Graphics/DxLayer/RootSignature/RootSignature.h"
+#include "Influx/Scene/Scene.h"
 #include "Influx/Core/App/QueueManager.h"
 #include "Influx/Core/App/Application.h"
 
@@ -16,7 +18,8 @@ namespace Influx
 		sPtr<RasterPass> pass(new RasterPass());
 
 		// Set Default VertexShader:
-		pass->SetVS("../InfluxEngine/Resources/Shaders/DefaultVertexShader.hlsl", "VS_Main", Shader::Profile::PF_5_1);
+		pass->SetVS("../../InfluxEngine/Resources/Shaders/DefaultVertexShader.hlsl", "VS_Main", Shader::Profile::PF_5_1);
+		pass->SetPS("../../InfluxEngine/Resources/Shaders/DefaultPixelShader.hlsl", "PS_Main", Shader::Profile::PF_5_1);
 
 		// Create the rootSignature object:
 		// [TODO: adding root parameters]
@@ -43,7 +46,7 @@ namespace Influx
 
 		// 0.b: Setting up pipelinestate:
 		PipelineState::PipelineStateStream stateStream;
-		//stateStream.PS = CD3DX12_SHADER_BYTECODE(mpPixelShader->GetDxCompileBlob());
+		stateStream.PS = CD3DX12_SHADER_BYTECODE(mpPixelShader->GetDxCompileBlob());
 		stateStream.VS = CD3DX12_SHADER_BYTECODE(mpVertexShader->GetDxCompileBlob());
 		stateStream.pRootSignature = CD3DX12_PIPELINE_STATE_STREAM_ROOT_SIGNATURE(mpRootSignature->GetDxRootSignature().Get());
 		stateStream.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
@@ -51,6 +54,7 @@ namespace Influx
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 			{ "COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 		};
+
 		stateStream.InputLayout = { inputLayout, _countof(inputLayout) };
 		stateStream.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 		D3D12_RT_FORMAT_ARRAY rtvFormats = {};
@@ -60,6 +64,11 @@ namespace Influx
 		mpPipelineState = PipelineState::CreatePSO(device, mpRootSignature, stateStream);
 		cmdList->SetPipelineState(mpPipelineState.Get());
 		
+		for (const Mesh& mesh : mpTargetScene->GetMeshes())
+		{
+			
+		}
+
 		// 1: Configure Input Assembly [based on Scenedata]
 		// cmdList->IASetIndexBuffer(); 
 		// cmdList->IASetVertexBuffers();
@@ -104,6 +113,16 @@ namespace Influx
 	{
 		return SetVS(sPtr<Shader>(Shader::Load(fName, Shader::Desc(entry, Shader::Type::VS, shaderProfile))));
 	}
+	bool RasterPass::SetPS(sPtr<Shader> pixelShader)
+	{
+		mpPixelShader = pixelShader;
+		return mpPixelShader.get();
+	}
+	bool RasterPass::SetPS(const std::string& fName, const std::string& entry, Shader::Profile shaderProfile)
+	{
+		return SetPS(sPtr<Shader>(Shader::Load(fName, Shader::Desc(entry, Shader::Type::PS, shaderProfile))));
+	}
+
 	void RasterPass::SetScene(sPtr<Scene> scene)
 	{
 		mpTargetScene = scene;

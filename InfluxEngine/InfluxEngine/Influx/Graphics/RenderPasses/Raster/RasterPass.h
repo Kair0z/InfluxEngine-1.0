@@ -20,6 +20,9 @@ namespace Influx
 		bool SetVS(sPtr<Shader> vertexShader);
 		bool SetVS(const std::string& fName, const std::string& entry, Shader::Profile shaderProfile);
 
+		bool SetPS(sPtr<Shader> pixelShader);
+		bool SetPS(const std::string& fName, const std::string& entry, Shader::Profile shaderProfile);
+
 		void SetScene(sPtr<Scene> scene);
 
 	private:
