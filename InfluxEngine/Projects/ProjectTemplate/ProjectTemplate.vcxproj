@@ -142,7 +142,8 @@
       <AdditionalLibraryDirectories>$(SolutionDir)Build\$(Platform)\$(Configuration)\InfluxEngine\;$(SolutionDir)Libs\Assimp\lib\x64\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)InfluxEngine\Resources" "$(OutputPath)..\..\InfluxEngine\Resources\" /E /I /R /Y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
@@ -169,7 +170,8 @@
       <AdditionalLibraryDirectories>$(SolutionDir)Build\$(Platform)\$(Configuration)\InfluxEngine\;$(SolutionDir)Libs\Assimp\lib\x64\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)InfluxEngine\Resources" "$(OutputPath)..\..\InfluxEngine\Resources\" /E /I /R /Y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>

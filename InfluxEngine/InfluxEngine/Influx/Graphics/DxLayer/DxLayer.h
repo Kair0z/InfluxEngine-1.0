@@ -17,16 +17,25 @@ namespace Influx
 		static HRESULT CompileShader(LPCWSTR srcFile, LPCSTR entryPoint, LPCSTR profile, ID3DBlob** shaderBlob);
 
 		static D3D12_VERSIONED_ROOT_SIGNATURE_DESC CreateRootSignatureDesc(const CD3DX12_ROOT_PARAMETER1* rootParams, D3D12_ROOT_SIGNATURE_FLAGS flags);
-		static Ptr<ID3D12RootSignature> CreateRootSignature(Ptr<ID3D12Device2> device, const D3D12_VERSIONED_ROOT_SIGNATURE_DESC* pDesc);
+		static Ptr<ID3D12RootSignature> CreateRootSignature(Ptr<ID3D12Device> device, const D3D12_VERSIONED_ROOT_SIGNATURE_DESC* pDesc);
 
 		static Ptr<ID3D12CommandQueue> CreateCommandQueue(Ptr<ID3D12Device> pDevice, D3D12_COMMAND_LIST_TYPE type);
 		static Ptr<IDXGISwapChain4> CreateSwapChain(HWND wndHandle, Ptr<ID3D12CommandQueue> commandQueue, uint32_t w, uint32_t h, uint32_t bffCount);
 		static Ptr<ID3D12DescriptorHeap> CreateDescriptorHeap(Ptr<ID3D12Device> device, D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t numDescriptors, D3D12_DESCRIPTOR_HEAP_FLAGS flags = D3D12_DESCRIPTOR_HEAP_FLAGS::D3D12_DESCRIPTOR_HEAP_FLAG_NONE);
-		static Ptr<ID3D12CommandAllocator> CreateCommandAllocator(Ptr<ID3D12Device2> device, D3D12_COMMAND_LIST_TYPE type);
-		static Ptr<ID3D12GraphicsCommandList> CreateCommandList(Ptr<ID3D12Device2> device, Ptr<ID3D12CommandAllocator> alloc, D3D12_COMMAND_LIST_TYPE type);
-		static Ptr<ID3D12PipelineState> CreatePipelineState(Ptr<ID3D12Device2> device, const D3D12_PIPELINE_STATE_STREAM_DESC& desc);
+		static Ptr<ID3D12CommandAllocator> CreateCommandAllocator(Ptr<ID3D12Device> device, D3D12_COMMAND_LIST_TYPE type);
+		static Ptr<ID3D12GraphicsCommandList> CreateCommandList(Ptr<ID3D12Device> device, Ptr<ID3D12CommandAllocator> alloc, D3D12_COMMAND_LIST_TYPE type);
+		static Ptr<ID3D12PipelineState> CreatePipelineState(Ptr<ID3D12Device> device, const D3D12_PIPELINE_STATE_STREAM_DESC& desc);
 		static void	LoadBufferResource(Ptr<ID3D12Device> device, Ptr<ID3D12GraphicsCommandList> cmdList, ID3D12Resource** destResource, ID3D12Resource** intResource, size_t nElements, size_t elementSize, const void* pData, D3D12_RESOURCE_FLAGS flags);
 
+		struct Tex2DDesc final
+		{
+			Vector2u dimensions{};
+			uint8_t mipLevels = 1;
+			DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		};
+		static void CreateResourceTexture2D(Ptr<ID3D12Device> device, const Tex2DDesc& texDesc, Ptr<ID3D12Resource>* destResource);
+
+		
 		using FenceEvent = HANDLE;
 		static Ptr<ID3D12Fence> CreateFence(Ptr<ID3D12Device> device);
 		static FenceEvent CreateFenceEventHandle();

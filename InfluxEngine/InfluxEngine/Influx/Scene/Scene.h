@@ -1,14 +1,18 @@
 #pragma once
 #include "Influx/Core/Alias.h"
+#include "SceneData.h"
 
 namespace Influx
 {
+	struct SceneData;
 	class Scene final
 	{
 	public:
 		static sPtr<Scene> Create();
 		static sPtr<Scene> Create(const std::string& filename);
 		IFX_DelCpyMove(Scene);
+
+		const std::vector<Mesh>& GetMeshes() const;
 
 	public:
 		enum class UpdateFlags
@@ -29,15 +33,7 @@ namespace Influx
 		
 	private:
 		Scene() = default;
-
-		// Data:
-		// Mesh Data...
-
-		// Material Data...
-
-		// Lights Data...
-
-		// Camera Data...
+		sPtr<SceneData> mpSceneData;
 	};
 
 	

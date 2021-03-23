@@ -151,6 +151,11 @@ namespace Influx
 		return mpSwapChain;
 	}
 
+	sPtr<SwapChain> Window::GetSwapChain() const
+	{
+		return mpSwapChain;
+	}
+
 	void Window::SetWindowIcon(const std::string& iconPath, const HWND& windowHandle)
 	{
 		HANDLE hIcon = LoadImageA(GetModuleHandle(NULL), iconPath.c_str(), IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE);

@@ -2,8 +2,9 @@
 
 namespace Influx
 {
-	struct SceneBuilder
+	struct Pass
 	{
+	public:
 
 	};
 }

@@ -15,7 +15,7 @@ namespace Influx
 	}
 
 	template <class Resource>
-	class Loader : public ILoader
+	class Loader : public Intern::ILoader
 	{
 	public:
 		~Loader();
@@ -33,7 +33,7 @@ namespace Influx
 	inline Loader<Resource>::~Loader()
 	{
 		for (auto& pair : mContentMap)
-			Destroy(pair.second);
+			Loading::UnloadResource<Resource>(pair.second);
 	}
 
 	template<class Resource>
@@ -45,7 +45,7 @@ namespace Influx
 	template<class Resource>
 	inline Resource* Loader<Resource>::LoadResource(const std::string& fName)
 	{
-		return Loading::LoadContent<Resource>(fName);
+		return Loading::LoadResource<Resource>(fName);
 	}
 
 	template<class Resource>
@@ -59,7 +59,7 @@ namespace Influx
 	{
 		// If the content doesn't yet exists load & return it...
 		if (!mContentMap[fName]) 
-			mContentMap[fName] = LoadContent(fName);
+			mContentMap[fName] = LoadResource(fName);
 
 		return mContentMap[fName];
 	}

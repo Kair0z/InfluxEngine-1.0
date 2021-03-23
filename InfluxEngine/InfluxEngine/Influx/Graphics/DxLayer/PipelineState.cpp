@@ -1,30 +1,23 @@
 #include "pch.h"
 #include "PipelineState.h"
 #include "DxLayer.h"
+#include "Influx/Graphics/DxLayer/RootSignature/RootSignature.h"
 
 namespace Influx
 {
-	sPtr<PipelineState> PipelineState::Create(comPtr<ID3D12Device2> device, const Desc& desc)
+	namespace PipelineState
 	{
-		sPtr<PipelineState> pipelineState(new PipelineState());
-		pipelineState->mStream = desc.mStateStream;
+		comPtr<ID3D12PipelineState> CreatePSO(comPtr<ID3D12Device> device, sPtr<RootSignature> rootSignature, PipelineStateStream statestream)
+		{
+			statestream.pRootSignature = CD3DX12_PIPELINE_STATE_STREAM_ROOT_SIGNATURE(rootSignature->GetDxRootSignature().Get());
 
-		D3D12_PIPELINE_STATE_STREAM_DESC pipelineStateStreamDesc = {
-			sizeof(PipelineStateStream), &pipelineState->mStream
-		};
-		pipelineState->mpDxPipelineStateObject = DxLayer::CreatePipelineState(device.Get(), pipelineStateStreamDesc);
-		return pipelineState;
-	}
+			D3D12_PIPELINE_STATE_STREAM_DESC pipelineStateStreamDesc = {
+				sizeof(PipelineStateStream), &statestream
+			};
 
-	PipelineState::~PipelineState()
-	{
-		if (mpDxPipelineStateObject)
-			mpDxPipelineStateObject->Release();
-	}
-
-	comPtr<ID3D12PipelineState> PipelineState::GetDxPipelineStateObject() const
-	{
-		return mpDxPipelineStateObject;
+			return DxLayer::CreatePipelineState(device.Get(), pipelineStateStreamDesc);
+		}
 	}
 }
+
 

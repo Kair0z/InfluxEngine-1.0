@@ -53,7 +53,7 @@ namespace Influx
 
 		return fenceValue;
 	}
-	Ptr<ID3D12GraphicsCommandList2> CommandQueue::GetCommandList(comPtr<ID3D12Device2> device)
+	Ptr<ID3D12GraphicsCommandList2> CommandQueue::GetCommandList(comPtr<ID3D12Device> device)
 	{
 		Ptr<ID3D12CommandAllocator> allocator = nullptr;
 		Ptr<ID3D12GraphicsCommandList2> cmdList = nullptr;
@@ -88,11 +88,11 @@ namespace Influx
 	}
 
 	// Internal creation of resources:
-	Ptr<ID3D12CommandAllocator> CommandQueue::CreateCommandAllocator(comPtr<ID3D12Device2> device)
+	Ptr<ID3D12CommandAllocator> CommandQueue::CreateCommandAllocator(comPtr<ID3D12Device> device)
 	{
 		return DxLayer::CreateCommandAllocator(device.Get(), mType);
 	}
-	Ptr<ID3D12GraphicsCommandList2> CommandQueue::CreateCommandList(comPtr<ID3D12Device2> device, Ptr<ID3D12CommandAllocator> allocator)
+	Ptr<ID3D12GraphicsCommandList2> CommandQueue::CreateCommandList(comPtr<ID3D12Device> device, Ptr<ID3D12CommandAllocator> allocator)
 	{
 		// TODO: Secure compatibility list1 vs list2...
 		Ptr<ID3D12GraphicsCommandList2> l2 = nullptr;
